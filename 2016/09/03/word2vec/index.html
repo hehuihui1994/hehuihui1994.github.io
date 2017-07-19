@@ -4,15 +4,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives | 何烩烩的博客</title>
+  <title>word2vec | 何烩烩的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="何烩烩的博客">
-<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/archives/index.html">
+  <meta name="description" content="word2vec原理篇 word2vec是用来产生词嵌入的模型，目前官方最新的word2vec工具包发布于2013年，为c语言版本。 输入——文本文件（称为训练语料）输出——词典  ，词典中包含训练语料中出现的单词以及它们的词嵌入表示。">
+<meta name="keywords" content="工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="word2vec">
+<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2016/09/03/word2vec/index.html">
 <meta property="og:site_name" content="何烩烩的博客">
+<meta property="og:description" content="word2vec原理篇 word2vec是用来产生词嵌入的模型，目前官方最新的word2vec工具包发布于2013年，为c语言版本。 输入——文本文件（称为训练语料）输出——词典  ，词典中包含训练语料中出现的单词以及它们的词嵌入表示。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/w2v_b0.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/w2v_b0_dic.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/distance.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/word-analogy%20.png">
+<meta property="og:updated_time" content="2016-09-04T02:36:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="何烩烩的博客">
+<meta name="twitter:title" content="word2vec">
+<meta name="twitter:description" content="word2vec原理篇 word2vec是用来产生词嵌入的模型，目前官方最新的word2vec工具包发布于2013年，为c语言版本。 输入——文本文件（称为训练语料）输出——词典  ，词典中包含训练语料中出现的单词以及它们的词嵌入表示。">
+<meta name="twitter:image" content="http://oc3xgjy1i.bkt.clouddn.com/w2v_b0.png">
   
   
     <link rel="icon" href="http://oc3xgjy1i.bkt.clouddn.com/favicon.ico">
@@ -61,220 +71,126 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/hehuihui1994.github.io/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2017/07/19/vscode-git/" class="archive-article-date">
-  <time datetime="2017-07-19T08:33:32.000Z" itemprop="datePublished">7月 19</time>
+      <section id="main"><article id="post-word2vec" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/hehuihui1994.github.io/2016/09/03/word2vec/" class="article-date">
+  <time datetime="2016-09-03T14:04:16.000Z" itemprop="datePublished">2016-09-03</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/hehuihui1994.github.io/categories/academic/">学术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        <br>
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2017/07/19/vscode-git/">vscode&amp;git</a>
+    <h1 class="article-title" itemprop="name">
+      word2vec
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2017/06/15/hello-world/" class="archive-article-date">
-  <time datetime="2017-06-15T08:35:00.000Z" itemprop="datePublished">6月 15</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2017/06/15/hello-world/">Hello World</a>
-    </h1>
-  
+        <!-- Table of Contents -->
+        
+        <ul>
+<li><a href="http://www.nustm.cn/blog/index.php/archives/842" target="_blank" rel="external">word2vec原理篇</a><ul>
+<li>word2vec是用来<strong>产生词嵌入的模型</strong>，目前官方最新的word2vec工具包发布于2013年，为<a href="https://github.com/hehuihui1994/word2vec">c语言版本</a>。</li>
+<li>输入——<strong>文本文件</strong>（称为训练语料）<br>输出——<strong>词典</strong>  ，词典中包含<strong>训练语料中出现的单词以及它们的词嵌入表示</strong>。<a id="more"></a></li>
+<li>单词的<strong>词嵌入表示</strong>，就是用一个<strong>n维的实数向量</strong>来代表一个单词，单词之间的<strong>语义关系</strong>可以通过词嵌入体现出来。<br>衡量词嵌入好与不好，可以观察词嵌入可以<strong>多大程度体现单词的语义信息。</strong></li>
+<li>使用word2vec训练词向量的一个基本假设就是<strong>分布式假设</strong><br>分布式假设是说词语的表示反映了它们的上下文，也就是它认为，<strong>有相似上下文的单词的语义也是相近的。</strong></li>
+<li>使用word2vec训练出的<strong>词嵌入</strong>有两个特点：<ol>
+<li>体现了<strong>语义相似关系</strong>，如计算距离“red”最近的词嵌入，结果就是“white”，“black”等表示颜色的单词。</li>
+<li>体现了<strong>语义平移关系</strong>，如计算距离“woman”-“man”+“king”最近的词嵌入，结果就是“queen”。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><a href="http://blog.csdn.net/crazyhacking/article/details/43450271" target="_blank" rel="external">word2vec c代码使用说明</a></li>
+<li><p>word2vec c代码使用过程<br><a href="https://github.com/hehuihui1994/word2vec">word2vec c版本代码</a>需要在linux环境下使用，首先输入make,让整个工程自动化编译。</p>
+<ul>
+<li>1.文本语料进行分词</li>
+<li><p>2.训练分词好的语料</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./word2vec -train text8 -output vectors.bin -cbow 0 -size 200 -window 5 -negative 0 -hs 1 -sample 1e-3 -threads 12 -binary 1</div></pre></td></tr></table></figure>
+<ul>
+<li>-train    text8  输入文件</li>
+<li>-output  vectors.bin 输出文件，词典 </li>
+<li>-cbow 0 不使用cbow模型，默认为Skip-Gram模型</li>
+<li>-size 200 每个单词的向量维度是200</li>
+<li>-window 5 考虑一个词前五个和后五个词语（实际代码中还有一个随机选窗口的过程，窗口大小&lt;=5）</li>
+<li>-negative 0 不使用NEG方法</li>
+<li>-hs 1 使用HS方法</li>
+<li>-sample 1e-3 采样的阈值，如果一个词语在训练样本中出现的频率越大，那么就越会被采样。</li>
+<li>-binary 1 结果二进制存储，为0是普通存储（<strong>普通存储的时候是可以打开看到词语和对应的向量的</strong>）<ul>
+<li>binary 为0<br> <img src="http://oc3xgjy1i.bkt.clouddn.com/w2v_b0.png" alt="w2v_b0"><br>得到的词典<br><img src="http://oc3xgjy1i.bkt.clouddn.com/w2v_b0_dic.png" alt="w2v_b0_dic"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>3.使用得到的vectors.bin<br>训练过程中使binary 为1时，得到的vectors.bin可用于下面两个方法。<ul>
+<li>distance<br>读取模型文件中每一个词和其对应的向量，计算所输入query的词，与其他所有词语的cosine相似度，排序，返回结果。<br> <img src="http://oc3xgjy1i.bkt.clouddn.com/distance.png" alt="distance"></li>
+<li>word-analogy<br><img src="http://oc3xgjy1i.bkt.clouddn.com/word-analogy%20.png" alt="word-analogy "><br>​</li>
+</ul>
+</li>
+</ul>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+    </div>
+    <footer class="article-footer">
       
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/2016/09/03/word2vec/" data-id="cj5arv8sq001ismww83gdloii" class="article-share-link">分享到</a>
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/hehuihui1994.github.io/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/09/11/RAE工具使用-jrae/" class="archive-article-date">
-  <time datetime="2016-09-11T08:55:20.000Z" itemprop="datePublished">9月 11</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/09/11/RAE工具使用-jrae/">RAE工具使用_jrae</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/09/05/深度学习基础知识/" class="archive-article-date">
-  <time datetime="2016-09-05T08:36:54.000Z" itemprop="datePublished">9月 5</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/09/05/深度学习基础知识/">深度学习基础知识</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/09/03/word2vec/" class="archive-article-date">
-  <time datetime="2016-09-03T14:04:16.000Z" itemprop="datePublished">9月 3</time>
-</a>
+        <a href="https://github.com/hehuihui1994/hehuihui1994.github.io/2016/09/03/word2vec/#ds-thread" class="article-comment-link">评论</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/09/03/word2vec/">word2vec</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/08/28/L-BFGS/" class="archive-article-date">
-  <time datetime="2016-08-28T03:37:02.000Z" itemprop="datePublished">8月 28</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/08/28/L-BFGS/">L-BFGS</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hehuihui1994.github.io/tags/工具/">工具</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/08/26/RAEs/" class="archive-article-date">
-  <time datetime="2016-08-26T06:19:06.000Z" itemprop="datePublished">8月 26</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/08/26/RAEs/">RAEs</a>
-    </h1>
+    <a href="/hehuihui1994.github.io/2016/09/05/深度学习基础知识/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          深度学习基础知识
+        
+      </div>
+    </a>
   
+  
+    <a href="/hehuihui1994.github.io/2016/08/28/L-BFGS/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">L-BFGS</div>
+    </a>
+  
+</nav>
 
-    </header>
-  </div>
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/08/23/java学习笔记-入门第一季/" class="archive-article-date">
-  <time datetime="2016-08-23T09:49:12.000Z" itemprop="datePublished">8月 23</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/08/23/java学习笔记-入门第一季/">java学习笔记_入门第一季</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/08/23/java知识清单-入门第一季/" class="archive-article-date">
-  <time datetime="2016-08-23T09:26:01.000Z" itemprop="datePublished">8月 23</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/08/23/java知识清单-入门第一季/">java知识清单-入门第一季</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/08/19/GitHub-Pages-Hexo-搭建网站以及-Landscape-主题优化/" class="archive-article-date">
-  <time datetime="2016-08-19T14:11:12.000Z" itemprop="datePublished">8月 19</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/08/19/GitHub-Pages-Hexo-搭建网站以及-Landscape-主题优化/">GitHub Pages + Hexo 搭建网站以及 Landscape 主题优化</a>
-    </h1>
-  
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2016/09/03/word2vec/" data-title="word2vec" data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/2016/09/03/word2vec/"></div>
+  </section>
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+
 </section>
       
       <aside id="sidebar">
