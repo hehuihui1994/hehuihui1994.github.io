@@ -4,21 +4,14 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <title>Sum of Two Integers | 何烩烩的博客</title>
+  <title>Archives: 2017/10 | 何烩烩的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
-Example:Given a = 1 and b = 2, return 3.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Sum of Two Integers">
-<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2016/08/19/Sum-of-Two-Integers/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="何烩烩的博客">
+<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/archives/2017/10/index.html">
 <meta property="og:site_name" content="何烩烩的博客">
-<meta property="og:description" content="Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
-Example:Given a = 1 and b = 2, return 3.">
-<meta property="og:updated_time" content="2016-08-19T13:43:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sum of Two Integers">
-<meta name="twitter:description" content="Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
-Example:Given a = 1 and b = 2, return 3.">
+<meta name="twitter:title" content="何烩烩的博客">
   
   
     <link rel="icon" href="http://oc3xgjy1i.bkt.clouddn.com/favicon.ico">
@@ -67,93 +60,39 @@ Example:Given a = 1 and b = 2, return 3.">
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-Sum-of-Two-Integers" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/hehuihui1994.github.io/2016/08/19/Sum-of-Two-Integers/" class="article-date">
-  <time datetime="2016-08-19T11:44:12.000Z" itemprop="datePublished">2016-08-19</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/hehuihui1994.github.io/categories/work/">工作</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        <br>
-        
+      <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      Sum of Two Integers
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/hehuihui1994.github.io/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/hehuihui1994.github.io/2017/10/10/jupyter-notebook/" class="archive-article-date">
+  <time datetime="2017-10-10T08:41:39.000Z" itemprop="datePublished">10月 10</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/hehuihui1994.github.io/2017/10/10/jupyter-notebook/">jupyter notebook </a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <p>Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.</p>
-<p>Example:<br>Given a = 1 and b = 2, return 3.</p>
-<a id="more"></a>
-<p>题目出处：<a href="https://leetcode.com/problems/sum-of-two-integers/" target="_blank" rel="external">https://leetcode.com/problems/sum-of-two-integers/</a></p>
-<hr>
-<p>题意：不用+或者-实现加法。</p>
-<hr>
-<p>思路：先用a^b得两位相加的结果，再用a&amp;b得到进位，最后加上进位。</p>
-<hr>
-<p>代码：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">        <span class="keyword">while</span>(b)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> carry=a&amp;b;</div><div class="line">            a=a^b;</div><div class="line">            b=carry&lt;&lt;<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> a;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/19/Sum-of-Two-Integers/" data-id="cj8lcyurs000ujfwwatvb3bhu" class="article-share-link">分享到</a>
-      
-
-      
-        <a href="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/19/Sum-of-Two-Integers/#ds-thread" class="article-comment-link">评论</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hehuihui1994.github.io/tags/leetcode/">leetcode</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/hehuihui1994.github.io/2016/08/19/python-全局变量/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">
-        
-          python 全局变量
-        
-      </div>
-    </a>
-  
-  
-    <a href="/hehuihui1994.github.io/2016/08/19/Longest-Increasing-Subsequence/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">Longest Increasing Subsequence</div>
-    </a>
-  
-</nav>
-
-  
 </article>
-
-
-  <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2016/08/19/Sum-of-Two-Integers/" data-title="Sum of Two Integers" data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/19/Sum-of-Two-Integers/"></div>
-  </section>
-
-
+  
+  
+    </div></section>
+  
 </section>
       
       <aside id="sidebar">

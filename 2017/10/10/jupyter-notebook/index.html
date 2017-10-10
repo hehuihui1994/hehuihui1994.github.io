@@ -4,21 +4,21 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <title>Sum of Two Integers | 何烩烩的博客</title>
+  <title>jupyter notebook  | 何烩烩的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
-Example:Given a = 1 and b = 2, return 3.">
+  <meta name="description" content="为了做数据分析，安装了jupyter notebook。
+Mac 安装jupyter notebook">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Sum of Two Integers">
-<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2016/08/19/Sum-of-Two-Integers/index.html">
+<meta property="og:title" content="jupyter notebook ">
+<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2017/10/10/jupyter-notebook/index.html">
 <meta property="og:site_name" content="何烩烩的博客">
-<meta property="og:description" content="Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
-Example:Given a = 1 and b = 2, return 3.">
-<meta property="og:updated_time" content="2016-08-19T13:43:22.000Z">
+<meta property="og:description" content="为了做数据分析，安装了jupyter notebook。
+Mac 安装jupyter notebook">
+<meta property="og:updated_time" content="2017-10-10T08:42:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sum of Two Integers">
-<meta name="twitter:description" content="Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
-Example:Given a = 1 and b = 2, return 3.">
+<meta name="twitter:title" content="jupyter notebook ">
+<meta name="twitter:description" content="为了做数据分析，安装了jupyter notebook。
+Mac 安装jupyter notebook">
   
   
     <link rel="icon" href="http://oc3xgjy1i.bkt.clouddn.com/favicon.ico">
@@ -67,14 +67,14 @@ Example:Given a = 1 and b = 2, return 3.">
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-Sum-of-Two-Integers" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-jupyter-notebook" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/hehuihui1994.github.io/2016/08/19/Sum-of-Two-Integers/" class="article-date">
-  <time datetime="2016-08-19T11:44:12.000Z" itemprop="datePublished">2016-08-19</time>
+    <a href="/hehuihui1994.github.io/2017/10/10/jupyter-notebook/" class="article-date">
+  <time datetime="2017-10-10T08:41:39.000Z" itemprop="datePublished">2017-10-10</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/hehuihui1994.github.io/categories/work/">工作</a>
+    <a class="article-category-link" href="/hehuihui1994.github.io/categories/academic/">学术</a>
   </div>
 
   </div>
@@ -86,7 +86,7 @@ Example:Given a = 1 and b = 2, return 3.">
         
   
     <h1 class="article-title" itemprop="name">
-      Sum of Two Integers
+      jupyter notebook 
     </h1>
   
 
@@ -96,31 +96,30 @@ Example:Given a = 1 and b = 2, return 3.">
       
         <!-- Table of Contents -->
         
-        <p>Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.</p>
-<p>Example:<br>Given a = 1 and b = 2, return 3.</p>
+        <p>为了做数据分析，安装了jupyter notebook。</p>
+<p>Mac 安装jupyter notebook</p>
 <a id="more"></a>
-<p>题目出处：<a href="https://leetcode.com/problems/sum-of-two-integers/" target="_blank" rel="external">https://leetcode.com/problems/sum-of-two-integers/</a></p>
-<hr>
-<p>题意：不用+或者-实现加法。</p>
-<hr>
-<p>思路：先用a^b得两位相加的结果，再用a&amp;b得到进位，最后加上进位。</p>
-<hr>
-<p>代码：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">        <span class="keyword">while</span>(b)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> carry=a&amp;b;</div><div class="line">            a=a^b;</div><div class="line">            b=carry&lt;&lt;<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> a;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install --user jupyter</div><div class="line">python -m IPython notebook //启动，在某个文件夹下</div></pre></td></tr></table></figure>
+<p>在 Jupyter Notebook 中，Pandas 是操作数据的工具，matplotlib 是执行作图的工具。安装这两个重要的工具。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install --user pandas</div><div class="line">pip install --user  matplotlib</div></pre></td></tr></table></figure>
+<p>再根据教程进行学习</p>
+<p><a href="https://github.com/jvns/pandas-cookbook">https://github.com/jvns/pandas-cookbook</a></p>
+<p>常用快捷键</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Shift+Enter   //run a cell</div><div class="line"></div><div class="line">Shift+Tab  //tab completion</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/19/Sum-of-Two-Integers/" data-id="cj8lcyurs000ujfwwatvb3bhu" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/10/jupyter-notebook/" data-id="cj8lcyusn001djfwwvgqpgq38" class="article-share-link">分享到</a>
       
 
       
-        <a href="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/19/Sum-of-Two-Integers/#ds-thread" class="article-comment-link">评论</a>
+        <a href="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/10/jupyter-notebook/#ds-thread" class="article-comment-link">评论</a>
       
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hehuihui1994.github.io/tags/leetcode/">leetcode</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hehuihui1994.github.io/tags/数据分析/">数据分析</a></li></ul>
 
     </footer>
   </div>
@@ -128,19 +127,10 @@ Example:Given a = 1 and b = 2, return 3.">
     
 <nav id="article-nav">
   
-    <a href="/hehuihui1994.github.io/2016/08/19/python-全局变量/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">
-        
-          python 全局变量
-        
-      </div>
-    </a>
   
-  
-    <a href="/hehuihui1994.github.io/2016/08/19/Longest-Increasing-Subsequence/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/hehuihui1994.github.io/2017/07/19/TensorFlow版本更新(1.0)相关问题/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">Longest Increasing Subsequence</div>
+      <div class="article-nav-title">TensorFlow版本更新相关问题(1.0)</div>
     </a>
   
 </nav>
@@ -150,7 +140,7 @@ Example:Given a = 1 and b = 2, return 3.">
 
 
   <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2016/08/19/Sum-of-Two-Integers/" data-title="Sum of Two Integers" data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/19/Sum-of-Two-Integers/"></div>
+    <div id="ds-thread" class="ds-thread" data-thread-key="2017/10/10/jupyter-notebook/" data-title="jupyter notebook " data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/10/jupyter-notebook/"></div>
   </section>
 
 
