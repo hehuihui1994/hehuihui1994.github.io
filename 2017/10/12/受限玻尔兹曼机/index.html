@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>受限玻尔兹曼机 | 何烩烩的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="主题模型​    阅读的论文[1]中将主题模型与神经网络相结合进行情绪分类（topic-level emotion classification），关于主题模型的部分论文中的介绍过于简单。根据论文[1]中提到的相关文献学习了用Word2Vec、Replicated Softmax Machine得到话题分布。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="受限玻尔兹曼机">
+<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2017/10/12/受限玻尔兹曼机/index.html">
+<meta property="og:site_name" content="何烩烩的博客">
+<meta property="og:description" content="主题模型​    阅读的论文[1]中将主题模型与神经网络相结合进行情绪分类（topic-level emotion classification），关于主题模型的部分论文中的介绍过于简单。根据论文[1]中提到的相关文献学习了用Word2Vec、Replicated Softmax Machine得到话题分布。">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170830-4.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170831-1.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170830-3.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170830-2.png">
+<meta property="og:updated_time" content="2017-10-12T03:17:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="受限玻尔兹曼机">
+<meta name="twitter:description" content="主题模型​    阅读的论文[1]中将主题模型与神经网络相结合进行情绪分类（topic-level emotion classification），关于主题模型的部分论文中的介绍过于简单。根据论文[1]中提到的相关文献学习了用Word2Vec、Replicated Softmax Machine得到话题分布。">
+<meta name="twitter:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170830-4.png">
+  
+  
+    <link rel="icon" href="http://oc3xgjy1i.bkt.clouddn.com/favicon.ico">
+  
+  <link rel="stylesheet" href="/hehuihui1994.github.io/css/style.css">
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+<body>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/hehuihui1994.github.io/" id="logo">何烩烩的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/hehuihui1994.github.io/">Home</a>
+        
+          <a class="main-nav-link" href="/hehuihui1994.github.io/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="github.com/hehuihui1994/hehuihui1994.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-受限玻尔兹曼机" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/hehuihui1994.github.io/2017/10/12/受限玻尔兹曼机/" class="article-date">
+  <time datetime="2017-10-12T03:11:09.000Z" itemprop="datePublished">2017-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/hehuihui1994.github.io/categories/academic/">学术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        <br>
+        
+  
+    <h1 class="article-title" itemprop="name">
+      受限玻尔兹曼机
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h1 id="主题模型"><a href="#主题模型" class="headerlink" title="主题模型"></a>主题模型</h1><p>​    阅读的论文[1]中将主题模型与神经网络相结合进行情绪分类（topic-level emotion classification），关于主题模型的部分论文中的介绍过于简单。根据论文[1]中提到的相关文献学习了用Word2Vec、Replicated Softmax Machine得到话题分布。</p>
+<a id="more"></a>
+<h2 id="1-Word2vec"><a href="#1-Word2vec" class="headerlink" title="1 Word2vec"></a>1 Word2vec</h2><p>​    论文[1]中没有给出如何使用word2vec得到话题分布，但是提到了两篇文献[2-3]，文献[2]采用average-    pooling，也就是将词向量相加取平均（<strong>取平均值法</strong>）。文献[3]提出采用聚类方法（<strong>聚类法</strong>），该篇论文在网络上没有搜索到。使用使用word2vec得到话题分布的聚类方法，一般将word2vec得到的词向量进行聚类，当文档中的某个特征项属于类别$c_i$时，就在该类别$c_i$所在的维度向量上加1，这样就可以得到每篇文档在不同类别下的分布表示（话题分布）[4]。</p>
+<h2 id="2-Replicated-Softmax-Machine"><a href="#2-Replicated-Softmax-Machine" class="headerlink" title="2 Replicated Softmax Machine"></a>2 Replicated Softmax Machine</h2><p>​    RSM (Replicated Softmax Machine) [5]实质是一个RBM（受限玻尔兹曼机）模型。作者在文中称为每一篇文本建立一个RBM，有点言过其实了。实际上，每个文章的长度不同、输入节点数目不同，网络结构显得不同。</p>
+<h3 id="2-1-受限玻尔兹曼机-Restricted-Boltzmann-Machine-RBM"><a href="#2-1-受限玻尔兹曼机-Restricted-Boltzmann-Machine-RBM" class="headerlink" title="2.1 受限玻尔兹曼机(Restricted Boltzmann Machine, RBM)"></a>2.1 受限玻尔兹曼机(Restricted Boltzmann Machine, RBM)</h3><p>​    受限玻尔兹曼机(Restricted Boltzmann Machine,简称RBM)是由Hinton和Sejnowski于1986年提出的一种<strong>生成式</strong>随机神经网络(generative stochastic neural network)，该网络由一些可见单元(visible unit)和一些隐藏单元(hidden unit)构成，<strong>可见变量和隐藏变量都是二元变量</strong>，即其状态取{0,1}。</p>
+<p>​    RBM实质上是一种无监督机器学习模型，通过对输入数据进行重构，从而有效地提取数据特征。考虑输入特征为$\textbf{X}$,以及转化的特征$\textbf{Y}$。RBM的任务是找到$\textbf{X} \rightarrow \textbf{Y}$的映射关系。</p>
+<p>​    RBM整个网络是个二分（概率）图，层内变量无连接，层间变量是全连接，如下图所示：</p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170830-4.png" alt="20170830-4"></p>
+<p>​    上图所示的RBM含有3个可见单元(构成一个向量v)和4个隐藏单元(构成一个向量h)，W是一个3*4的矩阵，表示可见单元和隐藏单元之间的边的权重。</p>
+<p><strong>（1）RBM的学习目标-最大化似然(Maximizing likelihood)</strong></p>
+<pre><code>RBM是一种基于能量(Energy-based)的模型，其可见变量v和隐藏变量h的联合配置(joint configuration)的能量为：
+</code></pre><p>$$<br>E(\textbf{v}, \textbf{h}; \theta) = -\sum_{ij}W_{ij}v_ih_j - \sum_{i}b_iv_i - \sum_{j}a_jh_j \tag{1}<br>$$<br>其中，$\theta$是RBM的参数，$\theta = \{W, a, b\}$, W为可见单元和隐藏单元之间的边的权重，b和a分别为可见单元和隐藏单元的偏置(bias)。</p>
+<p>​    有了v和h的联合配置的能量之后，我们就可以得到v和h的联合概率：<br>$$<br>P(\textbf{v}, \textbf{h}) = \frac{1}{Z}exp(- E(\textbf{v}, \textbf{h}; \theta)) \tag{2}<br>$$</p>
+<p>$$<br>Z = \sum_{\textbf{v}}\sum_{\textbf{h}}exp(- E(\textbf{v}, \textbf{h}; \theta)) \tag{3}<br>$$</p>
+<p>​    其中，Z为归一化因子，也称为配分函数(partition function)。由公式（2）可得：<br>$$<br>P(\textbf{v}) = \frac{1}{Z}\sum_{\textbf{h}}exp(- E(\textbf{v}, \textbf{h}; \theta)) \tag{4}<br>$$<br>​    将公式（1）代入公式(4)得：<br>$$<br>\begin{align}<br>P(\textbf{v}) &amp;=\frac{1}{Z}\sum_{\textbf{h}}exp(\sum_{ij}W_{ij}v_ih_j + \sum_{i}b_iv_i + \sum_{j}a_jh_j ) \\<br>&amp; = \frac{1}{Z}\sum_{\textbf{h}}exp(\sum_{i=1}^{D}\sum_{j=1}^{F}W_{ij}v_ih_j + \sum_{i=1}^{D}b_iv_i + \sum_{j=1}^{F}a_jh_j ) \\<br>&amp; = \frac{1}{Z}\sum_{\textbf{h}}exp[\textbf{v}^TW\textbf{h} + \textbf{a}^T\textbf{h} + \textbf{b}^T\textbf{v} ]<br>\end{align} \tag{4}<br>$$<br>​    其中，D为可见单元数，F为隐藏单元数。根据极大似然准则，定义<strong>目标函数</strong>如下：<br>$$<br>L(\theta) =\Pi_{n=1}^{N}P(\textbf{v}^{(n)}) \tag{5}<br>$$<br>​    N为样本数，两边同时log，得到：<br>$$<br>l(\theta) = \sum_{n=1}^{N}logP(\textbf{v}^{(n)}) \tag{6}<br>$$<br><strong>(2)RBM的学习方法-CD(Contrastive Divergence，对比散列)</strong></p>
+<p>​    通过随机梯度下降(stichastic gradient descent)求得参数。详细推导过程见<a href="http://blog.csdn.net/xbinworld/article/details/45128733" target="_blank" rel="external">这里</a>。<br>$$<br>\begin{align}<br>\frac{\partial l{(\theta)}}{\partial W_{ij}} &amp;=  \frac{\partial}{\partial W_{ij}}log(\sum_{\textbf{h}}exp[\textbf{v}^{(n)T}W\textbf{h} + \textbf{a}^T\textbf{h} + \textbf{b}^T\textbf{v}^{(n)} ])  - \frac{\partial}{\partial W_{ij}}logZ\\<br>&amp;= \frac{\partial}{\partial W_{ij}}log(\sum_{\textbf{h}}exp(\sum_{ij}W_{ij}v_i^{(n)}h_j + \sum_{i}b_iv_i^{(n)} + \sum_{j}a_jh_j )  - \\&amp;\frac{\partial}{\partial W_{ij}}log \sum_{\textbf{v}}\sum_{\textbf{h}}exp(\sum_{ij}W_{ij}v_ih_j + \sum_{i}b_iv_i + \sum_{j}a_jh_j )\\<br>&amp; = P(h_j =1 | \textbf{v}^{(n)})v_i^{(n)} - \sum_{ \textbf{v}}P(\textbf{v})P(h_j =1|\textbf{v})v_i<br>\\<br>&amp; = P_{data}(v_ih_j) - P_{model}(v_ih_j)<br>\end{align}<br>\tag{7}<br>$$<br>​    式（7）中，前者比较好算，但是后者计算量非常大(基本不可解)。为解决该计算问题，Hinton等人提出了一种高效的学习算法-CD(Contrastive Divergence)，其基本思想如下图所示：</p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170831-1.png" alt="20170831-1"></p>
+<p>​    首先根据数据v来得到h的状态，然后通过h来重构(Reconstruct)可见向量v1，然后再根据v1来生成新的隐藏向量h1。因为RBM的特殊结构(层内无连接，层间有连接)， 所以在给定v时，各个隐藏单元hj的激活状态之间是相互独立的，反之，在给定h时，各个可见单元的激活状态vi也是相互独立的，亦即：<br>$$<br>P(\textbf{h}|\textbf{v}) = \Pi_{j}P(h_j | \textbf{v}) \tag{8}<br>$$<br>其中，<br>$$<br>\begin{align}<br>P(h_j = 1 | \textbf{v}) &amp;= sigmoid(\sum_iW_{ij}v_i + a_j)\\<br>&amp; = \frac{1}{1+exp(-\sum_iW_{ij}v_i - a_j)}<br>\end{align}<br>\tag{9}<br>$$<br>类似地：<br>$$<br>P(\textbf{v}|\textbf{h}) = \Pi_{i}P(v_i | \textbf{h}) \tag{10}<br>$$</p>
+<p>$$<br>\begin{align}<br>P(v_i = 1 | \textbf{h}) &amp;= sigmoid(\sum_jW_{ij}h_j + b_i)\\<br>&amp; = \frac{1}{1+exp(-\sum_jW_{ij}h_j - b_i)}<br>\end{align}<br>\tag{11}<br>$$</p>
+<p>​    重构的可见向量v1和隐藏向量h1就是对P(v,h)的一次抽样，多次抽样得到的样本集合可以看做是对P(v,h)的一种近似，使得式子(7)的计算变得可行。</p>
+<p> <strong>（3）RBM的参数的学习算法</strong></p>
+<p>​    1.取一个样本数据，把可见变量的状态设置为这个样本数据。随机初始化W，a，b。</p>
+<p>​    2.根据式子公式（8）来更新隐藏变量的状态，亦即$h_j$以$P(h_j=1|v)$的概率设置为状态1，否则为0。然后对于每个边$v_ih_j$，计算$P_{data}(v_ih_j)=v_i*h_j$(注意，$v_i$和$h_j$的状态都是取{0,1})。</p>
+<p>​    3.根据h的状态和公式（10）来重构v1，并且根据v1和公式(8)来求得h1，计算$P_{model}(v1_ih1_j)=v1_i*h1_j$。</p>
+<p>​    4.更新边$v_ih_j$的权重$W_{ij}$为$W_{ij}=W_{ij}-\alpha*(P_{data}(v_ih_j)-P_{model}(v1_ih1_j))$。</p>
+<p>​    5.更新偏置项$a_j = a_j - \alpha(h_j - h1_j)$， $b_i = b_i - \alpha(v_i - v1_i)$。</p>
+<p>​    6.取下一个数据样本，重复1-5的步骤。</p>
+<p>​    7.以上过程迭代K次。</p>
+<h3 id="2-2-RSM"><a href="#2-2-RSM" class="headerlink" title="2.2 RSM"></a>2.2 RSM</h3><p>​    上一章节中介绍的标准RBM模型的可见变量和隐藏变量都是二元变量。实际上，RBM的可见变量除了可以是二元变量，还可以是<strong>多项式</strong>变量，但是隐藏层一直都是伯努利变量。在多项式可见变量的情况下，可见单元的logistic被替换成softmax函数,即：<br>$$<br>\begin{align}<br>P(v_i = 1 | \textbf{h}) &amp;= sigmoid(\sum_jW_{ij}h_j + b_i)\\<br>&amp; = \frac{1}{1+exp(-\sum_jW_{ij}h_j - b_i)}<br>\end{align}<br>\tag{11}<br>$$<br>变成：<br>$$<br>\begin{align}<br>P(v_i^{k} = 1 | \textbf{h}) &amp;= softmax(\sum_jW_{ij}^{k}h_j + b_i^{k})\\<br>&amp;= \frac{exp(\sum_jW_{ij}^{k}h_j + b_i^{k})}{\sum_{k’ = 1}^{K}exp(\sum_jW_{ij}^{k’}h_j + b_i^{k’})}<br>\end{align} \tag{12}<br>$$<br>其中，K表示可见单元变量的离散值个数，这种RBM模型被用于主题模型中。</p>
+<p>​    论文[5]对RSM模型进行了介绍，它有两层网络，如图：</p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170830-3.png" alt="20170830-1"></p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170830-2.png" alt="20170830-1"></p>
+<p>​    第一张图中，输入层各个节点代表词语（图中输入层有三个词语），中间隐含层的节点是<strong>0-1</strong>随机变量，表示文本topic。整体上，沿用RBM的模型，训练算法也用CD-k算法。不过，与标准RBM有两点不同：</p>
+<ul>
+<li>1）<strong>输入层的节点个数不确定。</strong>  节点个数由一篇文章的词数决定，而文章长度不确定，词数也不确定；</li>
+<li>2）<strong>网络权重仅仅由隐含层决定。</strong>  所有输入层节点与某一个隐含层节点的关联权重都相同。</li>
+</ul>
+<p>​        第二张图是另一种解释方式，即只有一个输入节点，与各个隐含节点相关联。这个输入节点表示一个随机变量，该随机变量sample N次（N是文本长度）。</p>
+<p><strong>(1)RSM的学习目标-最大化似然(Maximizing likelihood)</strong></p>
+<p>​    令$\textbf{v} \in \{1, … , K\}^D$,其中K为词表大小，<strong>D为文档大小</strong>。令$\textbf{h} \in \{0, 1\}^F$为隐层话题特征，F为隐藏层节点数。</p>
+<p>​    令𝐕为K × D的二维二值矩阵，$v_i^k =1 $当且仅当文档第𝑖个可见单元为单词𝑘，显然𝐕的每一行只有一个为 1。</p>
+<p>​    定义该模型的能量为：<br>$$<br>\begin{align}<br>E(\textbf{v}, \textbf{h}; \theta) &amp;= -\sum_{ij}\sum_{k=1}^{K}W_{ij}^{k}v_i^{k}h_j - \sum_{i}\sum_{k=1}^{K}b_i^{k}v_i^{k} - D\sum_{j}a_jh_j \tag{13}\\<br>\end{align}<br>$$<br>其中，$\theta$是RSM的参数，$\theta = \{W, a, b\}$, W为可见单元的单词和隐藏单元之间连接的权重，$b_i^k$表示可见单元i取值为第k个词时的偏置项，a为隐藏单元的偏置。令$\hat{v}^{k} = \sum_{i=1}^{D}v_i^k$表示第k个单词出现在文档中的次数。在RSM中，  所有输入层节点与某一个隐含层节点的关联权重都相同。因此，该模型的能量具有更为简单的形式：<br>$$<br>E(\textbf{v}, \textbf{h}; \theta) = -\sum_{j}\sum_{k=1}^{K}W_{j}^{k}\hat{v}^{k}h_j - \sum_{k=1}^{K}b^{k}\hat{v}^{k} - D\sum_{j}a_jh_j \tag{14}<br>$$<br><strong>(2)RSM的学习方法-CD(Contrastive Divergence，对比散列)</strong><br>$$<br>P(\textbf{v}, \textbf{h}) = \frac{1}{Z}exp(- E(\textbf{v}, \textbf{h}; \theta)) \tag{15}<br>$$</p>
+<p>$$<br>Z = \sum_{\textbf{v}}\sum_{\textbf{h}}exp(- E(\textbf{v}, \textbf{h}; \theta)) \tag{16}<br>$$</p>
+<p>$$<br>P(\textbf{v}) = \frac{1}{Z}\sum_{\textbf{h}}exp(- E(\textbf{v}, \textbf{h}; \theta)) \tag{17}<br>$$</p>
+<p>$$<br>L(\theta) =\Pi_{n=1}^{N}P(\textbf{v}^{(n)}) \tag{17}<br>$$</p>
+<p>$$<br>l(\theta) = \sum_{n=1}^{N}logP(\textbf{v}^{(n)}) \tag{18}<br>$$</p>
+<p>采用随机梯度下降，<br>$$<br>\begin{align}<br>\frac{\partial l{(\theta)}}{\partial W_{j}^{k}} &amp;= \frac{\partial }{\partial W_{j}^{k}}log\frac{1}{Z}\sum_{\textbf{h}}exp(- E(\textbf{v}, \textbf{h}; \theta)) \\<br>&amp; = \frac{\partial}{\partial W_{j}^{k}}log(\sum_{\textbf{h}}exp(\sum_{j}\sum_{k=1}^{K}W_{j}^{k}\hat{v}^{k}h_j +\sum_{k=1}^{K}b^{k}\hat{v}^{k} + D\sum_{j}a_jh_j )  - \frac{\partial}{\partial W_{j}^{k}}logZ\\<br>&amp; =  \frac{\partial}{\partial W_{j}^{k}}log(\sum_{\textbf{h}}exp(\sum_{j}\sum_{k=1}^{K}W_{j}^{k}\hat{v}^{k}h_j +\sum_{k=1}^{K}b^{k}\hat{v}^{k} + D\sum_{j}a_jh_j )- \\<br>&amp; \frac{\partial}{\partial W_{j}^{k}}log(\sum_{\textbf{v}}\sum_{\textbf{h}}exp(\sum_{j}\sum_{k=1}^{K}W_{j}^{k}\hat{v}^{k}h_j +\sum_{k=1}^{K}b^{k}\hat{v}^{k} + D\sum_{j}a_jh_j )\\<br>&amp; =P_{data}{ (\hat{v}^{k}h_j)}   - P_{model}(\hat{v}^{k}h_j)<br>\end{align} \tag{19}<br>$$<br>状态转移的条件概率为：<br>$$<br>\begin{align}<br>P(v_i^{k} = 1 | \textbf{h}) &amp;= softmax(\sum_jW_{j}^{k}h_j + b^{k})\\<br>&amp;= \frac{exp(\sum_jW_{j}^{k}h_j + b^{k})}{\sum_{k’ = 1}^{K}exp(\sum_jW_{j}^{k’}h_j + b^{k’})}<br>\end{align} \tag{20}<br>$$</p>
+<p>$$<br>\begin{align}<br>P(h_j = 1 | \textbf{v}) &amp;= sigmoid(\sum_kW_{j}^{k}\hat{v}^k + Da_j)\\<br>&amp; = \frac{1}{1+exp(-\sum_kW_{j}^{k}\hat{v}^k - Da_j)}<br>\end{align}<br>\tag{21}<br>$$</p>
+<p> <strong>(3)RSM的参数的学习算法</strong></p>
+<p>​    1.取一个样本数据，把可见变量的状态设置为这个样本数据。随机初始化W，a，b。</p>
+<p>​    2.根据式子公式（21）来更新隐藏变量的状态，亦即$h_j$以$P(h_j=1|v)$的概率设置为状态1，否则为0。然后计算$P_{data}{ (\hat{v}^{k}h_j)} = \hat{v}^{k}h_j$。</p>
+<p>​    3.根据h的状态和公式（20）来重构v1，并且根据v1和公式(20)来求得h1，计算$P_{model}(\hat{v1}^{k}h1_j)=\hat{v1}^{k}h1_j$。</p>
+<p>​    4.更新权重$W_{j}^{k}$，$W_{j}^{k}=W_{j}^{k}-\alpha*(P_{data}{ (\hat{v}^{k}h_j)} -P_{model}(\hat{v1}^{k}h1_j)$。</p>
+<p>​    5.更新偏置项$a_j = a_j - \alpha D(h_j - h1_j)$， $b^{k} = b^{k} - \alpha(\hat{v}^{k} - \hat{v1}^{k})$。</p>
+<p>​    6.取下一个数据样本，重复1-5的步骤。</p>
+<p>​    7.以上过程迭代K次。</p>
+<p>​    RBM：$[0 1 1 0 0 1]_{词表}$<br>​    RSM:   $[0 3 1 0 0 1]_{词表}$</p>
+<p>​    RBM只关心词k是否在文档中出现，RSM关心词k在文档中出现的次数。</p>
+<h2 id="3-参考资料"><a href="#3-参考资料" class="headerlink" title="3 参考资料"></a>3 参考资料</h2><p>【1】Li X, Rao Y, Xie H, et al. Bootstrapping Social Emotion Classification with Semantically Rich Hybrid Neural Networks[J]. IEEE Transactions on Affective Computing, 2017.(cite:0)</p>
+<p>【2】Chao Xing, Dong Wang, Xuewei Zhang, and Chao Liu. Document classification with distributions of word vectors. In Asia-Pacific Signal and Information Processing Association Annual Summit and Conference, pages 1–5. IEEE, 2014. (cite:20)</p>
+<p>【3】Yuan Y, He L, Peng L, et al. A new study based on word2vec and cluster for document categorization [J].  Journal of Computational Information Systems, 2014, 10(21): 9301-9308.(cite:11)</p>
+<p>【4】冯贵川. 基于 Word2vec 的文本建模及分类研究[D]. 深圳大学, 2016. (cite:0)</p>
+<p>【5】Geoffrey E. Hinton and Ruslan R. Salakhutdinov. Replicated softmax: an undirected topic model. In Advances in Neural Information Processing Systems, pages 1607– 1614, 2009.（cite:271）</p>
+<p>【6】<a href="https://zhuanlan.zhihu.com/p/24989699" target="_blank" rel="external">受限玻尔兹曼机知识概要（RBM)</a></p>
+<p>【7】<a href="http://www.cnblogs.com/kemaswill/p/3203605.html" target="_blank" rel="external">受限玻尔兹曼机(Restricted Boltzmann Machine, RBM) 简介</a></p>
+<p>【8】<a href="http://blog.csdn.net/xceman1997/article/details/11383741" target="_blank" rel="external">Deep Learning 学习笔记： Modeling Documents with a Deep Boltzmann Machine</a></p>
+<p>【9】<a href="https://en.wikipedia.org/wiki/Restricted_Boltzmann_machine" target="_blank" rel="external">维基百科：Restricted Boltzmann machine</a></p>
+<p>【10】王琳. 短文本文档建模及查询扩展方法研究[D]. 大连理工大学, 2016.(cite:0)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/12/受限玻尔兹曼机/" data-id="cj8nw8hca001x0kwwum2ef256" class="article-share-link">分享到</a>
+      
+
+      
+        <a href="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/12/受限玻尔兹曼机/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hehuihui1994.github.io/tags/主题模型/">主题模型</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/hehuihui1994.github.io/2017/10/10/jupyter-notebook/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">jupyter notebook </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2017/10/12/受限玻尔兹曼机/" data-title="受限玻尔兹曼机" data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/12/受限玻尔兹曼机/"></div>
+  </section>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/hehuihui1994.github.io/categories/academic/">学术</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/hehuihui1994.github.io/categories/work/">工作</a><span class="category-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/hexo/">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/java学习笔记/">java学习笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/java知识清单/">java知识清单</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/leetcode/">leetcode</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/主题模型/">主题模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/多标签学习/">多标签学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/工具/">工具</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/数据分析/">数据分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/深度学习/">深度学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/特征提取/">特征提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/编程/">编程</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/hehuihui1994.github.io/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/hehuihui1994.github.io/tags/java/" style="font-size: 13.33px;">java</a> <a href="/hehuihui1994.github.io/tags/java学习笔记/" style="font-size: 10px;">java学习笔记</a> <a href="/hehuihui1994.github.io/tags/java知识清单/" style="font-size: 10px;">java知识清单</a> <a href="/hehuihui1994.github.io/tags/leetcode/" style="font-size: 16.67px;">leetcode</a> <a href="/hehuihui1994.github.io/tags/主题模型/" style="font-size: 10px;">主题模型</a> <a href="/hehuihui1994.github.io/tags/多标签学习/" style="font-size: 10px;">多标签学习</a> <a href="/hehuihui1994.github.io/tags/工具/" style="font-size: 20px;">工具</a> <a href="/hehuihui1994.github.io/tags/数据分析/" style="font-size: 10px;">数据分析</a> <a href="/hehuihui1994.github.io/tags/深度学习/" style="font-size: 13.33px;">深度学习</a> <a href="/hehuihui1994.github.io/tags/特征提取/" style="font-size: 10px;">特征提取</a> <a href="/hehuihui1994.github.io/tags/编程/" style="font-size: 10px;">编程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/10/">十月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/07/">七月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2016/09/">九月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2016/08/">八月 2016</a><span class="archive-list-count">14</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hehuihui1994.github.io/2017/10/12/受限玻尔兹曼机/">受限玻尔兹曼机</a>
+          </li>
+        
+          <li>
+            <a href="/hehuihui1994.github.io/2017/10/10/jupyter-notebook/">jupyter notebook </a>
+          </li>
+        
+          <li>
+            <a href="/hehuihui1994.github.io/2017/07/19/TensorFlow版本更新(1.0)相关问题/">TensorFlow版本更新相关问题(1.0)</a>
+          </li>
+        
+          <li>
+            <a href="/hehuihui1994.github.io/2017/07/19/vscode&git/">vscode&amp;git</a>
+          </li>
+        
+          <li>
+            <a href="/hehuihui1994.github.io/2017/06/15/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://www.nustm.cn/blog/" target="_blank">NUSTM的博客</a>
+          </li>
+        
+          <li>
+            <a href="http://www.cnblogs.com/wangbogong/category/477304.html" target="_blank">汪涛的博客</a>
+          </li>
+        
+          <li>
+            <a href="https://comzyh.com/blog/" target="_blank">张永辉的博客</a>
+          </li>
+        
+          <li>
+            <a href="http://zozoz.github.io/" target="_blank">郑士梁的博客</a>
+          </li>
+        
+          <li>
+            <a href="http://heshenghuan.github.io/" target="_blank">何声欢的博客</a>
+          </li>
+        
+          <li>
+            <a href="https://njnubobo.github.io/" target="_blank">李银波的博客</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 何烩烩
+      <br>
+      <span id="busuanzi_container_site_uv">
+        本站访客数<span id="busuanzi_value_site_uv"></span>人
+      </span>
+      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260167330'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1260167330' type='text/javascript'%3E%3C/script%3E"));</script>
+      <br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/hehuihui1994.github.io/" class="mobile-nav-link">Home</a>
+  
+    <a href="/hehuihui1994.github.io/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回顶部"><img src="/hehuihui1994.github.io/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"hehuihui"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/hehuihui1994.github.io/fancybox/jquery.fancybox.css">
+  <script src="/hehuihui1994.github.io/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true
+                    
+}
+  
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                  
+}
+    
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                            all[i].SourceElement().parentNode.className += ' has-jax';
+                                    
+            }
+                
+        });
+</script>
+
+<script type="text/javascript" src="http://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script src="/hehuihui1994.github.io/js/script.js"></script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+</div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
