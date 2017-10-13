@@ -25,7 +25,7 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170810-2.png">
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170810-6.png">
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170810-8.png">
-<meta property="og:updated_time" content="2017-10-13T12:10:04.000Z">
+<meta property="og:updated_time" content="2017-10-13T12:13:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kleinberg">
 <meta name="twitter:description" content="1 Kleinberg
@@ -188,7 +188,7 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
 <p>假设我们知道了<strong>n+1</strong>个消息，那么可以计算出n个<strong>时间间隔</strong>$\mathbf{x}=(x_1,x_2,⋯,x_n)$ (观测变量)。</p>
 <p>令X对应的状态序列 $\mathbf{q}=(q_{i_1}, q_{i_2}, … , q_{i_n})$,所以，报道事件间隔序列（观测变量）的概率密度函数定义为：<br>$$<br>f_{\mathbf{q}}(x_1, … , x_n) = \Pi_{t=1}^{n} f_{i_t}(x_t) \tag{17}<br>$$<br>令b为状态序列$\mathbf{q}$中状态的转换次数，所以$\mathbf{q}$的先验概率为，<br>$$<br>P(\mathbf{q}) = p^b(1-p)^{n-b} \tag{18}<br>$$<br>根据贝叶斯原理，得到后验概率<br>$$<br>\begin{align} P(\mathbf{q} | \mathbf{x}) &amp;=  \frac{P(\mathbf{q})f_{\mathbf{q}}(\mathbf{x})}{\sum_{\mathbf{q}^{‘}}P(\mathbf{q}^{‘})f_{\mathbf{q}^{‘}}(\mathbf{x})} \\<br>&amp;= \frac{P(\mathbf{q})f_{\mathbf{q}}(\mathbf{x})}{Z}\\<br>&amp;=\frac{1}{Z}p^b(1-p)^{n-b}\Pi_{t=1}^{n} f_{i_t}(x_t)\\<br>&amp;= \frac{1}{Z}({\frac{p}{1-p}})^b(1-p)^{n}\Pi_{t=1}^{n} f_{i_t}(x_t)<br>\end{align} \tag{19}<br>$$<br>其中，$Z= \sum_{\mathbf{q}^{‘}}P(\mathbf{q}^{‘})f_{\mathbf{q}^{‘}}(\mathbf{x})​$ 。</p>
 <hr>
-<p><strong>思考：</strong>论文中直接给出$P(\mathbf{q} | \mathbf{x}) =  \frac{P(\mathbf{q})f_{\mathbf{q}}(\mathbf{x})}{\sum_{\mathbf{q}^{‘}}P(\mathbf{q}^{‘})f_{\mathbf{q}^{‘}}(\mathbf{x})} $ , 该等式为何成立？<br>$$<br>\begin{align<em>}<br>P(\mathbf{q}|\mathbf{x}) &amp;= \frac{P(\mathbf{x}, \mathbf{q})}{P(\mathbf{x})}\\<br>&amp;= \frac{P(\mathbf{x}, \mathbf{q})}{\sum_{ \mathbf{q’}}P(\mathbf{x}, { \mathbf{q’}})}\\<br>&amp;= \frac{P(x_1, q_{i_1}, … , x_n, q_{i_n})}{\sum_{ \mathbf{q’}}P(\mathbf{x}, { \mathbf{q’}})}\\<br>&amp;= \frac{P(q_{i_1})P(x_1|q_{i_1})\Pi _{t=2}^{n}P(q_{i_t}|q_{i_{t-1}})P(x_{t}|q_{i_t})}{\sum_{ \mathbf{q’}}P(\mathbf{x}, { \mathbf{q’}})}\\<br>&amp;= \frac{P(\mathbf{q})\Pi_{t=1}^{n}P(x_t|q_{i_t})}{\sum_{ \mathbf{q’}}P(\mathbf{q’})\Pi_{t=1}^{n}P(x_t|q_{i_t}’)}<br>\end{align</em>} \tag{20}<br>$$<br>$P(x_t|q_{i_t})$为发射概率（观测概率），也就是时刻t处于状态$q_{i_t}$的条件下生成观测$x_t$的概率。这里的发射概率用时间间隔的指数函数来模拟，所以$P(x_t|q_{i_t}) = f_{i_t}(x_t) $。<br>$$<br>\begin{align<em>}<br>等式(27) &amp;= \frac{P(\mathbf{q})\Pi_{t=1}^{n}f_{i_t}(x_t)}{\sum_{ \mathbf{q’}}P(\mathbf{q’})\Pi_{t=1}^{n}f_{i_t’}(x_t)}\\<br>&amp;= \frac{P(\mathbf{q})f_{\mathbf{q}}(\mathbf{x})}{\sum_{\mathbf{q}^{‘}}P(\mathbf{q}^{‘})f_{\mathbf{q}^{‘}}(\mathbf{x})}<br>\end{align</em>}<br>$$</p>
+<p><strong>思考：</strong>论文中直接给出$P(\mathbf{q} | \mathbf{x}) =  \frac{P(\mathbf{q})f_{\mathbf{q}}(\mathbf{x})}{\sum_{\mathbf{q}^{‘}}P(\mathbf{q}^{‘})f_{\mathbf{q}^{‘}}(\mathbf{x})} $ , 该等式为何成立？<br>$$<br>\begin{align}<br>P(\mathbf{q}|\mathbf{x}) &amp;= \frac{P(\mathbf{x}, \mathbf{q})}{P(\mathbf{x})}\\<br>&amp;= \frac{P(\mathbf{x}, \mathbf{q})}{\sum_{ \mathbf{q’}}P(\mathbf{x}, { \mathbf{q’}})}\\<br>&amp;= \frac{P(x_1, q_{i_1}, … , x_n, q_{i_n})}{\sum_{ \mathbf{q’}}P(\mathbf{x}, { \mathbf{q’}})}\\<br>&amp;= \frac{P(q_{i_1})P(x_1|q_{i_1})\Pi _{t=2}^{n}P(q_{i_t}|q_{i_{t-1}})P(x_{t}|q_{i_t})}{\sum_{ \mathbf{q’}}P(\mathbf{x}, { \mathbf{q’}})}\\<br>&amp;= \frac{P(\mathbf{q})\Pi_{t=1}^{n}P(x_t|q_{i_t})}{\sum_{ \mathbf{q’}}P(\mathbf{q’})\Pi_{t=1}^{n}P(x_t|q_{i_t}’)}<br>\end{align} \tag{20}<br>$$<br>$P(x_t|q_{i_t})​$为发射概率（观测概率），也就是时刻t处于状态$q_{i_t}​$的条件下生成观测$x_t​$的概率。这里的发射概率用时间间隔的指数函数来模拟，所以$P(x_t|q_{i_t}) = f_{i_t}(x_t) ​$。<br>$$<br>\begin{align}<br>等式(27) &amp;= \frac{P(\mathbf{q})\Pi_{t=1}^{n}f_{i_t}(x_t)}{\sum_{ \mathbf{q’}}P(\mathbf{q’})\Pi_{t=1}^{n}f_{i_t’}(x_t)}\\<br>&amp;= \frac{P(\mathbf{q})f_{\mathbf{q}}(\mathbf{x})}{\sum_{\mathbf{q}^{‘}}P(\mathbf{q}^{‘})f_{\mathbf{q}^{‘}}(\mathbf{x})}<br>\end{align}<br>$$</p>
 <hr>
 <p>接着，我们对等式(26)中两边同时取对数后取反，得<br>$$<br>-ln P(\mathbf{q}|\mathbf{x}) = b ln(\frac{1-p}{p}) + (\sum_{t=1}^{n}-lnf_{i_t}(x_t)) - nln(1-p) + lnZ \tag{21}<br>$$<br>其中，<strong>第三项和第四项</strong>为常数项。（n,p为常数。因为<strong>x</strong>是已知的，所以Z也是常数  ）</p>
 <p>为求得<strong>最可能的状态序列</strong>，只需使等式右边最小,</p>
@@ -219,7 +219,7 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/13/Kleinberg/" data-id="cj8pupq5y00071mwwnbq47b8d" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/13/Kleinberg/" data-id="cj8puto8s00055swwks8gp12r" class="article-share-link">分享到</a>
       
 
       
