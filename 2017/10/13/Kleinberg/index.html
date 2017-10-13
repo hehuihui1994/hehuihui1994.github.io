@@ -25,7 +25,7 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170810-2.png">
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170810-6.png">
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170810-8.png">
-<meta property="og:updated_time" content="2017-10-13T12:13:18.000Z">
+<meta property="og:updated_time" content="2017-10-13T12:19:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kleinberg">
 <meta name="twitter:description" content="1 Kleinberg
@@ -119,7 +119,7 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
 <a id="more"></a>
 <h4 id="1-1-预备知识"><a href="#1-1-预备知识" class="headerlink" title="1.1 预备知识"></a>1.1 预备知识</h4><p><strong>（1）马尔科夫性质</strong></p>
 <p>马尔科夫性（无记忆性、无后效性）：已知“现在”的条件下，“过去”与“将来”是独立的。</p>
-<p>令A代表“将来”，B代表“过去”，C代表”现在”，则<br>$$<br>P(A|BC) = P(A|C) \tag{1}<br>$$<br><strong>（2）随机环境下的M-过程</strong></p>
+<p>令A代表“将来”，B代表“过去”，C代表”现在”，则<br>$$<br>P(A|BC) = P(A|C)<br>$$<br><strong>（2）随机环境下的M-过程</strong></p>
 <p>M-过程：具有马尔可夫性质的过程通常称之为马尔可夫过程。</p>
 <p>对于满足马尔可夫性的随机过程{X(t), $t \in T$ },</p>
 <ul>
@@ -135,21 +135,21 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
 <p>（2）+（4）：理论阶段</p>
 <p><strong>（3）马尔科夫链</strong></p>
 <p>M-链：满足马尔科夫性质的随机变量的序列.</p>
-<p>设{X(n), n = 0, 1, 2,…}为取值于<strong>状态空间E = {0, 1, 2,…}</strong>的随机过程，若满足：<br>$$<br>P(X_{n+1} = j | X_n = i, X_{n-1} = i_{n-1}, … , x_0 = i_0) = P(X_{n+1} = j | X_n = i) \tag{2}<br>$$<br>则称{X(n), n =0, 1, 2, …}为状态空间E上的<strong>离散时间参数的M-链</strong>。</p>
-<p>设{X(t), t $\in$T}为取值于<strong>状态空间E = {0, 1, 2,…}</strong>的随机过程，$T= [0, +\infty]$，若满足：<br>$$<br>P(X(t_n) = i_n | X(t_{n-1}) = i_{n-1}, … , X(t_1)= i_1) = P(X(t_n) = i_n | X(t_{n-1}) = i_{n-1}) \tag{3}<br>$$<br>则称{X(t), t $\in$T}为状态空间E上的<strong>连续时间参数的M-链</strong>。</p>
+<p>设{X(n), n = 0, 1, 2,…}为取值于<strong>状态空间E = {0, 1, 2,…}</strong>的随机过程，若满足：<br>$$<br>P(X_{n+1} = j | X_n = i, X_{n-1} = i_{n-1}, … , x_0 = i_0) = P(X_{n+1} = j | X_n = i)<br>$$<br>则称{X(n), n =0, 1, 2, …}为状态空间E上的<strong>离散时间参数的M-链</strong>。</p>
+<p>设{X(t), t $\in$T}为取值于<strong>状态空间E = {0, 1, 2,…}</strong>的随机过程，$T= [0, +\infty]$，若满足：<br>$$<br>P(X(t_n) = i_n | X(t_{n-1}) = i_{n-1}, … , X(t_1)= i_1) = P(X(t_n) = i_n | X(t_{n-1}) = i_{n-1})<br>$$<br>则称{X(t), t $\in$T}为状态空间E上的<strong>连续时间参数的M-链</strong>。</p>
 <p><strong>（4）隐马尔可夫模型</strong></p>
 <p><strong>定义</strong>  隐马尔可夫模型是关于时序的概率模型，描述由隐藏的马尔可夫链随机生成不可观测的状态序列，再由各个状态随机生成观测序列的过程，属于生成模型。</p>
 <p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170814-2.png" alt=""></p>
 <p>隐马尔科夫模型由初始概率分布、状态转移概率分布、观测概率分布确定。</p>
-<p>设Q是所有可能的状态集合，V是所有可能的观测的集合。<br>$$<br>Q = \{q_1, q_2，… , q_N\}, V = \{v_1, v_2, … , v_M\}<br>$$<br>其中，N是可能的状态序列，O是对应的观测序列。<br>$$<br>I = (i_1, i_2, … , i_T), Q = (o_1, o_2, … , o_T)<br>$$<br>A是状态转移概率矩阵：<br>$$<br>A = [a_{ij}]_{N \times N}<br>$$<br>其中，<br>$$<br>a_{ij} = P(i_{t+1} = q_j | i_t = q_i), i=1,2,…,N;j=1,2,…,N \tag{4}<br>$$<br>是时刻t处于状态$q_i$的条件下在时刻t+1转移到转台$q_j$的概率。<br>B是观测概率矩阵：<br>$$<br>B = [b_j(k)]_{N \times M}<br>$$<br>其中，<br>$$<br>b_j(k) = P(o_t = v_k | i_t = q_j), k=1,2,…,M; j = 1,2,…,N \tag{5}<br>$$<br>是时刻t处于状态$q_j$的条件下生成观测$v_k$的概率。<br>$\pi$是初始状态概率向量：<br>$$<br>\pi = (\pi_i)<br>$$<br>其中，<br>$$<br>\pi_i = P(i_1 = q_i), i=1,2,…,N \tag{6}<br>$$<br>是时刻t=1处于状态$q_i$的概率。</p>
-<p>隐马尔可夫模型由初始状态向量$\pi$、状态转移概率矩阵A、观测概率矩阵B决定。$pi$和A决定状态序列，B决定观测序列。因此，隐马尔可夫模型$\lambda$可以用三元符号表示，即<br>$$<br>\lambda = (A,B,\pi) \tag{7}<br>$$<br>$A,B,\pi$称为隐马尔可夫模型的三要素。<br>状态转移概率矩阵A与初始概率向量$pi$确定了隐藏的马尔可夫链，生成不可观测的状态序列。观测概率矩阵B确定了如何从状态生成观测，与状态序列综合确定了如何产生观测序列。</p>
-<p><strong>维特比算法</strong> 维特比算法实际是用动态规划解隐马尔可夫模型的预测问题，即用动态规划求概率最大路径(最优路径)，这时一条路径对应着一个状态序列。<br>输入：模型$\lambda = (A, B, \pi)$和观测$O=(o_1, o_2, …, o_T)$;<br>输出：最优路径$I^<em> = (i_1^{</em>},i_2^{<em>}, … , i_T^{</em>})$.<br>(1)初始化<br>$$<br>\delta _{1}(i) = \pi_{i}b_{i}(o_1), i=1,2,…,N \tag{8}<br>$$</p>
-<p>$$<br>\Psi _{1}(i) = 0,  i=1,2,…,N \tag{9}<br>$$</p>
-<p>(2)递推.对t=2,3, … ,T<br>$$<br>\delta _{t}(i) = \underset{1\leq j \leq N}{max}[\delta _{t-1}(j)a_{ji}]b_{i}(o_t), i=1,2,…,N \tag{10}<br>$$</p>
-<p>$$<br>\Psi _{t}(i) = arg \underset{1\leq j \leq N}{max}[\delta _{t-1}(j)a<br>_{ji}], i=1,2,…,N \tag{11}<br>$$</p>
-<p>(3)终止<br>$$<br>P^{\ast } = \underset{1\leq i \leq N}{max}\delta _{T}(i) \tag{12}<br>$$</p>
-<p>$$<br>i_{T}^{\ast } = arg \underset{1\leq i \leq N}{max} [\delta _{T}(i)] \tag{13}<br>$$</p>
-<p>(4)最优路径回溯，对t=T-1,T-2,…,1<br>$$<br>i_{t}^{\ast }=\Psi_{t+1}(i_{t+1}^{\ast }) \tag{14}<br>$$<br>求最优路径$I^{\ast } = (i_1^{\ast },i_2^{\ast }, … , i_T^{\ast })​$.</p>
+<p>设Q是所有可能的状态集合，V是所有可能的观测的集合。<br>$$<br>Q = \{q_1, q_2，… , q_N\}, V = \{v_1, v_2, … , v_M\}<br>$$<br>其中，N是可能的状态序列，O是对应的观测序列。<br>$$<br>I = (i_1, i_2, … , i_T), Q = (o_1, o_2, … , o_T)<br>$$<br>A是状态转移概率矩阵：<br>$$<br>A = [a_{ij}]_{N \times N}<br>$$<br>其中，<br>$$<br>a_{ij} = P(i_{t+1} = q_j | i_t = q_i), i=1,2,…,N;j=1,2,…,N<br>$$<br>是时刻t处于状态$q_i$的条件下在时刻t+1转移到转台$q_j$的概率。<br>B是观测概率矩阵：<br>$$<br>B = [b_j(k)]_{N \times M}<br>$$<br>其中，<br>$$<br>b_j(k) = P(o_t = v_k | i_t = q_j), k=1,2,…,M; j = 1,2,…,N<br>$$<br>是时刻t处于状态$q_j$的条件下生成观测$v_k$的概率。<br>$\pi$是初始状态概率向量：<br>$$<br>\pi = (\pi_i)<br>$$<br>其中，<br>$$<br>\pi_i = P(i_1 = q_i), i=1,2,…,N<br>$$<br>是时刻t=1处于状态$q_i$的概率。</p>
+<p>隐马尔可夫模型由初始状态向量$\pi$、状态转移概率矩阵A、观测概率矩阵B决定。$pi$和A决定状态序列，B决定观测序列。因此，隐马尔可夫模型$\lambda$可以用三元符号表示，即<br>$$<br>\lambda = (A,B,\pi)<br>$$<br>$A,B,\pi$称为隐马尔可夫模型的三要素。<br>状态转移概率矩阵A与初始概率向量$pi$确定了隐藏的马尔可夫链，生成不可观测的状态序列。观测概率矩阵B确定了如何从状态生成观测，与状态序列综合确定了如何产生观测序列。</p>
+<p><strong>维特比算法</strong> 维特比算法实际是用动态规划解隐马尔可夫模型的预测问题，即用动态规划求概率最大路径(最优路径)，这时一条路径对应着一个状态序列。<br>输入：模型$\lambda = (A, B, \pi)$和观测$O=(o_1, o_2, …, o_T)$;<br>输出：最优路径$I^<em> = (i_1^{</em>},i_2^{<em>}, … , i_T^{</em>})$.<br>(1)初始化<br>$$<br>\delta _{1}(i) = \pi_{i}b_{i}(o_1), i=1,2,…,N<br>$$</p>
+<p>$$<br>\Psi _{1}(i) = 0,  i=1,2,…,N<br>$$</p>
+<p>(2)递推.对t=2,3, … ,T<br>$$<br>\delta _{t}(i) = \underset{1\leq j \leq N}{max}[\delta _{t-1}(j)a_{ji}]b_{i}(o_t), i=1,2,…,N<br>$$</p>
+<p>$$<br>\Psi _{t}(i) = arg \underset{1\leq j \leq N}{max}[\delta _{t-1}(j)a<br>_{ji}], i=1,2,…,N<br>$$</p>
+<p>(3)终止<br>$$<br>P^{\ast } = \underset{1\leq i \leq N}{max}\delta _{T}(i)<br>$$</p>
+<p>$$<br>i_{T}^{\ast } = arg \underset{1\leq i \leq N}{max} [\delta _{T}(i)]<br>$$</p>
+<p>(4)最优路径回溯，对t=T-1,T-2,…,1<br>$$<br>i_{t}^{\ast }=\Psi_{t+1}(i_{t+1}^{\ast })<br>$$<br>求最优路径$I^{\ast } = (i_1^{\ast },i_2^{\ast }, … , i_T^{\ast })$.</p>
 <p>下面通过一个例子来说明维特比算法。<br>例：假设有3个盒子，每个盒子里都装有红白两种颜色的球，按照下面的方法抽球，产生一个球的颜色的观测序列。开始，从任意一盒子里以等概率随机选取1个盒子，从这个盒子里随机抽出1个球，记录其颜色后，放回；然后，从当前盒子随机转移到下一个盒子。<br>在这个例子中，有两个随机序列，一个是盒子的序列(状态序列)，一个是球的颜色的观测序列(观测序列)。前者是隐藏的，只有后者是可观测的。</p>
 <p>盒子对应状态，状态的集合是<br>$$<br>Q = \{盒子1， 盒子2，盒子3\}，N=3<br>$$<br>球的颜色对应观测，观测的集合是<br>$$<br>V = \{红，白\}，M=2<br>$$<br>这是一个隐马尔可夫模型$\lambda = (A,B,\pi)$.<br>$$<br>A= \begin{bmatrix}<br>0.5 &amp; 0.2 &amp;0.3\\<br>0.3 &amp; 0.5 &amp; 0.2\\<br>0.2 &amp; 0.3 &amp; 0.5<br>\end{bmatrix},<br>B=\begin{bmatrix}<br>0.5 &amp; 0.5 \\<br>0.4 &amp; 0.6 \\<br>0.7 &amp; 0.3<br>\end{bmatrix},<br>\pi = (0.2, 0.4, 0.4)^{T}<br>$$<br>已知观测序列O={红，白，红}，试求最优状态序列，即最优路径$I^{<em>} = (i_{1}^{</em>},i_{2}^{<em>},i_{3}^{</em>} )$.</p>
 <p>解：<br>（1）初始化。在t=1时，对每个状态i,i=1,2,3,求状态为i观测$o_{1}$为红的概率，记此概率为$\delta _{1}(i)$，则<br>$$<br>\delta _{1}(i) = \pi_{i}b_{i}(o_1) = \pi_{i}b_{i}(红)，i=1,2,3<br>$$<br>代入实际数据<br>$$<br>\delta _{1}(1) = 0.10，\delta _{1}(2)=0.16，\delta _{1}(3)=0.28<br>$$<br>记$\Psi _{1}(i)= 0，i=1,2,3. $</p>
@@ -171,8 +171,8 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
 <p>他们提出无限状态自动机来模拟数据流中<strong>文本到达时间</strong>，以识别一段有限时间内高强度的突发事件。</p>
 <p>他们通过自动机模型模拟<strong>特征词</strong>的<strong>状态</strong>以及<strong>状态之间的转换</strong>，不同状态表示词的不同的出现频率，状态间的转换表示突发的产生或者消亡。</p>
 <p><strong>(1) 消息到达时间分布</strong></p>
-<p>采用<strong>指数分布</strong>来模拟消息到达时间（发射概率是时间间隔的指数函数）。消息以一定的概率模式发出，两个相邻报道i和i+1的间隔$X$服从指数分布$X \sim E(\lambda)$（无记忆分布）：<br>$$<br>密度函数 f(x) = \lambda e^{-\lambda x} , x&gt; 0\  \tag{15}<br>$$</p>
-<p>$$<br>分布函数 F(x) = 1-e^{-\lambda x}, x&gt;0 \tag{16}<br>$$</p>
+<p>采用<strong>指数分布</strong>来模拟消息到达时间（发射概率是时间间隔的指数函数）。消息以一定的概率模式发出，两个相邻报道i和i+1的间隔$X$服从指数分布$X \sim E(\lambda)$（无记忆分布）：<br>$$<br>密度函数 f(x) = \lambda e^{-\lambda x} , x&gt; 0\ <br>$$</p>
+<p>$$<br>分布函数 F(x) = 1-e^{-\lambda x}, x&gt;0<br>$$</p>
 <p>时间间隔期望$E(x) = \lambda ^{-1}$,其中$\lambda$表示<strong>消息到达速率</strong>。</p>
 <p>下图展示了不同到达速率下的指数分布。</p>
 <p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170809-1.png" alt=""></p>
@@ -186,13 +186,15 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
 <p>  <strong>低状态</strong>下服从指数分布，消息到达速率为$\alpha$；<strong>高状态</strong>下，同样服从指数分布，消息到达速率为$s<em>\alpha$, 其中s&gt;1。状态之间的<em>*转移概率</em></em>为p。</p>
 <p>对于已知的<strong>报道集合</strong>，我们可以寻找一个可能的<strong>状态序列</strong>（状态变量 $\mathbf{q}=(q_{i_1}, q_{i_2}, … , q_{i_n})$), 标记$q_{i_t} \in \{q_0, q_1\}$, $i_t \in \{0,1\}$。</p>
 <p>假设我们知道了<strong>n+1</strong>个消息，那么可以计算出n个<strong>时间间隔</strong>$\mathbf{x}=(x_1,x_2,⋯,x_n)$ (观测变量)。</p>
-<p>令X对应的状态序列 $\mathbf{q}=(q_{i_1}, q_{i_2}, … , q_{i_n})$,所以，报道事件间隔序列（观测变量）的概率密度函数定义为：<br>$$<br>f_{\mathbf{q}}(x_1, … , x_n) = \Pi_{t=1}^{n} f_{i_t}(x_t) \tag{17}<br>$$<br>令b为状态序列$\mathbf{q}$中状态的转换次数，所以$\mathbf{q}$的先验概率为，<br>$$<br>P(\mathbf{q}) = p^b(1-p)^{n-b} \tag{18}<br>$$<br>根据贝叶斯原理，得到后验概率<br>$$<br>\begin{align} P(\mathbf{q} | \mathbf{x}) &amp;=  \frac{P(\mathbf{q})f_{\mathbf{q}}(\mathbf{x})}{\sum_{\mathbf{q}^{‘}}P(\mathbf{q}^{‘})f_{\mathbf{q}^{‘}}(\mathbf{x})} \\<br>&amp;= \frac{P(\mathbf{q})f_{\mathbf{q}}(\mathbf{x})}{Z}\\<br>&amp;=\frac{1}{Z}p^b(1-p)^{n-b}\Pi_{t=1}^{n} f_{i_t}(x_t)\\<br>&amp;= \frac{1}{Z}({\frac{p}{1-p}})^b(1-p)^{n}\Pi_{t=1}^{n} f_{i_t}(x_t)<br>\end{align} \tag{19}<br>$$<br>其中，$Z= \sum_{\mathbf{q}^{‘}}P(\mathbf{q}^{‘})f_{\mathbf{q}^{‘}}(\mathbf{x})​$ 。</p>
+<p>令X对应的状态序列 $\mathbf{q}=(q_{i_1}, q_{i_2}, … , q_{i_n})$,所以，报道事件间隔序列（观测变量）的概率密度函数定义为：<br>$$<br>f_{\mathbf{q}}(x_1, … , x_n) = \Pi_{t=1}^{n} f_{i_t}(x_t)<br>$$<br>令b为状态序列$\mathbf{q}$中状态的转换次数，所以$\mathbf{q}$的先验概率为，<br>$$<br>P(\mathbf{q}) = p^b(1-p)^{n-b}<br>$$<br>根据贝叶斯原理，得到后验概率<br>$$<br>\begin{align} P(\mathbf{q} | \mathbf{x}) &amp;=  \frac{P(\mathbf{q})f_{\mathbf{q}}(\mathbf{x})}{\sum_{\mathbf{q}^{‘}}P(\mathbf{q}^{‘})f_{\mathbf{q}^{‘}}(\mathbf{x})} \\<br>&amp;= \frac{P(\mathbf{q})f_{\mathbf{q}}(\mathbf{x})}{Z}\\<br>&amp;=\frac{1}{Z}p^b(1-p)^{n-b}\Pi_{t=1}^{n} f_{i_t}(x_t)\\<br>&amp;= \frac{1}{Z}({\frac{p}{1-p}})^b(1-p)^{n}\Pi_{t=1}^{n} f_{i_t}(x_t)<br>\end{align}<br>$$<br>其中，$Z= \sum_{\mathbf{q}^{‘}}P(\mathbf{q}^{‘})f_{\mathbf{q}^{‘}}(\mathbf{x})​$ 。</p>
 <hr>
-<p><strong>思考：</strong>论文中直接给出$P(\mathbf{q} | \mathbf{x}) =  \frac{P(\mathbf{q})f_{\mathbf{q}}(\mathbf{x})}{\sum_{\mathbf{q}^{‘}}P(\mathbf{q}^{‘})f_{\mathbf{q}^{‘}}(\mathbf{x})} $ , 该等式为何成立？<br>$$<br>\begin{align}<br>P(\mathbf{q}|\mathbf{x}) &amp;= \frac{P(\mathbf{x}, \mathbf{q})}{P(\mathbf{x})}\\<br>&amp;= \frac{P(\mathbf{x}, \mathbf{q})}{\sum_{ \mathbf{q’}}P(\mathbf{x}, { \mathbf{q’}})}\\<br>&amp;= \frac{P(x_1, q_{i_1}, … , x_n, q_{i_n})}{\sum_{ \mathbf{q’}}P(\mathbf{x}, { \mathbf{q’}})}\\<br>&amp;= \frac{P(q_{i_1})P(x_1|q_{i_1})\Pi _{t=2}^{n}P(q_{i_t}|q_{i_{t-1}})P(x_{t}|q_{i_t})}{\sum_{ \mathbf{q’}}P(\mathbf{x}, { \mathbf{q’}})}\\<br>&amp;= \frac{P(\mathbf{q})\Pi_{t=1}^{n}P(x_t|q_{i_t})}{\sum_{ \mathbf{q’}}P(\mathbf{q’})\Pi_{t=1}^{n}P(x_t|q_{i_t}’)}<br>\end{align} \tag{20}<br>$$<br>$P(x_t|q_{i_t})​$为发射概率（观测概率），也就是时刻t处于状态$q_{i_t}​$的条件下生成观测$x_t​$的概率。这里的发射概率用时间间隔的指数函数来模拟，所以$P(x_t|q_{i_t}) = f_{i_t}(x_t) ​$。<br>$$<br>\begin{align}<br>等式(27) &amp;= \frac{P(\mathbf{q})\Pi_{t=1}^{n}f_{i_t}(x_t)}{\sum_{ \mathbf{q’}}P(\mathbf{q’})\Pi_{t=1}^{n}f_{i_t’}(x_t)}\\<br>&amp;= \frac{P(\mathbf{q})f_{\mathbf{q}}(\mathbf{x})}{\sum_{\mathbf{q}^{‘}}P(\mathbf{q}^{‘})f_{\mathbf{q}^{‘}}(\mathbf{x})}<br>\end{align}<br>$$</p>
+<p><strong>思考：</strong>论文中直接给出$P(\mathbf{q} | \mathbf{x}) =  \frac{P(\mathbf{q})f_{\mathbf{q}}(\mathbf{x})}{\sum_{\mathbf{q}^{‘}}P(\mathbf{q}^{‘})f_{\mathbf{q}^{‘}}(\mathbf{x})} $ , 该等式为何成立？<br>$$<br>\begin{align}<br>P(\mathbf{q}|\mathbf{x}) &amp;= \frac{P(\mathbf{x}, \mathbf{q})}{P(\mathbf{x})}\\<br>&amp;= \frac{P(\mathbf{x}, \mathbf{q})}{\sum_{ \mathbf{q’}}P(\mathbf{x}, { \mathbf{q’}})}\\<br>&amp;= \frac{P(x_1, q_{i_1}, … , x_n, q_{i_n})}{\sum_{ \mathbf{q’}}P(\mathbf{x}, { \mathbf{q’}})}\\<br>&amp;= \frac{P(q_{i_1})P(x_1|q_{i_1})\Pi _{t=2}^{n}P(q_{i_t}|q_{i_{t-1}})P(x_{t}|q_{i_t})}{\sum_{ \mathbf{q’}}P(\mathbf{x}, { \mathbf{q’}})}\\<br>&amp;= \frac{P(\mathbf{q})\Pi_{t=1}^{n}P(x_t|q_{i_t})}{\sum_{ \mathbf{q’}}P(\mathbf{q’})\Pi_{t=1}^{n}P(x_t|q_{i_t}’)}<br>\end{align}<br>$$</p>
+<p>$P(x_t|q_{i_t})$为发射概率（观测概率），也就是时刻t处于状态$q_{i_t}$的条件下生成观测$x_t$的概率。这里的发射概率用时间间隔的指数函数来模拟，所以$P(x_t|q_{i_t}) = f_{i_t}(x_t) $。</p>
+<p>$$<br>\begin{align}<br>等式(27) &amp;= \frac{P(\mathbf{q})\Pi_{t=1}^{n}f_{i_t}(x_t)}{\sum_{ \mathbf{q’}}P(\mathbf{q’})\Pi_{t=1}^{n}f_{i_t’}(x_t)}\\<br>&amp;= \frac{P(\mathbf{q})f_{\mathbf{q}}(\mathbf{x})}{\sum_{\mathbf{q}^{‘}}P(\mathbf{q}^{‘})f_{\mathbf{q}^{‘}}(\mathbf{x})}<br>\end{align}<br>$$</p>
 <hr>
-<p>接着，我们对等式(26)中两边同时取对数后取反，得<br>$$<br>-ln P(\mathbf{q}|\mathbf{x}) = b ln(\frac{1-p}{p}) + (\sum_{t=1}^{n}-lnf_{i_t}(x_t)) - nln(1-p) + lnZ \tag{21}<br>$$<br>其中，<strong>第三项和第四项</strong>为常数项。（n,p为常数。因为<strong>x</strong>是已知的，所以Z也是常数  ）</p>
+<p>接着，我们对等式(26)中两边同时取对数后取反，得<br>$$<br>-ln P(\mathbf{q}|\mathbf{x}) = b ln(\frac{1-p}{p}) + (\sum_{t=1}^{n}-lnf_{i_t}(x_t)) - nln(1-p) + lnZ<br>$$<br>其中，<strong>第三项和第四项</strong>为常数项。（n,p为常数。因为<strong>x</strong>是已知的，所以Z也是常数  ）</p>
 <p>为求得<strong>最可能的状态序列</strong>，只需使等式右边最小,</p>
-<p> 所以，设计代价函数cost-function:<br>$$<br>c(\mathbf{q}|\mathbf{x}) = b ln(\frac{1-p}{p}) + (\sum_{t=1}^{n}-lnf_{i_t}(x_t)) \tag{22}<br>$$<br>现在只需$c(\mathbf{q}|\mathbf{x})$最小。从直觉上，使状态变化次数尽量少，同时使状态序列适应时间间隔x的值。</p>
+<p> 所以，设计代价函数cost-function:<br>$$<br>c(\mathbf{q}|\mathbf{x}) = b ln(\frac{1-p}{p}) + (\sum_{t=1}^{n}-lnf_{i_t}(x_t))<br>$$<br>现在只需$c(\mathbf{q}|\mathbf{x})$最小。从直觉上，使状态变化次数尽量少，同时使状态序列适应时间间隔x的值。</p>
 <p><strong>(3) Infinite-state model</strong></p>
 <p>上一节中描述了two-state模型，该模型只包含了2个状态，对于话题中出现的<strong>嵌套层次结构</strong>无法模拟，因此本节在two-state模型的基础上继续扩展，构造<strong>无限状态模型</strong>。示意图如下，图中q表示状态。</p>
 <p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170810-1.png" alt=""></p>
@@ -202,7 +204,7 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
 <p><strong>定义</strong>状态转移损失(transition cost)$\tau (i,j)$: </p>
 <p>​        • Low-&gt; High cost:  $\tau (i,j) = (j-i) <em> \gamma  </em> ln(n)$,  where $\gamma $&gt;0 and j &gt; i.</p>
 <p>​        • High-&gt;Low cost: 0. </p>
-<p><strong>定义代价函数</strong><br>$$<br>c(\mathbf{q}|\mathbf{x}) = (\sum_{t=0}^{n-1}\tau(i_t, i_{t+1})) + (\sum_{t=1}^{n}-lnf_{i_t}(x_t)) \tag{23}<br>$$<br><strong>计算最小损失状态序列</strong></p>
+<p><strong>定义代价函数</strong><br>$$<br>c(\mathbf{q}|\mathbf{x}) = (\sum_{t=0}^{n-1}\tau(i_t, i_{t+1})) + (\sum_{t=1}^{n}-lnf_{i_t}(x_t))<br>$$<br><strong>计算最小损失状态序列</strong></p>
 <p>已知间隔序列$x=(x_1,x_2,⋯,x_n)$, 求状态机的$A_{s,\gamma}^{\ast }$状态序列$q=(q_{i_1},q_{i_2},⋯,q_{i_n})$，使代价<br>$c(\mathbf{q}|\mathbf{x}) $最小。</p>
 <p>上面所说的<strong>无限状态机</strong>可以通过如下理论退化成<strong>有限状态机,</strong> </p>
 <p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170810-2.png" alt=""></p>
@@ -219,7 +221,7 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/13/Kleinberg/" data-id="cj8puto8s00055swwks8gp12r" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/13/Kleinberg/" data-id="cj8pv1cmm0005dhwwx1xbsspo" class="article-share-link">分享到</a>
       
 
       
