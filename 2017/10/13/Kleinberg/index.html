@@ -25,7 +25,7 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170810-2.png">
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170810-6.png">
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170810-8.png">
-<meta property="og:updated_time" content="2017-10-13T11:56:55.000Z">
+<meta property="og:updated_time" content="2017-10-13T12:06:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kleinberg">
 <meta name="twitter:description" content="1 Kleinberg
@@ -147,9 +147,9 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
 <p>$$<br>\Psi _{1}(i) = 0,  i=1,2,…,N \tag{9}<br>$$</p>
 <p>(2)递推.对t=2,3, … ,T<br>$$<br>\delta _{t}(i) = \underset{1\leq j \leq N}{max}[\delta _{t-1}(j)a_{ji}]b_{i}(o_t), i=1,2,…,N \tag{10}<br>$$</p>
 <p>$$<br>\Psi _{t}(i) = arg \underset{1\leq j \leq N}{max}[\delta _{t-1}(j)a<br>_{ji}], i=1,2,…,N \tag{11}<br>$$</p>
-<p>(3)终止<br>$$<br>P^* = \underset{1\leq i \leq N}{max}\delta _{T}(i) \tag{12}<br>$$</p>
-<p>$$<br>i_{T}^{*} = arg \underset{1\leq i \leq N}{max} [\delta _{T}(i)] \tag{13}<br>$$</p>
-<p>(4)最优路径回溯，对t=T-1,T-2,…,1<br>$$<br>i_{t}^{<em>}=\Psi_{t+1}(i_{t+1}^{</em>}) \tag{14}<br>$$<br>求最优路径$I^<em> = (i_1^{</em>},i_2^{<em>}, … , i_T^{</em>})$.</p>
+<p>(3)终止<br>$$<br>P^{\ast } = \underset{1\leq i \leq N}{max}\delta _{T}(i) \tag{12}<br>$$</p>
+<p>$$<br>i_{T}^{\ast } = arg \underset{1\leq i \leq N}{max} [\delta _{T}(i)] \tag{13}<br>$$</p>
+<p>(4)最优路径回溯，对t=T-1,T-2,…,1<br>$$<br>i_{t}^{\ast }=\Psi_{t+1}(i_{t+1}^{\ast }) \tag{14}<br>$$<br>求最优路径$I^{\ast } = (i_1^{\ast },i_2^{\ast }, … , i_T^{\ast })​$.</p>
 <p>下面通过一个例子来说明维特比算法。<br>例：假设有3个盒子，每个盒子里都装有红白两种颜色的球，按照下面的方法抽球，产生一个球的颜色的观测序列。开始，从任意一盒子里以等概率随机选取1个盒子，从这个盒子里随机抽出1个球，记录其颜色后，放回；然后，从当前盒子随机转移到下一个盒子。<br>在这个例子中，有两个随机序列，一个是盒子的序列(状态序列)，一个是球的颜色的观测序列(观测序列)。前者是隐藏的，只有后者是可观测的。</p>
 <p>盒子对应状态，状态的集合是<br>$$<br>Q = \{盒子1， 盒子2，盒子3\}，N=3<br>$$<br>球的颜色对应观测，观测的集合是<br>$$<br>V = \{红，白\}，M=2<br>$$<br>这是一个隐马尔可夫模型$\lambda = (A,B,\pi)$.<br>$$<br>A= \begin{bmatrix}<br>0.5 &amp; 0.2 &amp;0.3\\<br>0.3 &amp; 0.5 &amp; 0.2\\<br>0.2 &amp; 0.3 &amp; 0.5<br>\end{bmatrix},<br>B=\begin{bmatrix}<br>0.5 &amp; 0.5 \\<br>0.4 &amp; 0.6 \\<br>0.7 &amp; 0.3<br>\end{bmatrix},<br>\pi = (0.2, 0.4, 0.4)^{T}<br>$$<br>已知观测序列O={红，白，红}，试求最优状态序列，即最优路径$I^{<em>} = (i_{1}^{</em>},i_{2}^{<em>},i_{3}^{</em>} )$.</p>
 <p>解：<br>（1）初始化。在t=1时，对每个状态i,i=1,2,3,求状态为i观测$o_{1}$为红的概率，记此概率为$\delta _{1}(i)$，则<br>$$<br>\delta _{1}(i) = \pi_{i}b_{i}(o_1) = \pi_{i}b_{i}(红)，i=1,2,3<br>$$<br>代入实际数据<br>$$<br>\delta _{1}(1) = 0.10，\delta _{1}(2)=0.16，\delta _{1}(3)=0.28<br>$$<br>记$\Psi _{1}(i)= 0，i=1,2,3. $</p>
@@ -162,9 +162,9 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
 <p>$$<br>\delta _{3}(1)=0.00756, \Psi _{3}(1)=2<br>$$</p>
 <p>$$<br>\delta _{3}(2)=0.01008, \Psi _{3}(2)=2<br>$$</p>
 <p>$$<br>\delta _{3}(3)=0.0147, \Psi _{3}(3)=3<br>$$</p>
-<p>(3)以$P^{\ast}$表示最优路径的概率，则<br>$$<br>P^{\ast } = \underset{1\leq i \leq 3}{max}\delta _{3}(i) = 0.0147<br>$$<br>最优路径的终点是$i_{3}^{<em>}$:<br>$$<br>i_{3}^{</em>} = arg \underset{i }{max}[\delta _{3}(i)] = 3<br>$$<br>(4)由最优路径的终点$i_{3}^{<em>}$，逆向找到$i_{2}^{</em>},i_{1}^{<em>}$：<br>$$<br>在t=2时，i_{2}^{</em>}=\Psi_{3}(i_{3}^{*}) = \Psi _{3}(3) =3<br>$$</p>
-<p>$$<br>在t=1时，i_{1}^{<em>}=\Psi_{2}(i_{2}^{</em>}) = \Psi _{2}(3) =3<br>$$</p>
-<p>于是求得最优路径，即最优状态序列$I^{<em>} = (i_{1}^{</em>},i_{2}^{<em>},i_{3}^{</em>}) = (3,3,3).$</p>
+<p>(3)以$P^{\ast}$表示最优路径的概率，则<br>$$<br>P^{\ast } = \underset{1\leq i \leq 3}{max}\delta _{3}(i) = 0.0147<br>$$<br>最优路径的终点是$i_{3}^{\ast }$:<br>$$<br>i_{3}^{\ast } = arg \underset{i }{max}[\delta _{3}(i)] = 3<br>$$<br>(4)由最优路径的终点$i_{3}^{\ast }$，逆向找到$i_{2}^{}\ast ,i_{1}^{\ast }$：<br>$$<br>在t=2时，i_{2}^{\ast }=\Psi_{3}(i_{3}^{\ast }) = \Psi _{3}(3) =3<br>$$</p>
+<p>$$<br>在t=1时，i_{1}^{\ast }=\Psi_{2}(i_{2}^{\ast }) = \Psi _{2}(3) =3<br>$$</p>
+<p>于是求得最优路径，即最优状态序列$I^{\ast } = (i_{1}^{\ast },i_{2}^{\ast },i_{3}^{\ast }) = (3,3,3).$</p>
 <h4 id="1-2-Kleinberg-状态机模型（加权的自动机模型）"><a href="#1-2-Kleinberg-状态机模型（加权的自动机模型）" class="headerlink" title="1.2 Kleinberg 状态机模型（加权的自动机模型）"></a>1.2 Kleinberg 状态机模型（加权的自动机模型）</h4><p>作者<strong>首次采用</strong>基于<strong>突发关键词</strong>的方法进行突发话题检测。</p>
 <p>他们提出的方法主要是为了发现<strong>长文本中</strong>的突发事件，但是对于处理微博这样的短文本有重要的借鉴意义。</p>
 <p>他的主体思路是根据事件发生的<strong>时间序列</strong>来建立一种突发话题检测模型。</p>
@@ -203,10 +203,10 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
 <p>​        • Low-&gt; High cost:  $\tau (i,j) = (j-i) <em> \gamma  </em> ln(n)$,  where $\gamma $&gt;0 and j &gt; i.</p>
 <p>​        • High-&gt;Low cost: 0. </p>
 <p><strong>定义代价函数</strong><br>$$<br>c(\mathbf{q}|\mathbf{x}) = (\sum_{t=0}^{n-1}\tau(i_t, i_{t+1})) + (\sum_{t=1}^{n}-lnf_{i_t}(x_t)) \tag{23}<br>$$<br><strong>计算最小损失状态序列</strong></p>
-<p>已知间隔序列$x=(x_1,x_2,⋯,x_n)$, 求状态机的$A_{s,\gamma}^{*}$状态序列$q=(q_{i_1},q_{i_2},⋯,q_{i_n})$，使代价<br>$c(\mathbf{q}|\mathbf{x}) $最小。</p>
+<p>已知间隔序列$x=(x_1,x_2,⋯,x_n)$, 求状态机的$A_{s,\gamma}^{\ast }$状态序列$q=(q_{i_1},q_{i_2},⋯,q_{i_n})$，使代价<br>$c(\mathbf{q}|\mathbf{x}) $最小。</p>
 <p>上面所说的<strong>无限状态机</strong>可以通过如下理论退化成<strong>有限状态机,</strong> </p>
 <p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170810-2.png" alt=""></p>
-<p>定理表明，如果$q^<em>$是状态机$A_{s,\gamma}^{k}$的最优状态序列，那么它也是状态机$A_{s,\gamma}^{</em>}$最优状态序列。</p>
+<p>定理表明，如果$q^{\ast }$是状态机$A_{s,\gamma}^{k}$的最优状态序列，那么它也是状态机$A_{s,\gamma}^{\ast }$最优状态序列。</p>
 <p> <strong>如何计算得到最优状态序列？</strong>(维特比算法)</p>
 <p>令$C_j(t)$是对于输入$x_1,x_2,⋯,x_n$以状态$q_j$结尾的最小代价值。<br>$C_j(t)=−lnf_j(x_t)+min_l(C_l(t−1)+\tau(l,j)$, 并且$C_0(0)=0,C_j(0)=\infty ,j&gt;0$.</p>
 <p><strong>（4）应用</strong></p>
@@ -214,13 +214,12 @@ http://blog.csdn.net/hero_fantao/article/details/69681239
 <p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170810-6.png" alt=""></p>
 <p>例：在包含<strong>词语”ITR”的报道</strong>构成的信息流中使用无限状态自动机进行突发话题检测，可以检测出突发话题<strong>爆发的时刻</strong>以及<strong>持续的时间</strong>。</p>
 <p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170810-8.png" alt=""></p>
-<p>### </p>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/13/Kleinberg/" data-id="cj8pu8m7j0007k9wwwz0qyswx" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/13/Kleinberg/" data-id="cj8pukgbx0005vowwlrk9b5mg" class="article-share-link">分享到</a>
       
 
       
