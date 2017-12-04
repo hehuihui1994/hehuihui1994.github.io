@@ -16,7 +16,7 @@
 <meta property="og:description" content="LibSVM​    libsvm是台湾大学林智仁(LinChih-Jen)教授等开发设计的一个简单、易于使用和快速有效的SVM模式识别与回归的软件包。他不但提供了编译好的可在Windows系列系统的执行文件，还提供了源代码，方便改进、修改以及在其它操作系统上应用；该软件对SVM所涉及的参数调节相对比较少，提供了很多的默认参数，利用这些默认参数可以解决很多问题；并提供交叉验证功能。
 
 下载地址">
-<meta property="og:updated_time" content="2017-12-04T09:55:29.000Z">
+<meta property="og:updated_time" content="2017-12-04T09:58:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LibSVM">
 <meta name="twitter:description" content="LibSVM​    libsvm是台湾大学林智仁(LinChih-Jen)教授等开发设计的一个简单、易于使用和快速有效的SVM模式识别与回归的软件包。他不但提供了编译好的可在Windows系列系统的执行文件，还提供了源代码，方便改进、修改以及在其它操作系统上应用；该软件对SVM所涉及的参数调节相对比较少，提供了很多的默认参数，利用这些默认参数可以解决很多问题；并提供交叉验证功能。
@@ -126,8 +126,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">svm-train [options] training_file model_file</div><div class="line">Options:</div><div class="line">-s svm类型：设置分类器类型（默认0）</div><div class="line">-t 核函数类型：核函数设置类型（默认2）</div><div class="line">-c cost：设置C-SVC，e -SVR和v-SVR的参数（损失函数）（默认1）</div><div class="line">-b 概率估计 是否训练可估计概率的模型（默认0）</div><div class="line">-v 交叉验证：设置交叉验证</div></pre></td></tr></table></figure>
 <p>e.g.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">svm-train [options] training_file model_file</div><div class="line">svm-train -s 0 -t 0 train_data model</div></pre></td></tr></table></figure>
-<pre><code>对于交叉验证，使用-v参数，此时svm-train返回的不再是一个结构体model，而是交叉验证的精度。
-</code></pre><p>​    对于分类问题，返回的是交叉检验下的平均分类准确率；回归问题，返回的是交叉检验下的平均均方根误差（MSE）。</p>
+<p>​    对于交叉验证，使用-v参数，此时svm-train返回的不再是一个结构体model，而是交叉验证的精度。<br>​    对于分类问题，返回的是交叉检验下的平均分类准确率；回归问题，返回的是交叉检验下的平均均方根误差（MSE）。</p>
 <p><strong>(3) svm-predict</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">svm-predict [options] test_file model_file output_file</div><div class="line">-b 是否输出预测概率值：0或1（默认0）</div><div class="line">test_file：测试文件路径</div><div class="line">model_file:训练到的模型文件</div><div class="line">output_file：预测的结果文件</div></pre></td></tr></table></figure>
 <p>e.g.</p>
@@ -142,7 +141,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/12/04/LibSVM/" data-id="cjas0sw1r000anrwwfui47au6" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/12/04/LibSVM/" data-id="cjas0wr4w000ds2ww11gfpsc1" class="article-share-link">分享到</a>
       
 
       
