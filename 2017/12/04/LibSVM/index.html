@@ -16,7 +16,7 @@
 <meta property="og:description" content="LibSVM​    libsvm是台湾大学林智仁(LinChih-Jen)教授等开发设计的一个简单、易于使用和快速有效的SVM模式识别与回归的软件包。他不但提供了编译好的可在Windows系列系统的执行文件，还提供了源代码，方便改进、修改以及在其它操作系统上应用；该软件对SVM所涉及的参数调节相对比较少，提供了很多的默认参数，利用这些默认参数可以解决很多问题；并提供交叉验证功能。
 
 下载地址">
-<meta property="og:updated_time" content="2017-12-09T12:37:29.000Z">
+<meta property="og:updated_time" content="2017-12-09T12:39:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LibSVM">
 <meta name="twitter:description" content="LibSVM​    libsvm是台湾大学林智仁(LinChih-Jen)教授等开发设计的一个简单、易于使用和快速有效的SVM模式识别与回归的软件包。他不但提供了编译好的可在Windows系列系统的执行文件，还提供了源代码，方便改进、修改以及在其它操作系统上应用；该软件对SVM所涉及的参数调节相对比较少，提供了很多的默认参数，利用这些默认参数可以解决很多问题；并提供交叉验证功能。
@@ -141,8 +141,8 @@
 <p>​    svm的参数优化很重要，libsvm包里面包含了参数的优化函数，主要是暴力求解参数。一般来说我们会使用高斯核函数，包含两个参数（c 和 g）。</p>
 <p>\tools\grid.py可以帮助我们选择参数。（python grid.py train.txt）进入暴力尝试参数，整个跑完后，去找最后一行，前面两个分别是c跟g，用这组参数重新train。（svmtrain -c 512.0 -g 8.0 train.txt ）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">svm-train  train.txt</div></pre></td></tr></table></figure>
-<pre><code>第四步：使用建好的model进行预测，使用**svm-predict**，输出**train.txt.out**。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">svm-predict test.txt train.txt.model output.txt</div></pre></td></tr></table></figure>
+<p>​    第四步：使用建好的model进行预测，使用<strong>svm-predict</strong>，输出<strong>train.txt.out</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">svm-predict test.txt train.txt.model output.txt</div></pre></td></tr></table></figure>
 <p>总结：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">处理成libsvm接受的文件格式</div><div class="line">svm-scale -l -1 -u 1 train.txt &gt; train.scale.txt (test 也要做同样的scale) </div><div class="line">python grid.py train.scale.txt  找  -c -g </div><div class="line">svmtrain -c XXX -g XXX train.scale.txt</div><div class="line">svm-predict test.scale.txt train.scale.txt.model output.txt</div></pre></td></tr></table></figure>
 <p>或者：</p>
@@ -157,7 +157,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/12/04/LibSVM/" data-id="cjazbsoij00052mwwwi50xrae" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/12/04/LibSVM/" data-id="cjazbv5l2000d5qwwzpj1hbuk" class="article-share-link">分享到</a>
       
 
       
