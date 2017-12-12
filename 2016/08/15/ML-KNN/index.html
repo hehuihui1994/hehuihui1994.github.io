@@ -12,12 +12,15 @@
 <meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2016/08/15/ML-KNN/index.html">
 <meta property="og:site_name" content="何烩烩的博客">
 <meta property="og:description" content="1  MLKNN简介  多标签学习来源于文本分类问题，一个文档可能同时属于几个不同的类别。在多标签学习中，训练集中的每个样例有多个标签，我们的主要任务是预测测试样本的标签集合。&amp;emsp;&amp;emsp;多标签数据学习方法主要分为两种，一种问题转换法，包括转换为二分类、转换为标签排序、转换为多分类。另一种是算法适应法，包括Lazy learning(如ML-KNN)、Decision tree(如ML">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/multi_label_cov.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/multi_label_ap.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/sample_for_multi_label.png">
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/mlknn.png">
-<meta property="og:updated_time" content="2016-08-19T11:27:36.000Z">
+<meta property="og:updated_time" content="2017-12-12T13:03:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" ML-KNN">
 <meta name="twitter:description" content="1  MLKNN简介  多标签学习来源于文本分类问题，一个文档可能同时属于几个不同的类别。在多标签学习中，训练集中的每个样例有多个标签，我们的主要任务是预测测试样本的标签集合。&amp;emsp;&amp;emsp;多标签数据学习方法主要分为两种，一种问题转换法，包括转换为二分类、转换为标签排序、转换为多分类。另一种是算法适应法，包括Lazy learning(如ML-KNN)、Decision tree(如ML">
-<meta name="twitter:image" content="http://oc3xgjy1i.bkt.clouddn.com/mlknn.png">
+<meta name="twitter:image" content="http://oc3xgjy1i.bkt.clouddn.com/multi_label_cov.png">
   
   
     <link rel="icon" href="http://oc3xgjy1i.bkt.clouddn.com/favicon.ico">
@@ -104,14 +107,18 @@
 <a id="more"></a>
 <hr>
 <h2 id="2-评价指标"><a href="#2-评价指标" class="headerlink" title="2  评价指标"></a><strong>2  评价指标</strong></h2><p>  多标签学习系统的评价指标与传统的单个标签学习系统不同，单标签任务常见的评价指标有accuracy、precision、 recall 、F-measure。多标签任务的评价指标更为复杂，主要有海明损失（Hamming loss，HL）、1-错误率（One-error，OE）、覆盖率（Coverage）、排序损失（Ranking loss，RL）、平均精度（Average precision，AVP）。</p>
-<h3 id="2-1-海明损失（Hamming-loss，HL）"><a href="#2-1-海明损失（Hamming-loss，HL）" class="headerlink" title="2.1  海明损失（Hamming loss，HL）"></a>2.1  海明损失（Hamming loss，HL）</h3><p>  海明损失可以用来评估一个样本被错分多少次,例如，一个样本不属于标签A但是被错分成标签A，或者是，一个样本属于标签A，但是没有被预测为标签A。<br>&emsp;&emsp;也可以说，用海明损失来计算分类器预测出的结果序列与结果序列之间的数值上的距离。海明损失越小，预测结果越好。<br>$$HL=\frac{1}{m}.\sum_{i=1}^{m}\frac{|Y_i\Delta Z_i|}{M}$$<br>&emsp;&emsp;m–样本个数<br>  M–所有标签总个数<br>  $Y_i$–样本i实际标签的集合<br>&emsp;&emsp;$Z_i$–样本i预测标签的集合<br>&emsp;&emsp;$\Delta$–两个集合的对称差，异或</p>
+<h3 id="2-1-海明损失（Hamming-loss，HL）"><a href="#2-1-海明损失（Hamming-loss，HL）" class="headerlink" title="2.1  海明损失（Hamming loss，HL）"></a>2.1  海明损失（Hamming loss，HL）</h3><p>  海明损失可以用来评估一个样本被错分多少次,例如，一个样本不属于标签A但是被错分成标签A，或者是，一个样本属于标签A，但是没有被预测为标签A。<br>&emsp;&emsp;也可以说，用海明损失来计算分类器预测出的结果序列与结果序列之间的数值上的距离。海明损失越小，预测结果越好。<br>$$<br>HL=\frac{1}{m}.\sum_{i=1}^{m}\frac{|Y_i\Delta Z_i|}{M}<br>$$<br>&emsp;&emsp;m–样本个数<br>  M–所有标签总个数<br>  $Y_i$–样本i实际标签的集合<br>&emsp;&emsp;$Z_i$–样本i预测标签的集合<br>&emsp;&emsp;$\Delta$–两个集合的对称差，异或</p>
 <h3 id="2-2-1-错误率（One-error，OE）"><a href="#2-2-1-错误率（One-error，OE）" class="headerlink" title="2.2  1-错误率（One-error，OE）"></a>2.2  1-错误率（One-error，OE）</h3><p>&emsp;&emsp;1-错误率可以用来评估在输出结果中排序第一的标签并不属于实际标签集中的概率。相当于单标签分类问题中的评价指标error。1-错误率越小，预测结果越好。<br>$$<br>one-error=\frac{1}{m}.\sum_{i=1}^{m}g( \quad(\arg\max_{y\in Y}f(x_i,y))\notin Y_i\quad)<br>$$</p>
 <p>$$<br>g(x)=\begin{cases}<br>0&amp; \text{x为假}\\<br>1&amp; \text{x为真}<br>\end{cases}<br>$$</p>
-<h3 id="2-3-覆盖率（Coverage）"><a href="#2-3-覆盖率（Coverage）" class="headerlink" title="2.3  覆盖率（Coverage）"></a>2.3  覆盖率（Coverage）</h3><p>  覆盖率评价我们平均还差多远，在排序列表中向下，直接覆盖了所有与这个样本相关的标签。覆盖率越小，预测结果越好。<br>$$<br>coverage=\frac{1}{m}.\sum_{i=1}^{m}\max_{y\in Y_i}rank_f(x_i,y)-1<br>$$</p>
+<h3 id="2-3-覆盖率（Coverage）"><a href="#2-3-覆盖率（Coverage）" class="headerlink" title="2.3  覆盖率（Coverage）"></a>2.3  覆盖率（Coverage）</h3><p>  覆盖率评价我们平均还差多远，在排序列表中向下，直接覆盖了所有与这个样本相关的标签。覆盖率越小，预测结果越好。<br>$$<br>coverage=\frac{1}{m}.\sum_{i=1}^{m}\max_{y\in Y_i}rank_f(x_i,y)-1<br>$$<br>​    举个例子来解释公式中的max rank。图左边为一个样本的预测概率和真实标记，将预测概率从大到小排序，对应的真实标记也跟着排序，排序后真实标记中从左往右，最后一个标记为1的情绪类别对应的排名为4，因此max rank = 4。</p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/multi_label_cov.png" alt=""></p>
 <h3 id="2-4-排序损失（Ranking-loss，RL）"><a href="#2-4-排序损失（Ranking-loss，RL）" class="headerlink" title="2.4  排序损失（Ranking loss，RL）"></a>2.4  排序损失（Ranking loss，RL）</h3><p>  表示有多少不相关的标签排序高于相关的标签。排序损失用来表示在结果排序中，不属于相关标签集中的项目被排在了属于相关标签集中项目的概率的平均。排序损失越小，预测结果越好。<br>$$<br>\begin{aligned}<br>RL=\frac{1}{m}.\sum_{i=1}^{m}\frac{1}{|Y_i||\overline{Y_i}|}|\{\quad (y_1,y_2)\quad |f(x_i,y_1)\le f(x_i,y_2),(y_1,y_2)\in Y_i\times \overline{Y_i} \}\quad |<br>\end{aligned}<br>$$<br>&emsp;&emsp;$\overline{Y_i}$是$Y_i$相对于所有类别标签集合L的补集。</p>
-<h3 id="2-5-平均精度（Average-precision，AVP）"><a href="#2-5-平均精度（Average-precision，AVP）" class="headerlink" title="2.5  平均精度（Average precision，AVP）"></a>2.5  平均精度（Average precision，AVP）</h3><p>&emsp;&emsp;在所有的预测结果排序中，排序排在相关标签集的标签前面，且属于相关标签集的概率，该指标反映了分类标签的平均精确度。这个指标最初用于信息检索（IR）系统，用来评估检索的文本排序性能。平均精度越大，预测效果越好。<br>$$<br>\begin{aligned}<br>AVG&amp;=\frac{1}{m}\sum_{i=1}^{m}\frac{1}{|Y_i|}\times\sum_{y \in Y_i} \frac{|y^{‘}\quad|\quad rank_f(x_i,y^{‘})\le rank_f(x_i,y),y^{‘}\in Y_i)|}{rank_{f}(x_i,y)}<br>\end{aligned}<br>$$</p>
+<h3 id="2-5-平均精度（Average-precision，AVP）"><a href="#2-5-平均精度（Average-precision，AVP）" class="headerlink" title="2.5  平均精度（Average precision，AVP）"></a>2.5  平均精度（Average precision，AVP）</h3><p>&emsp;&emsp;在所有的预测结果排序中，排序排在相关标签集的标签前面，且属于相关标签集的概率，该指标反映了分类标签的平均精确度。这个指标最初用于信息检索（IR）系统，用来评估检索的文本排序性能。平均精度越大，预测效果越好。<br>$$<br>\begin{aligned}<br>AVG&amp;=\frac{1}{m}\sum_{i=1}^{m}\frac{1}{|Y_i|}\times\sum_{y \in Y_i} \frac{|y^{‘}\quad|\quad rank_f(x_i,y^{‘})\le rank_f(x_i,y),y^{‘}\in Y_i)|}{rank_{f}(x_i,y)}<br>\end{aligned}<br>$$<br>​    举个例子来解释公式。还是刚刚那个样例，Yi表示第i个样本中真实标记为1的个数，这里等于2。这一部分的公式，分母表示标记为1的情绪类别所对应的排名，分子表示小于等于该排名的情绪类别中标记为1的个数，对于所有标记为1的情绪类别进行计算。比如，第一个1所在的位置rank=1，因此分母=1，排名比它小且标计为1的个数为1，因此值为1. 第二个1所在的位置rank=4，因此分母=4，排名比它小且标计为1的个数为2，因此值为2/4.</p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/multi_label_ap.png" alt=""></p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/sample_for_multi_label.png" alt=""></p>
 <hr>
-<h2 id="3-ML-KNN"><a href="#3-ML-KNN" class="headerlink" title="3  ML-KNN"></a>3  ML-KNN</h2><p>&emsp;&emsp;给定样本x和它的类别集合$Y\subseteq\Omega$,令$\overrightarrow{y_x}$表示x的类别向量，如果标签$\iota \in \Omega$,那么$\overrightarrow{y_x}(\iota)(\iota\in\Omega)$的值为1，否则为0。<br>&emsp;&emsp;令N(x)表示样本x在训练集中的K近邻，根据这些邻居的标签集，可以计算属于第$\iota$个类别的邻居个数，用公式表示为：<br>$$\overrightarrow{C_x}(\iota)=\sum_{a\in N(x)}\overrightarrow{y_a}(\iota)$$<br>&emsp;&emsp;对于一个测试样本t，用最大后验概率原则（MAP）决定测试样本是否有类别标签$\iota$，使用如下公式：<br>\begin{aligned}<br>\vec y_{t}(L) &amp;= \arg\max \limits_{b\in\{0,1\}} p(H_{b}^L | E_{\vec C_{t} (L)}^L)<br>           \\&amp;=\arg\max \limits_{b\in\{0,1\}} p(H_{b}^L).p(E_{\vec C_{t} (L)}^L | H_{b}^L)<br>\end{aligned}<br>  其中，$H_{1}^L $表示t中包含情绪标签L，$H_{0}^L $表示t不包含情绪标签L。 $E_{j}^L $（$j\in\{0,1,…,k\} $ ）表示在t的k近邻中，有j个样本有标签L。$\vec C_{t}^L $ 用来计算t的k个近邻中含有情绪L的近邻个数，$\vec C_{t}^L=\sum_{a\in N(t)}\vec y_{a}(L) $ 。先验概率$p(H_{b}^L) $ 和后验概率 $p(E_{\vec C_{t} (L)}^L | H_{b}^L) $可以从训练集中计算频度得到。具体的ML-KNN算法过程如图所示：</p>
+<h2 id="3-ML-KNN"><a href="#3-ML-KNN" class="headerlink" title="3  ML-KNN"></a>3  ML-KNN</h2><p>&emsp;&emsp;给定样本x和它的类别集合$Y\subseteq\Omega$,令$\overrightarrow{y_x}$表示x的类别向量，如果标签$\iota \in \Omega$,那么$\overrightarrow{y_x}(\iota)(\iota\in\Omega)$的值为1，否则为0。<br>&emsp;&emsp;令N(x)表示样本x在训练集中的K近邻，根据这些邻居的标签集，可以计算属于第$\iota$个类别的邻居个数，用公式表示为：<br>$$<br>\overrightarrow{C_x}(\iota)=\sum_{a\in N(x)}\overrightarrow{y_a}(\iota)<br>$$<br>&emsp;&emsp;对于一个测试样本t，用最大后验概率原则（MAP）决定测试样本是否有类别标签$\iota$，使用如下公式：</p>
+<p>$$<br>\begin{aligned}<br>\vec y_{t}(L) &amp;= \arg\max \limits_{b\in\{0,1\}} p(H_{b}^L | E_{\vec C_{t} (L)}^L)<br>\\&amp;=\arg\max \limits_{b\in\{0,1\}} p(H_{b}^L).p(E_{\vec C_{t} (L)}^L | H_{b}^L)<br>\end{aligned}<br>$$<br>  其中，$H_{1}^L $表示t中包含情绪标签L，$H_{0}^L $表示t不包含情绪标签L。 $E_{j}^L $（$j\in\{0,1,…,k\} $ ）表示在t的k近邻中，有j个样本有标签L。$\vec C_{t}^L $ 用来计算t的k个近邻中含有情绪L的近邻个数，$\vec C_{t}^L=\sum_{a\in N(t)}\vec y_{a}(L) $ 。先验概率$p(H_{b}^L) $ 和后验概率 $p(E_{\vec C_{t} (L)}^L | H_{b}^L) $可以从训练集中计算频度得到。具体的ML-KNN算法过程如图所示：</p>
 <center>
 
 <p> <img src="http://oc3xgjy1i.bkt.clouddn.com/mlknn.png" alt="mlknn"></p>
@@ -125,7 +132,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/15/ML-KNN/" data-id="cjb1uzlnm000qt3wwdx9zo9m9" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/15/ML-KNN/" data-id="cjb3n1cds000h7pwwh0vuksv9" class="article-share-link">分享到</a>
       
 
       
