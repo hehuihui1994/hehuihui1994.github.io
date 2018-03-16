@@ -4,23 +4,24 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <title>NLPIR-ICTCLAS进行分词 | 何烩烩的博客</title>
+  <title>TensorFlow常见问题 | 何烩烩的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="工具包下载https://github.com/NLPIR-team/NLPIR">
+  <meta name="description" content="AttributeError: ‘module’ object has no attribute ‘rnn_cell’  
+
+123tf.nn.rnn_cell.GRUCell改为tf.contrib.rnn.GRUCell">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NLPIR-ICTCLAS进行分词">
-<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2016/08/19/NLPIR-ICTCLAS进行分词/index.html">
+<meta property="og:title" content="TensorFlow常见问题">
+<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2017/07/19/TensorFlow常见问题/index.html">
 <meta property="og:site_name" content="何烩烩的博客">
-<meta property="og:description" content="工具包下载https://github.com/NLPIR-team/NLPIR">
-<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/nlpir%E5%88%86%E8%AF%8D%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
-<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/%E5%88%86%E8%AF%8D%E5%89%8D.png">
-<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/%E5%88%86%E8%AF%8D%E5%90%8E.png">
-<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/%E5%88%9D%E5%A7%8B%E5%8C%96%E5%A4%B1%E8%B4%A5.png">
-<meta property="og:updated_time" content="2016-11-18T06:43:30.000Z">
+<meta property="og:description" content="AttributeError: ‘module’ object has no attribute ‘rnn_cell’  
+
+123tf.nn.rnn_cell.GRUCell改为tf.contrib.rnn.GRUCell">
+<meta property="og:updated_time" content="2018-03-16T03:10:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NLPIR-ICTCLAS进行分词">
-<meta name="twitter:description" content="工具包下载https://github.com/NLPIR-team/NLPIR">
-<meta name="twitter:image" content="http://oc3xgjy1i.bkt.clouddn.com/nlpir%E5%88%86%E8%AF%8D%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
+<meta name="twitter:title" content="TensorFlow常见问题">
+<meta name="twitter:description" content="AttributeError: ‘module’ object has no attribute ‘rnn_cell’  
+
+123tf.nn.rnn_cell.GRUCell改为tf.contrib.rnn.GRUCell">
   
   
     <link rel="icon" href="http://oc3xgjy1i.bkt.clouddn.com/favicon.ico">
@@ -69,10 +70,10 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-NLPIR-ICTCLAS进行分词" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-TensorFlow常见问题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/hehuihui1994.github.io/2016/08/19/NLPIR-ICTCLAS进行分词/" class="article-date">
-  <time datetime="2016-08-19T12:30:04.000Z" itemprop="datePublished">2016-08-19</time>
+    <a href="/hehuihui1994.github.io/2017/07/19/TensorFlow常见问题/" class="article-date">
+  <time datetime="2017-07-19T09:02:14.000Z" itemprop="datePublished">2017-07-19</time>
 </a>
     
   <div class="article-category">
@@ -88,7 +89,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      NLPIR-ICTCLAS进行分词
+      TensorFlow常见问题
     </h1>
   
 
@@ -98,36 +99,37 @@
       
         <!-- Table of Contents -->
         
-        <h2 id="工具包下载"><a href="#工具包下载" class="headerlink" title="工具包下载"></a>工具包下载</h2><p><a href="https://github.com/NLPIR-team/NLPIR">https://github.com/NLPIR-team/NLPIR</a><br><a id="more"></a></p>
-<h2 id="工具使用"><a href="#工具使用" class="headerlink" title="工具使用"></a>工具使用</h2><p>&#160;&#160;&#160;&#160;首先看一下文件夹结构。</p>
-<center><br><img src="http://oc3xgjy1i.bkt.clouddn.com/nlpir%E5%88%86%E8%AF%8D%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" alt="nlpir分词目录结构"><br><br></center>
-
-<p> &#160;&#160;&#160;&#160;选择sample-&gt;pythonsample-&gt;nlpir.py,调用其中的Seg()函数。<br>&#160;&#160;&#160;&#160;接下来两张图片展示分词效果，分词前：</p>
-<center><br><img src="http://oc3xgjy1i.bkt.clouddn.com/%E5%88%86%E8%AF%8D%E5%89%8D.png" alt="分词前"><br></center><br>&#160;&#160;&#160;&#160;分词后：<br><center><br><img src="http://oc3xgjy1i.bkt.clouddn.com/%E5%88%86%E8%AF%8D%E5%90%8E.png" alt="分词后"><br></center>
-
-
-
-<h2 id="添加用户词典"><a href="#添加用户词典" class="headerlink" title="添加用户词典"></a>添加用户词典</h2><pre><code>有的时候，我们需要导入自定义词典，确保这些词在分词后仍然是一个整体。这个时候，可以直接调用 AddUserWord函数。例如把词“杯具”加入到用户词典中，语句为AddUserWord(“杯具”)。
-</code></pre><p>​    由于微博数据中包含大量网络流行语、最新用语等，很多词语在ICTCLAS<br>系统中没有被很好地分词，比如“给力”在ICTCLAS中被分解为“给”和“力”2个词，不能被作为积极的信息处理，这对于情感的倾向性判断显然造成了很大的误差．还有很多没有添加的常用俗语、谚语、最新流行语等都不能进行很好的切分。因此，我们需要构建新的词典，如</p>
-<p>​    ①否定词典．鉴于否定词对句子情感的影响构建了否定词典，包括“不要”，“不需”，“不会”等．初步组成了含有10个常见否定词的否定词词典．</p>
-<p>​    ②程度词典．鉴于微博短文本中常出现的程度词对句子情感的作用，加入了相关常用的程度词典，包括“最”，“特别”，“真”，“及其”，“更加”等．初步构成含有18个常见程度词的词典．<br>​    ③感叹词典．鉴于微博中常常出现的感叹词及其在句子的情感走向判断中的作用，加入了感叹词典，包括“呵呵”，“哈哈”，“唉”，“嘿嘿”等共27个感叹词的正感叹词和负感叹词．</p>
-<p>​    ④正向情感词典i添加知网情感分析用词词典中正面评价词语(中文)和正面情感词语(中文)以及NTUSD里的积极情感词典，并添加了人工整理的网络常用正向情感词汇，例如：“好品”，“有才”，“顶”，“美眉”等．以上词汇集合初步构成包含5 280个正向情感词的正向情感词典．<br>​    ⑤负向情感词典．添加了知网情感分析用词词典中负面评价词语(中文)、负面情感词语(中文)以及NTUSD里的消极情感词典，并添加了人工整理的网络常用负向情感词汇，例如：“悲催”，“纠结”，“不爽”，“脑残”等．以上此词汇集合初步构成包含9039个负向情感词的负向情感词典．</p>
-<h2 id="初始化失败"><a href="#初始化失败" class="headerlink" title="初始化失败"></a>初始化失败</h2><p>&#160;&#160;&#160;&#160; NLPIR分词工具用一段时间就会初始化失败，如图所示： </p>
-<p><center><br><img src="http://oc3xgjy1i.bkt.clouddn.com/%E5%88%9D%E5%A7%8B%E5%8C%96%E5%A4%B1%E8%B4%A5.png" alt="初始化失败"><br></center><br>&#160;&#160;&#160;&#160;解决方法也很简单，需要去官网重新下载授权文件，在License文件夹中下载相应的授权的ZIP文件，解压后放到NLPIR-master\NLPIR-ICTCLAS\sample\pythonsample\Data中即可。</p>
+        <ol>
+<li>AttributeError: ‘module’ object has no attribute ‘rnn_cell’  </li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tf.nn.rnn_cell.GRUCell</div><div class="line">改为</div><div class="line">tf.contrib.rnn.GRUCell</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<ol>
+<li>AttributeError: ‘module’ object has no attribute ‘scalar_summary’</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tf.scalar_summary</div><div class="line">改为</div><div class="line">tf.summary.scalar</div></pre></td></tr></table></figure>
+<p>3.AttributeError: ‘module’ object has no attribute ‘merge_summary’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tf.merge_summary</div><div class="line">改为</div><div class="line">tf.summary.merge</div></pre></td></tr></table></figure>
+<p>4.AttributeError: ‘module’ object has no attribute ‘SummaryWriter’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tf.train.SummaryWriter </div><div class="line">改为</div><div class="line">tf.summary.FileWriter.</div></pre></td></tr></table></figure>
+<p>5.raise ValueError(“GraphDef cannot be larger than 2GB.”)</p>
+<p>爆掉应该是因为所有的变量都加载到了<strong>默认图</strong>里。</p>
+<p>可能因为我跑完第一个model之后，再跑第二个model，我以为会覆盖的，但是第一个model中的变量还在图中…</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">for k in range(9):</div><div class="line">    avg_y_pred_p = []</div><div class="line"></div><div class="line">    for m in range(num_classifiers[k]):</div><div class="line">        # the m th classifier</div><div class="line">        print(&apos;hhhe_ebdt&#123;&#125;_index&#123;&#125;_label&#123;&#125;_classifier&#123;&#125;.txt&apos;.format(i, j, k, m))</div><div class="line"></div><div class="line">        #  to overcome raise ValueError(“GraphDef cannot be larger than 2GB.”)</div><div class="line">        #######################创建新图，将新图作为默认图</div><div class="line">        g = tf.Graph()</div><div class="line">        with g.as_default():</div><div class="line">        #######################</div><div class="line">    </div><div class="line">            obj = Bi_LSTM_Att_BC_model(</div><div class="line">                test_index=j,</div><div class="line">                embedding_type=i,</div><div class="line">                label_index = k,</div><div class="line">                classifier_index = m,</div><div class="line">                	scope=&apos;hhhe_ebdt&#123;&#125;_index&#123;&#125;_label&#123;&#125;_classifier&#123;&#125;.txt&apos;.format(i, j, k, m)</div><div class="line">            )</div><div class="line"></div><div class="line">            time_cost, cur_y_true, best_y_pred_p  = obj.run()</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/19/NLPIR-ICTCLAS进行分词/" data-id="cjetda4xr000sl6wwm34fhhw0" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/07/19/TensorFlow常见问题/" data-id="cjetda4y30013l6wwtcdio6d0" class="article-share-link">分享到</a>
       
 
       
-        <a href="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/19/NLPIR-ICTCLAS进行分词/#ds-thread" class="article-comment-link">评论</a>
+        <a href="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/07/19/TensorFlow常见问题/#ds-thread" class="article-comment-link">评论</a>
       
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hehuihui1994.github.io/tags/工具/">工具</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hehuihui1994.github.io/tags/深度学习/">深度学习</a></li></ul>
 
     </footer>
   </div>
@@ -135,19 +137,19 @@
     
 <nav id="article-nav">
   
-    <a href="/hehuihui1994.github.io/2016/08/19/GitHub-Pages-Hexo-搭建网站以及-Landscape-主题优化/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/hehuihui1994.github.io/2017/10/10/jupyter-notebook/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
-          GitHub Pages + Hexo 搭建网站以及 Landscape 主题优化
+          jupyter notebook 
         
       </div>
     </a>
   
   
-    <a href="/hehuihui1994.github.io/2016/08/19/python-全局变量/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/hehuihui1994.github.io/2017/07/19/vscode&git/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">python 全局变量</div>
+      <div class="article-nav-title">vscode&amp;git</div>
     </a>
   
 </nav>
@@ -157,7 +159,7 @@
 
 
   <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2016/08/19/NLPIR-ICTCLAS进行分词/" data-title="NLPIR-ICTCLAS进行分词" data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/19/NLPIR-ICTCLAS进行分词/"></div>
+    <div id="ds-thread" class="ds-thread" data-thread-key="2017/07/19/TensorFlow常见问题/" data-title="TensorFlow常见问题" data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/07/19/TensorFlow常见问题/"></div>
   </section>
 
 
