@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2018/03/20/评估指标/index.html">
 <meta property="og:site_name" content="何烩烩的博客">
 <meta property="og:description" content="​    研究多标记中的不平衡问题的时候，我们不再采用HL那5个指标，而是用macro_F。采用binary_class做不平衡实验的时候，对评估指标的理解出现了混淆，这里整理一下。">
-<meta property="og:updated_time" content="2018-03-20T06:56:29.000Z">
+<meta property="og:updated_time" content="2018-03-20T08:09:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="评估指标">
 <meta name="twitter:description" content="​    研究多标记中的不平衡问题的时候，我们不再采用HL那5个指标，而是用macro_F。采用binary_class做不平衡实验的时候，对评估指标的理解出现了混淆，这里整理一下。">
@@ -258,12 +258,38 @@
 </tbody>
 </table>
 <p>那么，<br>$$<br>\begin{align}<br>ACC_2 &amp;= \frac{A_2 + D_2}{A_2 + B_2 + C_2 + D_2} \\<br>&amp; = \frac{D_1 + A_1}{D_1 + C_1 + B_1 + A_1}\\<br>&amp; = ACC_1\\<br>&amp; = ACC<br>\end{align}\<br>$$<br>此时，类别1的ACC与类别2的ACC相等。对于$Precision_{micro}$有<br>$$<br>\begin{align}<br>Precision_{micro} &amp;=\frac{A_1 + A_2}{A_1 + A_2 + B_1 + B_2}\\<br>&amp; = \frac{A_1 + D_1}{A_1 + B_1 + C_1 + D_1} \\<br>&amp; = ACC<br>\end{align}<br>$$<br>综上，在二分类（类1与类2满足互斥）时，类1的ACC与类2的ACC相等，$precision_{micro}$与ACC相等。多类情况下无法满足转换关系，无法保证$precision_{micro}$与ACC相等。</p>
+<p><strong>问题2：二分类系统中，正类和负类的P、R、F？</strong></p>
+<p><strong>回答1：</strong></p>
+<p>假设正类</p>
+<table>
+<thead>
+<tr>
+<th>Predict/Real</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>$A_1$</td>
+<td>$B_1$</td>
+</tr>
+<tr>
+<td>0</td>
+<td>$C_1$</td>
+<td>$D_1$</td>
+</tr>
+</tbody>
+</table>
+<p>那么负类<br>| Predict/Real | 1     | 0     |<br>| ———— | —– | —– |<br>| 1            | $D_1$ | $C_1$ |<br>| 0            | $B_1$ | $A_1$ |</p>
+<p>正类<br>$$<br>P_1 = \frac{A_1}{A_1 + B_1}\\<br>R_1 = \frac{A_1}{A_1 + C_1}\\<br>F_1 = \frac{2P_1R_1}{P_1 + R_1}<br>$$<br>负类<br>$$<br>P_2 = \frac{D_1}{D_1 + C_1}\\<br>R_2 = \frac{D_1}{D_1 + B_1}\\<br>F_2 = \frac{2P_2R_2}{P_2 + R_2}<br>$$</p>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/20/评估指标/" data-id="cjezb2tls001rezwwu7ps6szc" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/20/评估指标/" data-id="cjezdopev001ugsww184yryxn" class="article-share-link">分享到</a>
       
 
       
