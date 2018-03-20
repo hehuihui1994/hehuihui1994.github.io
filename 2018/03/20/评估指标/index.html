@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="何烩烩的博客">
 <meta property="og:description" content="​    研究多标记中的不平衡问题的时候，我们不再采用HL那5个指标，而是用macro_F。采用binary_class做不平衡实验的时候，对评估指标的理解出现了混淆，这里整理一下。
 1 二分类系统中的评估指标1234precision = TP / (TP + FP)recall = TP / (TP + FN)accuracy = (TP + TN) / (TP + FP + TN + FN)">
-<meta property="og:updated_time" content="2018-03-20T06:39:01.000Z">
+<meta property="og:updated_time" content="2018-03-20T06:41:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="评估指标">
 <meta name="twitter:description" content="​    研究多标记中的不平衡问题的时候，我们不再采用HL那5个指标，而是用macro_F。采用binary_class做不平衡实验的时候，对评估指标的理解出现了混淆，这里整理一下。
@@ -151,21 +151,22 @@
 <p>Zhang M L, Zhou Z H. A review on multi-label learning algorithms[J]. IEEE transactions on knowledge and data engineering, 2014, 26(8): 1819-1837.</p>
 </blockquote>
 <p><strong>Label-based Metrics</strong></p>
-<p>​    对于第j个类别，我们可以通过以下四个变量来评估它的二分类性能：</p>
-<p>上面的、、、代表第j个类别的true positive, false positive, false negative, true</p>
+<p>​    对于第j个类别$y_j$，我们可以通过以下四个变量来评估它的二分类性能：<br>$$<br>TP_j = |\{x_i | y_j \in h(x_i) \wedge y_j \in Y_i \}| \tag{1}<br>$$</p>
+<p>$$<br>FP_j = |\{x_i | y_j \in h(x_i) \wedge y_j \not\in Y_i \}| \tag{2}<br>$$</p>
+<p>$$<br>FN_j = |\{x_i | y_j \not\in h(x_i) \wedge y_j \in Y_i \}| \tag{3}<br>$$</p>
+<p>$$<br>TN_j = |\{x_i | y_j \not\in h(x_i) \wedge y_j \not\in Y_i \}| \tag{4}<br>$$</p>
+<p>上面的$TP_j、FP_j 、FN_j、TN_j$代表第j个类别的true positive, false positive, false negative, true</p>
 <p>negative。与二分类中的定义一样。</p>
-<p>​    令代表一些特定的二分类准则（specific binary classification metric），其中。</p>
+<p>​    令$ B(TP_j , FP_j , TN_j , FN_j)$代表一些特定的二分类准则（specific binary classification metric），其中$B \in \{Accuracy, Precision, Recall, F\}$。</p>
 <ul>
-<li><p>Macro-averaging</p>
-<p>​</p>
+<li><p>Macro-averaging<br>$$<br>B_{macro}(h) = \frac{1}{q}\sum_{j=1}^{q}B(TP_j, FP_j, TN_j, FN_j) \tag{5}<br>$$</p>
 </li>
-<li><p>Micro-averaging</p>
-<p>​</p>
+<li><p>Micro-averaging<br>$$<br>B_{micro}(h) = B(\sum_{j=1}^{q}TP_j, \sum_{j=1}^{q}FP_j, \sum_{j=1}^{q}TN_j, \sum_{j=1}^{q}FN_j) \tag{6}<br>$$</p>
 </li>
 </ul>
 <h2 id="3-问题"><a href="#3-问题" class="headerlink" title="3 问题"></a>3 问题</h2><p><strong>问题1：“precision_micro与ACC相等”在两类问题和多类问题下都成立么？</strong></p>
-<p><strong>回答1：</strong>在两类且两类互斥的情况下（e.g. happiness, non-happiness）与ACC相等，在多类情况下（类别&gt;2）不成立。</p>
-<p>证明：令，即</p>
+<p><strong>回答1：</strong>在两类且两类互斥的情况下（e.g. happiness, non-happiness）$precision_{micro}$与ACC相等，在多类情况下（类别&gt;2）不成立。</p>
+<p>证明：令$A_j = TP_j, B_j = FP_j, C_j = TN_j, D_j = FN_j$，即</p>
 <table>
 <thead>
 <tr>
@@ -177,17 +178,19 @@
 <tbody>
 <tr>
 <td>1</td>
-<td></td>
-<td></td>
+<td>$A_j$</td>
+<td>$B_j$</td>
 </tr>
 <tr>
 <td>0</td>
-<td></td>
+<td>$C_j$</td>
+<td>$D_j$</td>
 </tr>
 </tbody>
 </table>
-<p>当j = 2时，</p>
-<p>对于类别1：</p>
+<p>$$<br>\begin{aligned}<br>Precision_{micro} &amp;= Precision(\sum_{j=1}^{q}A_j, \sum_{j=1}^{q}B_j, \sum_{j=1}^{q}C_j, \sum_{j=1}^{q}D_j)\\<br>&amp;=\frac{\sum_{j=1}^qA_j}{\sum_{j=1}^qA_j + \sum_{j=1}^qB_j}<br>\end{aligned}   \tag{7}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>ACC_{micro} &amp;= ACC(\sum_{j=1}^{q}A_j, \sum_{j=1}^{q}B_j, \sum_{j=1}^{q}C_j, \sum_{j=1}^{q}D_j)\\<br>&amp;=\frac{\sum_{j=1}^qA_j + \sum_{j=1}^qD_j}{\sum_{j=1}^qA_j + \sum_{j=1}^qB_j + \sum_{j=1}^qC_j + \sum_{j=1}^qD_j}<br>\end{aligned}   \tag{8}<br>$$</p>
+<p>当j = 2时，<br>$$<br>\begin{aligned}<br>Precision_{micro} &amp;=\frac{\sum_{j=1}^2A_j}{\sum_{j=1}^2A_j + \sum_{j=1}^2B_j}\\<br>&amp;=\frac{A_1 + A_2}{A_1 + A_2 + B_1 + B_2}<br>\end{aligned}   \tag{9}<br>$$<br>对于类别1：</p>
 <table>
 <thead>
 <tr>
@@ -199,15 +202,17 @@
 <tbody>
 <tr>
 <td>1</td>
-<td></td>
-<td></td>
+<td>$A_1$</td>
+<td>$B_1$</td>
 </tr>
 <tr>
 <td>0</td>
-<td></td>
+<td>$C_1$</td>
+<td>$D_1$</td>
 </tr>
 </tbody>
 </table>
+<p>$$<br>ACC_1 = \frac{A_1 + D_1}{A_1 + B_1 + C_1 + D_1} \tag{10}<br>$$</p>
 <p>对于类别2：</p>
 <table>
 <thead>
@@ -220,46 +225,25 @@
 <tbody>
 <tr>
 <td>1</td>
-<td></td>
-<td></td>
+<td>$A_2$</td>
+<td>$B_2$</td>
 </tr>
 <tr>
 <td>0</td>
-<td></td>
+<td>$C_2$</td>
+<td>$D_2$</td>
 </tr>
 </tbody>
 </table>
-<p>当类别1与类别2互斥, e.g. happiness, non-hapiness，则</p>
-<p>类别2满足</p>
-<table>
-<thead>
-<tr>
-<th>Predict/Real</th>
-<th>1</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>那么，</p>
-<p>此时，类别1的ACC与类别2的ACC相等。对于有</p>
-<p>综上，在二分类（类1与类2满足互斥）时，类1的ACC与类2的ACC相等，与ACC相等。多类情况下无法满足公式（12），无法保证与ACC相等。</p>
+<p>$$<br>ACC_2 = \frac{A_2 + D_2}{A_2 + B_2 + C_2 + D_2} \tag{11}<br>$$</p>
+<p>当类别1与类别2互斥, e.g. happiness, non-hapiness，则<br>$$<br>\begin{align}<br>A_2 = D_1\\<br>B_2 = C_1\\<br>C_2 = B_1\\<br>D_2 = A_1<br>\end{align}  \tag{12}<br>$$<br>类别2满足<br>| Predict/Real | 1     | 0     |<br>| ———— | —– | —– |<br>| 1            | $D_1$ | $C_1$ |<br>| 0            | $B_1$ | $A_1$ |</p>
+<p>那么，<br>$$<br>\begin{align}<br>ACC_2 &amp;= \frac{A_2 + D_2}{A_2 + B_2 + C_2 + D_2} \\<br>&amp; = \frac{D_1 + A_1}{D_1 + C_1 + B_1 + A_1}\\<br>&amp; = ACC_1\\<br>&amp; = ACC<br>\end{align}<br>$$<br>此时，类别1的ACC与类别2的ACC相等。对于$Precision_{micro}$有<br>$$<br>\begin{align}<br>Precision_{micro} &amp;=\frac{A_1 + A_2}{A_1 + A_2 + B_1 + B_2}\\<br>&amp; = \frac{A_1 + D_1}{A_1 + B_1 + C_1 + D_1} \\<br>&amp; = ACC<br>\end{align}<br>$$<br>综上，在二分类（类1与类2满足互斥）时，类1的ACC与类2的ACC相等，$precision_{micro}$与ACC相等。多类情况下无法满足公式（12），无法保证$precision_{micro}$与ACC相等。</p>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/20/评估指标/" data-id="cjezagf2q001irxwwyvsi41r3" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/20/评估指标/" data-id="cjezaje9c001vvbww2e5e4vyy" class="article-share-link">分享到</a>
       
 
       
