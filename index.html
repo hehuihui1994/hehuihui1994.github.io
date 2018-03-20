@@ -89,151 +89,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- Table of Contents -->
-        
         <p>​    研究多标记中的不平衡问题的时候，我们不再采用HL那5个指标，而是用macro_F。采用binary_class做不平衡实验的时候，对评估指标的理解出现了混淆，这里整理一下。</p>
-<h2 id="1-二分类系统中的评估指标"><a href="#1-二分类系统中的评估指标" class="headerlink" title="1 二分类系统中的评估指标"></a>1 二分类系统中的评估指标</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">precision = TP / (TP + FP)</div><div class="line">recall = TP / (TP + FN)</div><div class="line">accuracy = (TP + TN) / (TP + FP + TN + FN)</div><div class="line">F1 Score = P*R/2(P+R)，其中P和R分别为 precision 和 recall</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>Predict/Real</th>
-<th>1</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>True Positive (TP)</td>
-<td>False Positive (FP)</td>
-</tr>
-<tr>
-<td>0</td>
-<td>False Negative (FN)</td>
-<td>True Negative (TN)</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>Predict/Real</th>
-<th>1</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>A</td>
-<td>B</td>
-</tr>
-<tr>
-<td>0</td>
-<td>C</td>
-<td>D</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">P = A/(A+B)</div><div class="line">R = A/(A+C)</div><div class="line">F = 2PR/(P+R)</div><div class="line">ACC = (A+D)/(A+B+C+D)</div></pre></td></tr></table></figure>
-<p>​    在二分类问题中，例如预测是否包含情绪happiness，对于类别happiness，我们可以计算P、R、F、ACC，对于类别non-happiness，我们也可以计算P、R、F、ACC。也就是说，对于每一个类别，我们都可以计算P、R、F、ACC。    </p>
-<h2 id="2-multi-label-中的评估指标"><a href="#2-multi-label-中的评估指标" class="headerlink" title="2 multi-label 中的评估指标"></a>2 multi-label 中的评估指标</h2><blockquote>
-<p>Zhang M L, Zhou Z H. A review on multi-label learning algorithms[J]. IEEE transactions on knowledge and data engineering, 2014, 26(8): 1819-1837.</p>
-</blockquote>
-<p><strong>Label-based Metrics</strong></p>
-<p>​    对于第j个类别$y_j$，我们可以通过以下四个变量来评估它的二分类性能：<br>$$<br>TP_j = |\{x_i | y_j \in h(x_i) \wedge y_j \in Y_i \}| \tag{1}<br>$$</p>
-<p>$$<br>FP_j = |\{x_i | y_j \in h(x_i) \wedge y_j \not\in Y_i \}| \tag{2}<br>$$</p>
-<p>$$<br>FN_j = |\{x_i | y_j \not\in h(x_i) \wedge y_j \in Y_i \}| \tag{3}<br>$$</p>
-<p>$$<br>TN_j = |\{x_i | y_j \not\in h(x_i) \wedge y_j \not\in Y_i \}| \tag{4}<br>$$</p>
-<p>上面的$TP_j、FP_j 、FN_j、TN_j$代表第j个类别的true positive, false positive, false negative, true</p>
-<p>negative。与二分类中的定义一样。</p>
-<p>​    令$ B(TP_j , FP_j , TN_j , FN_j)$代表一些特定的二分类准则（specific binary classification metric），其中$B \in \{Accuracy, Precision, Recall, F\}$。</p>
-<ul>
-<li><p>Macro-averaging<br>$$<br>B_{macro}(h) = \frac{1}{q}\sum_{j=1}^{q}B(TP_j, FP_j, TN_j, FN_j) \tag{5}<br>$$</p>
-</li>
-<li><p>Micro-averaging<br>$$<br>B_{micro}(h) = B(\sum_{j=1}^{q}TP_j, \sum_{j=1}^{q}FP_j, \sum_{j=1}^{q}TN_j, \sum_{j=1}^{q}FN_j) \tag{6}<br>$$</p>
-</li>
-</ul>
-<h2 id="3-问题"><a href="#3-问题" class="headerlink" title="3 问题"></a>3 问题</h2><p><strong>问题1：“precision_micro与ACC相等”在两类问题和多类问题下都成立么？</strong></p>
-<p><strong>回答1：</strong>在两类且两类互斥的情况下（e.g. happiness, non-happiness）$precision_{micro}$与ACC相等，在多类情况下（类别&gt;2）不成立。</p>
-<p>证明：令$A_j = TP_j, B_j = FP_j, C_j = TN_j, D_j = FN_j$，即</p>
-<table>
-<thead>
-<tr>
-<th>Predict/Real</th>
-<th>1</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>$A_j$</td>
-<td>$B_j$</td>
-</tr>
-<tr>
-<td>0</td>
-<td>$C_j$</td>
-<td>$D_j$</td>
-</tr>
-</tbody>
-</table>
-<p>$$<br>\begin{aligned}<br>Precision_{micro} &amp;= Precision(\sum_{j=1}^{q}A_j, \sum_{j=1}^{q}B_j, \sum_{j=1}^{q}C_j, \sum_{j=1}^{q}D_j)\\<br>&amp;=\frac{\sum_{j=1}^qA_j}{\sum_{j=1}^qA_j + \sum_{j=1}^qB_j}<br>\end{aligned}   \tag{7}<br>$$</p>
-<p>$$<br>\begin{aligned}<br>ACC_{micro} &amp;= ACC(\sum_{j=1}^{q}A_j, \sum_{j=1}^{q}B_j, \sum_{j=1}^{q}C_j, \sum_{j=1}^{q}D_j)\\<br>&amp;=\frac{\sum_{j=1}^qA_j + \sum_{j=1}^qD_j}{\sum_{j=1}^qA_j + \sum_{j=1}^qB_j + \sum_{j=1}^qC_j + \sum_{j=1}^qD_j}<br>\end{aligned}   \tag{8}<br>$$</p>
-<p>当j = 2时，<br>$$<br>\begin{aligned}<br>Precision_{micro} &amp;=\frac{\sum_{j=1}^2A_j}{\sum_{j=1}^2A_j + \sum_{j=1}^2B_j}\\<br>&amp;=\frac{A_1 + A_2}{A_1 + A_2 + B_1 + B_2}<br>\end{aligned}   \tag{9}<br>$$<br>对于类别1：</p>
-<table>
-<thead>
-<tr>
-<th>Predict/Real</th>
-<th>1</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>$A_1$</td>
-<td>$B_1$</td>
-</tr>
-<tr>
-<td>0</td>
-<td>$C_1$</td>
-<td>$D_1$</td>
-</tr>
-</tbody>
-</table>
-<p>$$<br>ACC_1 = \frac{A_1 + D_1}{A_1 + B_1 + C_1 + D_1} \tag{10}<br>$$</p>
-<p>对于类别2：</p>
-<table>
-<thead>
-<tr>
-<th>Predict/Real</th>
-<th>1</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>$A_2$</td>
-<td>$B_2$</td>
-</tr>
-<tr>
-<td>0</td>
-<td>$C_2$</td>
-<td>$D_2$</td>
-</tr>
-</tbody>
-</table>
-<p>$$<br>ACC_2 = \frac{A_2 + D_2}{A_2 + B_2 + C_2 + D_2} \tag{11}<br>$$</p>
-<p>当类别1与类别2互斥, e.g. happiness, non-hapiness，则<br>$$<br>\begin{align}<br>A_2 = D_1\\<br>B_2 = C_1\\<br>C_2 = B_1\\<br>D_2 = A_1<br>\end{align}  \tag{12}<br>$$<br>类别2满足<br>| Predict/Real | 1     | 0     |<br>| ———— | —– | —– |<br>| 1            | $D_1$ | $C_1$ |<br>| 0            | $B_1$ | $A_1$ |</p>
-<p>那么，<br>$$<br>\begin{align}<br>ACC_2 &amp;= \frac{A_2 + D_2}{A_2 + B_2 + C_2 + D_2} \\<br>&amp; = \frac{D_1 + A_1}{D_1 + C_1 + B_1 + A_1}\\<br>&amp; = ACC_1\\<br>&amp; = ACC<br>\end{align}<br>$$<br>此时，类别1的ACC与类别2的ACC相等。对于$Precision_{micro}$有<br>$$<br>\begin{align}<br>Precision_{micro} &amp;=\frac{A_1 + A_2}{A_1 + A_2 + B_1 + B_2}\\<br>&amp; = \frac{A_1 + D_1}{A_1 + B_1 + C_1 + D_1} \\<br>&amp; = ACC<br>\end{align}<br>$$<br>综上，在二分类（类1与类2满足互斥）时，类1的ACC与类2的ACC相等，$precision_{micro}$与ACC相等。多类情况下无法满足公式（12），无法保证$precision_{micro}$与ACC相等。</p>
-
+        
+          <p class="article-more-link">
+            <a href="/hehuihui1994.github.io/2018/03/20/评估指标/#more">阅读全文</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/20/评估指标/" data-id="cjezaje9c001vvbww2e5e4vyy" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/20/评估指标/" data-id="cjezaknkv001vx9ww93z4low8" class="article-share-link">分享到</a>
       
 
       
@@ -291,7 +157,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/12/04/LibSVM/" data-id="cjezaje6u0007vbww22x9yhsm" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/12/04/LibSVM/" data-id="cjezaknia0007x9wws9pzv04c" class="article-share-link">分享到</a>
       
 
       
@@ -347,7 +213,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/12/受限玻尔兹曼机/" data-id="cjezaje96001ovbwwqh2yiy05" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/12/受限玻尔兹曼机/" data-id="cjezaknkq001ox9wwfn9gfiep" class="article-share-link">分享到</a>
       
 
       
@@ -404,7 +270,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/10/jupyter-notebook/" data-id="cjezaje8o0019vbwwhdagcp8r" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/10/jupyter-notebook/" data-id="cjezaknjp0014x9wwm19xfhdb" class="article-share-link">分享到</a>
       
 
       
@@ -463,7 +329,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/07/19/TensorFlow常见问题/" data-id="cjezaje810011vbww1u4fq9l7" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/07/19/TensorFlow常见问题/" data-id="cjezaknjk0011x9wwsdwg4pd5" class="article-share-link">分享到</a>
       
 
       
@@ -519,7 +385,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/07/19/vscode&git/" data-id="cjezaje8z001hvbww6qswhmfo" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/07/19/vscode&git/" data-id="cjezaknkh001hx9ww09ndeukx" class="article-share-link">分享到</a>
       
 
       
@@ -577,7 +443,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/06/15/hello-world/" data-id="cjezaje840014vbwwzkl8nger" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/06/15/hello-world/" data-id="cjezaknk90019x9wwofoosqf7" class="article-share-link">分享到</a>
       
 
       
@@ -634,7 +500,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/09/11/RAE工具使用-jrae/" data-id="cjezaje7n000qvbwwkjgkyyut" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/09/11/RAE工具使用-jrae/" data-id="cjezaknj4000qx9ww9phs58dy" class="article-share-link">分享到</a>
       
 
       
@@ -691,7 +557,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/09/05/深度学习基础知识/" data-id="cjezaje98001rvbww2muyfsje" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/09/05/深度学习基础知识/" data-id="cjezaknks001rx9wwldb9jh91" class="article-share-link">分享到</a>
       
 
       
@@ -750,7 +616,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/09/03/word2vec/" data-id="cjezaje93001kvbww7ngf2qo3" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/09/03/word2vec/" data-id="cjezaknkl001kx9wwn1bbnwap" class="article-share-link">分享到</a>
       
 
       
