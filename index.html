@@ -62,6 +62,212 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-评估指标" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/hehuihui1994.github.io/2018/03/20/评估指标/" class="article-date">
+  <time datetime="2018-03-20T06:38:11.000Z" itemprop="datePublished">2018-03-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/hehuihui1994.github.io/categories/academic/">学术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        <br>
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/hehuihui1994.github.io/2018/03/20/评估指标/">评估指标</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>​    研究多标记中的不平衡问题的时候，我们不再采用HL那5个指标，而是用macro_F。采用binary_class做不平衡实验的时候，对评估指标的理解出现了混淆，这里整理一下。</p>
+<h2 id="1-二分类系统中的评估指标"><a href="#1-二分类系统中的评估指标" class="headerlink" title="1 二分类系统中的评估指标"></a>1 二分类系统中的评估指标</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">precision = TP / (TP + FP)</div><div class="line">recall = TP / (TP + FN)</div><div class="line">accuracy = (TP + TN) / (TP + FP + TN + FN)</div><div class="line">F1 Score = P*R/2(P+R)，其中P和R分别为 precision 和 recall</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>Predict/Real</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>True Positive (TP)</td>
+<td>False Positive (FP)</td>
+</tr>
+<tr>
+<td>0</td>
+<td>False Negative (FN)</td>
+<td>True Negative (TN)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Predict/Real</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>A</td>
+<td>B</td>
+</tr>
+<tr>
+<td>0</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">P = A/(A+B)</div><div class="line">R = A/(A+C)</div><div class="line">F = 2PR/(P+R)</div><div class="line">ACC = (A+D)/(A+B+C+D)</div></pre></td></tr></table></figure>
+<p>​    在二分类问题中，例如预测是否包含情绪happiness，对于类别happiness，我们可以计算P、R、F、ACC，对于类别non-happiness，我们也可以计算P、R、F、ACC。也就是说，对于每一个类别，我们都可以计算P、R、F、ACC。    </p>
+<h2 id="2-multi-label-中的评估指标"><a href="#2-multi-label-中的评估指标" class="headerlink" title="2 multi-label 中的评估指标"></a>2 multi-label 中的评估指标</h2><blockquote>
+<p>Zhang M L, Zhou Z H. A review on multi-label learning algorithms[J]. IEEE transactions on knowledge and data engineering, 2014, 26(8): 1819-1837.</p>
+</blockquote>
+<p><strong>Label-based Metrics</strong></p>
+<p>​    对于第j个类别，我们可以通过以下四个变量来评估它的二分类性能：</p>
+<p>上面的、、、代表第j个类别的true positive, false positive, false negative, true</p>
+<p>negative。与二分类中的定义一样。</p>
+<p>​    令代表一些特定的二分类准则（specific binary classification metric），其中。</p>
+<ul>
+<li><p>Macro-averaging</p>
+<p>​</p>
+</li>
+<li><p>Micro-averaging</p>
+<p>​</p>
+</li>
+</ul>
+<h2 id="3-问题"><a href="#3-问题" class="headerlink" title="3 问题"></a>3 问题</h2><p><strong>问题1：“precision_micro与ACC相等”在两类问题和多类问题下都成立么？</strong></p>
+<p><strong>回答1：</strong>在两类且两类互斥的情况下（e.g. happiness, non-happiness）与ACC相等，在多类情况下（类别&gt;2）不成立。</p>
+<p>证明：令，即</p>
+<table>
+<thead>
+<tr>
+<th>Predict/Real</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>当j = 2时，</p>
+<p>对于类别1：</p>
+<table>
+<thead>
+<tr>
+<th>Predict/Real</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>对于类别2：</p>
+<table>
+<thead>
+<tr>
+<th>Predict/Real</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>当类别1与类别2互斥, e.g. happiness, non-hapiness，则</p>
+<p>类别2满足</p>
+<table>
+<thead>
+<tr>
+<th>Predict/Real</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>那么，</p>
+<p>此时，类别1的ACC与类别2的ACC相等。对于有</p>
+<p>综上，在二分类（类1与类2满足互斥）时，类1的ACC与类2的ACC相等，与ACC相等。多类情况下无法满足公式（12），无法保证与ACC相等。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/20/评估指标/" data-id="cjezagf2q001irxwwyvsi41r3" class="article-share-link">分享到</a>
+      
+
+      
+        <a href="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/20/评估指标/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hehuihui1994.github.io/tags/多标签学习/">多标签学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-LibSVM" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/hehuihui1994.github.io/2017/12/04/LibSVM/" class="article-date">
@@ -101,7 +307,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/12/04/LibSVM/" data-id="cjetda4wp0007l6wwbls6qrvx" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/12/04/LibSVM/" data-id="cjezagf1p000irxwwflqgcl8f" class="article-share-link">分享到</a>
       
 
       
@@ -157,7 +363,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/12/受限玻尔兹曼机/" data-id="cjetda4yq001nl6ww7mor6dpd" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/12/受限玻尔兹曼机/" data-id="cjezagf32001srxwwir31z3qx" class="article-share-link">分享到</a>
       
 
       
@@ -214,7 +420,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/10/jupyter-notebook/" data-id="cjetda4y80016l6wwd28s1x0m" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/10/jupyter-notebook/" data-id="cjezagf2l001arxwwrpc2tqkf" class="article-share-link">分享到</a>
       
 
       
@@ -273,7 +479,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/07/19/TensorFlow常见问题/" data-id="cjetda4y30013l6wwtcdio6d0" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/07/19/TensorFlow常见问题/" data-id="cjezagf27000xrxwwydz8ykn2" class="article-share-link">分享到</a>
       
 
       
@@ -329,7 +535,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/07/19/vscode&git/" data-id="cjetda4yh001hl6wwbq2kzmu5" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/07/19/vscode&git/" data-id="cjezagf2v001lrxww0vshrwdz" class="article-share-link">分享到</a>
       
 
       
@@ -387,7 +593,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/06/15/hello-world/" data-id="cjetda4yb001al6ww33jh3gm8" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/06/15/hello-world/" data-id="cjezagf2h0015rxwwepawvehk" class="article-share-link">分享到</a>
       
 
       
@@ -444,7 +650,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/09/11/RAE工具使用-jrae/" data-id="cjetda4xo000pl6wwncdkr9d2" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/09/11/RAE工具使用-jrae/" data-id="cjezagf2b0012rxww36tmi1i9" class="article-share-link">分享到</a>
       
 
       
@@ -501,7 +707,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/09/05/深度学习基础知识/" data-id="cjetda4yt001rl6wwvptljecg" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/09/05/深度学习基础知识/" data-id="cjezagf3q001wrxwwlp5qybiu" class="article-share-link">分享到</a>
       
 
       
@@ -560,72 +766,11 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/09/03/word2vec/" data-id="cjetda4yl001kl6wweoxvyywx" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/09/03/word2vec/" data-id="cjezagf30001prxww1amgqqji" class="article-share-link">分享到</a>
       
 
       
         <a href="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/09/03/word2vec/#ds-thread" class="article-comment-link">评论</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hehuihui1994.github.io/tags/工具/">工具</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-L-BFGS" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/hehuihui1994.github.io/2016/08/28/L-BFGS/" class="article-date">
-  <time datetime="2016-08-28T03:37:02.000Z" itemprop="datePublished">2016-08-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/hehuihui1994.github.io/categories/academic/">学术</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        <br>
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/hehuihui1994.github.io/2016/08/28/L-BFGS/">L-BFGS</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><ul>
-<li><a href="http://www.cnblogs.com/wuseguang/p/4088817.html">牛顿法与拟牛顿法、DFP法，BFGS法，L-BFGS法</a>  (√)</li>
-<li><a href="http://mlworks.cn/posts/introduction-to-l-bfgs/">理解L-BFGS算法</a></li>
-<li>牛顿法$\rightarrow$拟牛顿法<ul>
-<li><strong>牛顿迭代法</strong>最大的问题是需要计算Hessian矩阵的逆。<ul>
-<li>求二阶偏导难度较大；且Hessian矩阵<strong>无法保持正定</strong>
-        
-          <p class="article-more-link">
-            <a href="/hehuihui1994.github.io/2016/08/28/L-BFGS/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/28/L-BFGS/" data-id="cjetda4wa0001l6ww3hef9ndv" class="article-share-link">分享到</a>
-      
-
-      
-        <a href="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/28/L-BFGS/#ds-thread" class="article-comment-link">评论</a>
       
 
       
@@ -653,7 +798,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/hehuihui1994.github.io/categories/academic/">学术</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/hehuihui1994.github.io/categories/work/">工作</a><span class="category-list-count">9</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/hehuihui1994.github.io/categories/academic/">学术</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/hehuihui1994.github.io/categories/work/">工作</a><span class="category-list-count">9</span></li></ul>
     </div>
   </div>
 
@@ -662,7 +807,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/hexo/">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/leetcode/">leetcode</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/主题模型/">主题模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/多标签学习/">多标签学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/工具/">工具</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/数据分析/">数据分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/深度学习/">深度学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/特征提取/">特征提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/编程/">编程</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/hexo/">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/leetcode/">leetcode</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/主题模型/">主题模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/多标签学习/">多标签学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/工具/">工具</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/数据分析/">数据分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/深度学习/">深度学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/特征提取/">特征提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/编程/">编程</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -671,7 +816,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/hehuihui1994.github.io/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/hehuihui1994.github.io/tags/leetcode/" style="font-size: 16.67px;">leetcode</a> <a href="/hehuihui1994.github.io/tags/主题模型/" style="font-size: 10px;">主题模型</a> <a href="/hehuihui1994.github.io/tags/多标签学习/" style="font-size: 10px;">多标签学习</a> <a href="/hehuihui1994.github.io/tags/工具/" style="font-size: 20px;">工具</a> <a href="/hehuihui1994.github.io/tags/数据分析/" style="font-size: 10px;">数据分析</a> <a href="/hehuihui1994.github.io/tags/深度学习/" style="font-size: 13.33px;">深度学习</a> <a href="/hehuihui1994.github.io/tags/特征提取/" style="font-size: 10px;">特征提取</a> <a href="/hehuihui1994.github.io/tags/编程/" style="font-size: 10px;">编程</a>
+      <a href="/hehuihui1994.github.io/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/hehuihui1994.github.io/tags/leetcode/" style="font-size: 16.67px;">leetcode</a> <a href="/hehuihui1994.github.io/tags/主题模型/" style="font-size: 10px;">主题模型</a> <a href="/hehuihui1994.github.io/tags/多标签学习/" style="font-size: 13.33px;">多标签学习</a> <a href="/hehuihui1994.github.io/tags/工具/" style="font-size: 20px;">工具</a> <a href="/hehuihui1994.github.io/tags/数据分析/" style="font-size: 10px;">数据分析</a> <a href="/hehuihui1994.github.io/tags/深度学习/" style="font-size: 13.33px;">深度学习</a> <a href="/hehuihui1994.github.io/tags/特征提取/" style="font-size: 10px;">特征提取</a> <a href="/hehuihui1994.github.io/tags/编程/" style="font-size: 10px;">编程</a>
     </div>
   </div>
 
@@ -680,7 +825,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/12/">十二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/10/">十月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/07/">七月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2016/09/">九月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2016/08/">八月 2016</a><span class="archive-list-count">12</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/12/">十二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/10/">十月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/07/">七月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2016/09/">九月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2016/08/">八月 2016</a><span class="archive-list-count">12</span></li></ul>
     </div>
   </div>
 
@@ -690,6 +835,10 @@
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/hehuihui1994.github.io/2018/03/20/评估指标/">评估指标</a>
+          </li>
         
           <li>
             <a href="/hehuihui1994.github.io/2017/12/04/LibSVM/">LibSVM</a>
@@ -705,10 +854,6 @@
         
           <li>
             <a href="/hehuihui1994.github.io/2017/07/19/TensorFlow常见问题/">TensorFlow常见问题</a>
-          </li>
-        
-          <li>
-            <a href="/hehuihui1994.github.io/2017/07/19/vscode&git/">vscode&amp;git</a>
           </li>
         
       </ul>
