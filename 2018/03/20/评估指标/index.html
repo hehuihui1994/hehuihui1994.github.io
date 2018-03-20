@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2018/03/20/评估指标/index.html">
 <meta property="og:site_name" content="何烩烩的博客">
 <meta property="og:description" content="​    研究多标记中的不平衡问题的时候，我们不再采用HL那5个指标，而是用macro_F。采用binary_class做不平衡实验的时候，对评估指标的理解出现了混淆，这里整理一下。">
-<meta property="og:updated_time" content="2018-03-20T06:54:34.000Z">
+<meta property="og:updated_time" content="2018-03-20T06:56:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="评估指标">
 <meta name="twitter:description" content="​    研究多标记中的不平衡问题的时候，我们不再采用HL那5个指标，而是用macro_F。采用binary_class做不平衡实验的时候，对评估指标的理解出现了混淆，这里整理一下。">
@@ -234,8 +234,7 @@
 </tbody>
 </table>
 <p>$$<br>ACC_2 = \frac{A_2 + D_2}{A_2 + B_2 + C_2 + D_2} \tag{11}<br>$$</p>
-<p>当类别1与类别2互斥, e.g. happiness, non-hapiness，则<br>$$</p>
-<p>$$</p>
+<p>当类别1与类别2互斥, e.g. happiness, non-hapiness，则存在转换关系<br>$$<br>\begin{align}<br>&amp;A_2 = D_1\\<br>&amp;B_2 = C_1\\<br>&amp;C_2 = B_1\\<br>&amp;D_2 = A_1<br>\end{align}<br>$$</p>
 <p>类别2满足</p>
 <table>
 <thead>
@@ -258,13 +257,13 @@
 </tr>
 </tbody>
 </table>
-<p>那么，<br>$$<br>\begin{align}<br>ACC_2 &amp;= \frac{A_2 + D_2}{A_2 + B_2 + C_2 + D_2} \\<br>&amp; = \frac{D_1 + A_1}{D_1 + C_1 + B_1 + A_1}\\<br>&amp; = ACC_1\\<br>&amp; = ACC<br>\end{align} \tag{13}<br>$$<br>此时，类别1的ACC与类别2的ACC相等。对于$Precision_{micro}$有<br>$$<br>\begin{align}<br>Precision_{micro} &amp;=\frac{A_1 + A_2}{A_1 + A_2 + B_1 + B_2}\\<br>&amp; = \frac{A_1 + D_1}{A_1 + B_1 + C_1 + D_1} \\<br>&amp; = ACC<br>\end{align} \tag{14}<br>$$<br>综上，在二分类（类1与类2满足互斥）时，类1的ACC与类2的ACC相等，$precision_{micro}$与ACC相等。多类情况下无法满足公式（12），无法保证$precision_{micro}$与ACC相等。</p>
+<p>那么，<br>$$<br>\begin{align}<br>ACC_2 &amp;= \frac{A_2 + D_2}{A_2 + B_2 + C_2 + D_2} \\<br>&amp; = \frac{D_1 + A_1}{D_1 + C_1 + B_1 + A_1}\\<br>&amp; = ACC_1\\<br>&amp; = ACC<br>\end{align}\<br>$$<br>此时，类别1的ACC与类别2的ACC相等。对于$Precision_{micro}$有<br>$$<br>\begin{align}<br>Precision_{micro} &amp;=\frac{A_1 + A_2}{A_1 + A_2 + B_1 + B_2}\\<br>&amp; = \frac{A_1 + D_1}{A_1 + B_1 + C_1 + D_1} \\<br>&amp; = ACC<br>\end{align}<br>$$<br>综上，在二分类（类1与类2满足互斥）时，类1的ACC与类2的ACC相等，$precision_{micro}$与ACC相等。多类情况下无法满足转换关系，无法保证$precision_{micro}$与ACC相等。</p>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/20/评估指标/" data-id="cjezb0e10001uc7ww7gy2yihp" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/20/评估指标/" data-id="cjezb2tls001rezwwu7ps6szc" class="article-share-link">分享到</a>
       
 
       
