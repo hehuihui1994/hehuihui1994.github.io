@@ -1,0 +1,560 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>模型调参 | 何烩烩的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1 理论知识​    理论知识是根据参考资料[1]进行整理的。
+1.1 learning_ratelearn_rate对最终loss的影响">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模型调参">
+<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2018/03/29/模型调参/index.html">
+<meta property="og:site_name" content="何烩烩的博客">
+<meta property="og:description" content="1 理论知识​    理论知识是根据参考资料[1]进行整理的。
+1.1 learning_ratelearn_rate对最终loss的影响">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/2018_0328_learning_rate.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/2018_0328_learning_rate_practice.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/2018_0328_batch_size.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/2018_0328_batchsize_practice.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/2018_0328_overfit.png">
+<meta property="og:updated_time" content="2018-03-29T02:55:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="模型调参">
+<meta name="twitter:description" content="1 理论知识​    理论知识是根据参考资料[1]进行整理的。
+1.1 learning_ratelearn_rate对最终loss的影响">
+<meta name="twitter:image" content="http://oc3xgjy1i.bkt.clouddn.com/2018_0328_learning_rate.png">
+  
+  
+    <link rel="icon" href="http://oc3xgjy1i.bkt.clouddn.com/favicon.ico">
+  
+  <link rel="stylesheet" href="/hehuihui1994.github.io/css/style.css">
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+<body>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/hehuihui1994.github.io/" id="logo">何烩烩的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/hehuihui1994.github.io/">Home</a>
+        
+          <a class="main-nav-link" href="/hehuihui1994.github.io/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="github.com/hehuihui1994/hehuihui1994.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-模型调参" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/hehuihui1994.github.io/2018/03/29/模型调参/" class="article-date">
+  <time datetime="2018-03-29T02:54:07.000Z" itemprop="datePublished">2018-03-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/hehuihui1994.github.io/categories/academic/">学术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        <br>
+        
+  
+    <h1 class="article-title" itemprop="name">
+      模型调参
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-理论知识"><span class="toc-number">1.</span> <span class="toc-text">1 理论知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-learning-rate"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 learning_rate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-batch-size"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 batch_size</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-overfit-amp-underfit"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 overfit&underfit</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-经验知识"><span class="toc-number">2.</span> <span class="toc-text">2 经验知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-实际调参"><span class="toc-number">3.</span> <span class="toc-text">3 实际调参</span></a></li></ol>
+        </div>
+        
+        <h2 id="1-理论知识"><a href="#1-理论知识" class="headerlink" title="1 理论知识"></a>1 理论知识</h2><p>​    理论知识是根据参考资料[1]进行整理的。</p>
+<h3 id="1-1-learning-rate"><a href="#1-1-learning-rate" class="headerlink" title="1.1 learning_rate"></a>1.1 learning_rate</h3><p><strong>learn_rate对最终loss的影响</strong></p>
+<a id="more"></a>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/2018_0328_learning_rate.png" alt="img"></p>
+<ul>
+<li><p>低的learn_rate曲线会趋近于线性（蓝线）</p>
+</li>
+<li><p>过高的learn_rate曲线会趋近于指数（绿线）</p>
+<p>高的学习率会使得曲线迅速下降，但是可能会在一个不好的结果下收敛。</p>
+<p>过高的学习率甚至会使得结果往差的方向发展（黄线）。</p>
+</li>
+<li><p>比较合理的学习率应该体现出入<strong>（红色线）</strong>所示的形状。</p>
+</li>
+</ul>
+<p>Example:</p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/2018_0328_learning_rate_practice.png" alt="img"></p>
+<p>在最初的迭代过程中loss并没有下降，可能learn_rate过低。</p>
+<ul>
+<li><strong>提高learn_rate</strong></li>
+</ul>
+<h3 id="1-2-batch-size"><a href="#1-2-batch-size" class="headerlink" title="1.2 batch_size"></a>1.2 batch_size</h3><p><strong>batch_size选择的合理程度</strong></p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/2018_0328_batch_size.png" alt="img"></p>
+<p>曲线的震幅反映了batch_size选择的合理程度，一般batch_size大的话曲线会变得更加平滑，也就是说训练的参数和实际的参数拟合度更高。</p>
+<p>极端情况是batch_size的大小和dataset的大小一样，那么曲线很可能就是平滑的。</p>
+<p>实际中学习曲线可能不是平滑的，而是如图上所示有很多的噪声。</p>
+<p>Example:<img src="http://oc3xgjy1i.bkt.clouddn.com/2018_0328_batchsize_practice.png" alt="img"></p>
+<p>曲线振幅较大，我们适当<strong>增加batch_size</strong>来<strong>平滑</strong>准确率曲线。</p>
+<h3 id="1-3-overfit-amp-underfit"><a href="#1-3-overfit-amp-underfit" class="headerlink" title="1.3 overfit&amp;underfit"></a>1.3 overfit&amp;underfit</h3><p><img src="http://oc3xgjy1i.bkt.clouddn.com/2018_0328_overfit.png" alt="img"></p>
+<p>蓝色的曲线显示出<strong>验证准确率和训练准确率差别较大</strong>，说明可能出现<strong>过拟合现象</strong>，这种情况可以通过增加<strong>正则化项的惩罚系数</strong>，或者<strong>增加训练样本大小</strong>。</p>
+<p><strong>过拟合：</strong></p>
+<p><strong>表现形式：</strong>训练集准确率较高，测试集准确率比较低</p>
+<p><strong>解决办法：</strong>增加数据、数据增强、参数范数惩罚L1、L2、提前终止、增加dropout值、BatchNormalization</p>
+<p>绿色曲线显示出验证准确率和训练准确率差别较小，说明可能训练模型过小，可以适当<strong>增加网络的参数</strong>。</p>
+<p><strong>欠拟合：</strong></p>
+<p><strong>表现形式：</strong>训练集，测试集准确率都很低</p>
+<p><strong>解决办法：</strong>增加网络层数，增加节点数，减少dropout值，减少L2正则值等等</p>
+<h2 id="2-经验知识"><a href="#2-经验知识" class="headerlink" title="2 经验知识"></a>2 经验知识</h2><p>先按照论文中的参数进行设置。再按照经验知识调参。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>初始化</td>
+<td>这个我一般都没有调，用的是 uniform均匀分布初始化。资料[5]中介绍了参数初始化的技巧。</td>
+</tr>
+<tr>
+<td><strong>learning_rate（优先调）</strong></td>
+<td>1 0.1 0.01 0.001, 一般从1开始尝试，很少见learning rate大于10的。（0.0001 0.002 0.0005 0.001 0.002 0.005 0.01 0.02 0.05（<em>2 </em>5））  太大： loss爆炸, 或者nan。 太小： 半天loss没反映。</td>
+</tr>
+<tr>
+<td>hidden</td>
+<td>50，100，200  （[4]也有说尝试16，32，128）</td>
+</tr>
+<tr>
+<td>l2_reg （正则项）</td>
+<td>从1开始试， 超过10的很少见。(0.0001 0.0002 0.0005 0.0010.002 0.005 0.01 0.05（<em>2 </em>5）)</td>
+</tr>
+<tr>
+<td>keep_prob/Dropout</td>
+<td>1.0（不用） 0.5（丢一半）;  inputembedding 后 + softmax 前 （0.7，0.7）（0.5，0.5）0.7降了的话，不用再设置0.5的实验。如果不知道怎么设比例的话，就直接设置为0.5。 测试的时候记得把dropout关掉。</td>
+</tr>
+<tr>
+<td>batch_size</td>
+<td>128上下开始。batch size值增加，的确能提高训练速度。但是有可能收敛结果变差。如果显存大小允许，可以考虑从一个比较大的值开始尝试。因为batch size太大，一般不会对结果有太大的影响，而batch size太小的话，结果有可能很差。</td>
+</tr>
+<tr>
+<td>网络层数</td>
+<td>先从1层开始试</td>
+</tr>
+<tr>
+<td>embedding</td>
+<td>通常设置为100，200，300（[4]中建议设置为128，256）</td>
+</tr>
+<tr>
+<td>正负样本比例</td>
+<td>这个我没有设置过。参考资料[4]中认为这个是非常忽视，但是在很多分类问题上，又非常重要的参数。很多人往往习惯使用训练数据中默认的正负类别比例，当训练数据非常不平衡的时候，模型很有可能会偏向数目较大的类别，从而影响最终训练结果。除了尝试训练数据默认的正负类别比例之外，建议对数目较小的样本做过采样，例如进行复制。提高他们的比例，看看效果如何，这个对多分类问题同样适用。 在使用mini-batch方法进行训练的时候，尽量让一个batch内，各类别的比例平衡，这个在图像识别等多分类任务上非常重要。</td>
+</tr>
+</tbody>
+</table>
+<p>参数初始化技巧[5]</p>
+<p>Xavier初始法论文：<a href="http://link.zhihu.com/?target=http%3A//jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf" target="_blank" rel="external">http://jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf</a>He初始化论文：<a href="http://link.zhihu.com/?target=https%3A//arxiv.org/abs/1502.01852" target="_blank" rel="external">https://arxiv.org/abs/1502.01852</a></p>
+<ul>
+<li>uniform均匀分布初始化：w = np.random.uniform(low=-scale, high=scale, size=[n_in,n_out])</li>
+<li><strong>Xavier初始法</strong>，适用于普通激活函数(tanh,sigmoid)：scale = np.sqrt(3/n)</li>
+<li>He初始化，适用于ReLU：scale = np.sqrt(6/n)</li>
+<li>normal高斯分布初始化：w = np.random.randn(n_in,n_out) * stdev # stdev为高斯分布的标准差，均值设为0</li>
+<li>Xavier初始法，适用于普通激活函数 (tanh,sigmoid)：stdev = np.sqrt(n)</li>
+<li>He初始化，适用于ReLU：stdev = np.sqrt(2/n)</li>
+<li>svd初始化：对RNN有比较好的效果。参考论文：<a href="http://link.zhihu.com/?target=https%3A//arxiv.org/abs/1312.6120" target="_blank" rel="external">https://arxiv.org/abs/1312.6120</a></li>
+</ul>
+<h2 id="3-实际调参"><a href="#3-实际调参" class="headerlink" title="3 实际调参"></a>3 实际调参</h2><ul>
+<li>观察loss胜于观察准确率</li>
+<li><p>training_iter要管够</p>
+<p>Tensorboard可视化调参</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tensorboard --logdir  Summary</div><div class="line"> 打开浏览器，输入  服务器：端口号</div></pre></td></tr></table></figure>
+<p>记录一次调参的过程：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>acc</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0.3333</td>
+<td><strong>论文中的参数</strong>以及给的词向量文件</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.3762</td>
+<td>train ACC的图像太陡，修改batch_size为128。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0.5619</td>
+<td>发现训练集、测试集准确率都很低。增加网络节点。修改词向量文件（embedding_dim设置为200）。修改隐层单元’n_hidden为100.(修改模型，属于<strong>粗调</strong>)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>nan</td>
+<td>发现training_iter=20的时候，模型的性能还在上升。而且，最初的迭代中loss下降的比较少，说明 learning_rate设置的过小，需要重新设置。可以从论文中给的learning_rate= 0.0002参数出发，也可以从1出发。这里选择从1出发。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.8142</td>
+<td>nan说明learning_rate=1太大，依次令learning_rate=0.5, 0.2, 0.1, <strong>0.05</strong>…</td>
+</tr>
+<tr>
+<td>6</td>
+<td>0.8238</td>
+<td>train_acc已经达到0.95左右，验证集acc只有0.8142，并且出现往下降的趋势，说明过拟合。调 l2_reg，依次令l2_reg = 1, 0.5,  0.2, 0.1, 0.05, 0.02, 0.01,0.005, 0.002, <strong>0.001</strong></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>还可以接着调参，反复调整…</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>1）选用论文中的参数设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&apos;batch_size&apos;, 16</div><div class="line"></div><div class="line">&apos;embedding_dim&apos;, 20</div><div class="line">&apos;n_hidden&apos;, 20</div><div class="line"></div><div class="line">&apos;training_iter&apos;, 20</div><div class="line"></div><div class="line">&apos;learning_rate&apos;, 0.0002</div><div class="line">&apos;l2_reg&apos;, 0.0001</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>参考：</p>
+<ol>
+<li><a href="%20https://www.cnblogs.com/liujshi/p/5646102.html">根据图像进行调参</a></li>
+<li><a href="https://www.jianshu.com/p/d059ffea9ec0" target="_blank" rel="external">详解 TensorBoard－如何调参</a></li>
+<li><a href="https://www.zhihu.com/question/25097993" target="_blank" rel="external">深度学习调参有哪些技巧？</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/24720954" target="_blank" rel="external">深度学习网络调参技巧</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/20767428" target="_blank" rel="external">深度学习网络训练技巧汇总</a></li>
+<li><a href="http://lamda.nju.edu.cn/weixs/project/CNNTricks/CNNTricks.html" target="_blank" rel="external">Must Know Tips/Tricks in Deep Neural Networks</a></li>
+<li><a href="https://www.jianshu.com/p/d059ffea9ec0" target="_blank" rel="external">详解 TensorBoard－如何调参</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/29/模型调参/" data-id="cjfbxfpxs001sk9wwg9didx0o" class="article-share-link">分享到</a>
+      
+
+      
+        <a href="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/29/模型调参/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hehuihui1994.github.io/tags/深度学习/">深度学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/hehuihui1994.github.io/2018/03/20/评估指标/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">评估指标</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2018/03/29/模型调参/" data-title="模型调参" data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/29/模型调参/"></div>
+  </section>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/hehuihui1994.github.io/categories/academic/">学术</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/hehuihui1994.github.io/categories/work/">工作</a><span class="category-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/hexo/">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/leetcode/">leetcode</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/主题模型/">主题模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/多标签学习/">多标签学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/工具/">工具</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/数据分析/">数据分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/深度学习/">深度学习</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/特征提取/">特征提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/hehuihui1994.github.io/tags/编程/">编程</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/hehuihui1994.github.io/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/hehuihui1994.github.io/tags/leetcode/" style="font-size: 17.5px;">leetcode</a> <a href="/hehuihui1994.github.io/tags/主题模型/" style="font-size: 10px;">主题模型</a> <a href="/hehuihui1994.github.io/tags/多标签学习/" style="font-size: 12.5px;">多标签学习</a> <a href="/hehuihui1994.github.io/tags/工具/" style="font-size: 20px;">工具</a> <a href="/hehuihui1994.github.io/tags/数据分析/" style="font-size: 10px;">数据分析</a> <a href="/hehuihui1994.github.io/tags/深度学习/" style="font-size: 15px;">深度学习</a> <a href="/hehuihui1994.github.io/tags/特征提取/" style="font-size: 10px;">特征提取</a> <a href="/hehuihui1994.github.io/tags/编程/" style="font-size: 10px;">编程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/12/">十二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/10/">十月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/07/">七月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2016/09/">九月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/hehuihui1994.github.io/archives/2016/08/">八月 2016</a><span class="archive-list-count">12</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hehuihui1994.github.io/2018/03/29/模型调参/">模型调参</a>
+          </li>
+        
+          <li>
+            <a href="/hehuihui1994.github.io/2018/03/20/评估指标/">评估指标</a>
+          </li>
+        
+          <li>
+            <a href="/hehuihui1994.github.io/2017/12/04/LibSVM/">LibSVM</a>
+          </li>
+        
+          <li>
+            <a href="/hehuihui1994.github.io/2017/10/12/受限玻尔兹曼机/">受限玻尔兹曼机</a>
+          </li>
+        
+          <li>
+            <a href="/hehuihui1994.github.io/2017/10/10/jupyter-notebook/">jupyter notebook </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://www.nustm.cn/blog/" target="_blank">NUSTM的博客</a>
+          </li>
+        
+          <li>
+            <a href="http://www.cnblogs.com/wangbogong/category/477304.html" target="_blank">汪涛的博客</a>
+          </li>
+        
+          <li>
+            <a href="https://comzyh.com/blog/" target="_blank">张永辉的博客</a>
+          </li>
+        
+          <li>
+            <a href="http://zozoz.github.io/" target="_blank">郑士梁的博客</a>
+          </li>
+        
+          <li>
+            <a href="http://heshenghuan.github.io/" target="_blank">何声欢的博客</a>
+          </li>
+        
+          <li>
+            <a href="https://njnubobo.github.io/" target="_blank">李银波的博客</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 何烩烩
+      <br>
+      <span id="busuanzi_container_site_uv">
+        本站访客数<span id="busuanzi_value_site_uv"></span>人
+      </span>
+      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260167330'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1260167330' type='text/javascript'%3E%3C/script%3E"));</script>
+      <br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/hehuihui1994.github.io/" class="mobile-nav-link">Home</a>
+  
+    <a href="/hehuihui1994.github.io/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回顶部"><img src="/hehuihui1994.github.io/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"hehuihui"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/hehuihui1994.github.io/fancybox/jquery.fancybox.css">
+  <script src="/hehuihui1994.github.io/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true
+                    
+}
+  
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                  
+}
+    
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                            all[i].SourceElement().parentNode.className += ' has-jax';
+                                    
+            }
+                
+        });
+</script>
+
+<script type="text/javascript" src="http://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script src="/hehuihui1994.github.io/js/script.js"></script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+</div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
