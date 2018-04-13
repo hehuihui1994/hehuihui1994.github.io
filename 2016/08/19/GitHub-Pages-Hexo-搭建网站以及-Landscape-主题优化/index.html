@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2016/08/19/GitHub-Pages-Hexo-搭建网站以及-Landscape-主题优化/index.html">
 <meta property="og:site_name" content="何烩烩的博客">
 <meta property="og:description" content="​        最近发现教研室几乎每个人都有自己搭建的博客，于是我也跟风了一波。我使用 GitHub Pages 和 Hexo搭建博客，选取Landscape-plus主题，并进行了优化。整理一下搭建过程中参考的资料以及碰到的一些问题的解决方法。">
-<meta property="og:updated_time" content="2016-08-24T05:13:30.000Z">
+<meta property="og:updated_time" content="2018-04-13T03:25:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GitHub Pages + Hexo 搭建网站以及 Landscape 主题优化">
 <meta name="twitter:description" content="​        最近发现教研室几乎每个人都有自己搭建的博客，于是我也跟风了一波。我使用 GitHub Pages 和 Hexo搭建博客，选取Landscape-plus主题，并进行了优化。整理一下搭建过程中参考的资料以及碰到的一些问题的解决方法。">
@@ -162,12 +162,18 @@
 <p>13 更新一篇文章后，hexo d 和hexo s 都报错 template render error</p>
 <p>特殊符号解析错误，例如我在文章中写了{{ ，就会出现这种问题,解决方案如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int scores = &#123;% raw %&#125;&#123;&#123;1,2,3&#125;,&#123;4,5,6&#125;&#125;;  &#123;% endraw %&#125;</div></pre></td></tr></table></figure>
+<p>14 矩阵显示不正常</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$$</div><div class="line">        \\begin&#123;bmatrix&#125;</div><div class="line">		234 &amp; 38 &amp; 22 \\</div><div class="line">		67 &amp; 44 &amp; 12 \\</div><div class="line">		89 &amp; 65 &amp; 63 \\</div><div class="line">		\\end&#123;bmatrix&#125;</div><div class="line">$$</div></pre></td></tr></table></figure>
+<p>显示效果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[234 38 22 67 44 12 89 65 63 ]</div></pre></td></tr></table></figure>
+<p>没有展示出正确的3×3矩阵效果是因为\\双斜线在LaTeX中为换行，但是在Markdown中\为转义符号，所以需要再次转义，即在LaTeX中的\\两个斜线需要Markdown中的\\\\四个斜线转义才行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$$</div><div class="line">        \\begin&#123;bmatrix&#125;</div><div class="line">		234 &amp; 38 &amp; 22 \\\\</div><div class="line">		67 &amp; 44 &amp; 12 \\\\</div><div class="line">		89 &amp; 65 &amp; 63 \\\\</div><div class="line">		\\end&#123;bmatrix&#125;</div><div class="line">$$</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/19/GitHub-Pages-Hexo-搭建网站以及-Landscape-主题优化/" data-id="cjfxdz1xx0005puwwdeptriyv" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/19/GitHub-Pages-Hexo-搭建网站以及-Landscape-主题优化/" data-id="cjfxe6c5x000113ww9gkjpuef" class="article-share-link">分享到</a>
       
 
       
