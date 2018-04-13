@@ -16,7 +16,7 @@
 ​    针对不平衡样本，主要有数据重采样和代价敏感学习两种方法。">
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20180412_%E7%B1%BB%E5%88%AB%E9%87%8D%E7%BB%84%E6%B3%95.png">
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20180412_%E4%BB%A3%E4%BB%B7%E6%95%8F%E6%84%9F.png">
-<meta property="og:updated_time" content="2018-04-13T03:13:16.000Z">
+<meta property="og:updated_time" content="2018-04-13T03:14:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="不平衡样本的处理">
 <meta name="twitter:description" content="​    最近阅读了魏老师的“解析卷积神经网络”中的“不平衡样本的处理”，做了一些笔记。
@@ -124,7 +124,7 @@
 <p><img src="http://oc3xgjy1i.bkt.clouddn.com/20180412_%E7%B1%BB%E5%88%AB%E9%87%8D%E7%BB%84%E6%B3%95.png" alt="20180412_类别重组法"></p>
 <h2 id="2-算法层面（代价敏感法）"><a href="#2-算法层面（代价敏感法）" class="headerlink" title="2 算法层面（代价敏感法）"></a>2 算法层面（代价敏感法）</h2><p>​    <strong>代价敏感</strong>（cost-sensitive）方法主要在目标函数中增加小样本错分的“惩罚代价”。</p>
 <p>​    可分为两种方法：<strong>基于代价敏感矩阵</strong>和<strong>基于代价敏感向量</strong>。</p>
-<h3 id="2-1-代价敏感矩阵"><a href="#2-1-代价敏感矩阵" class="headerlink" title="2.1    代价敏感矩阵"></a>2.1    代价敏感矩阵</h3><p>​    <strong>类别级别</strong>的错分惩罚<br>$$<br>C = \begin{matrix}<br> C(1,1)&amp; C(1,2) &amp; … &amp;C(1,K) \ <br> C(2,1)&amp; C(2,2) &amp; … &amp;C(2,K) \ <br> …&amp;…  &amp;…  &amp;… \ <br> C(K,1)&amp;C(K,2)  &amp;…  &amp;C(K,K)<br>\end{matrix}<br>$$</p>
+<h3 id="2-1-代价敏感矩阵"><a href="#2-1-代价敏感矩阵" class="headerlink" title="2.1    代价敏感矩阵"></a>2.1    代价敏感矩阵</h3><p>​    <strong>类别级别</strong>的错分惩罚<br>$$<br>C = \begin{bmatrix}<br> C(1,1)&amp; C(1,2) &amp; … &amp;C(1,K) \ <br> C(2,1)&amp; C(2,2) &amp; … &amp;C(2,K) \ <br> …&amp;…  &amp;…  &amp;… \ <br> C(K,1)&amp;C(K,2)  &amp;…  &amp;C(K,K)<br>\end{bmatrix}<br>$$</p>
 <p>​    这里，$C(y_i, y_j) \in [0, \infty)$ 表示类别$y_i$错分为类别$y_j$的“代价”。</p>
 <p>​    训练得到某分类器g，期望代价之和$\sum_n C(y_n, g(x_n))$最小。</p>
 <h3 id="2-2-基于代价敏感向量"><a href="#2-2-基于代价敏感向量" class="headerlink" title="2.2 基于代价敏感向量"></a>2.2 基于代价敏感向量</h3><p>​    <strong>样本级别</strong>的错分惩罚</p>
@@ -156,7 +156,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/04/13/不平衡样本的处理/" data-id="cjfxdoba2001p8gwwp3eynwql" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/04/13/不平衡样本的处理/" data-id="cjfxdpiex001obcww2xowgd6y" class="article-share-link">分享到</a>
       
 
       
