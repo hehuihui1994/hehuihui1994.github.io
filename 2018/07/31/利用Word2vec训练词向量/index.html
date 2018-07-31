@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="何烩烩的博客">
 <meta property="og:description" content="​    选用不同的词向量作为模型的初始值，效果的差异非常大！所以选择一个好用的词向量还是很重要的。中英文的词向量的处境不同：
 12英文的词向量可以训练，也可以用Google训练好的那个模型。 但是中文就不行了，没有公布一个权威的词向量。">
-<meta property="og:updated_time" content="2018-07-31T02:52:47.000Z">
+<meta property="og:updated_time" content="2018-07-31T02:55:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用Word2vec训练词向量">
 <meta name="twitter:description" content="​    选用不同的词向量作为模型的初始值，效果的差异非常大！所以选择一个好用的词向量还是很重要的。中英文的词向量的处境不同：
@@ -104,12 +104,12 @@
         <p>​    选用不同的<strong>词向量</strong>作为模型的初始值，效果的差异非常大！所以选择一个好用的词向量还是很重要的。中英文的词向量的处境不同：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">英文的词向量可以训练，也可以用Google训练好的那个模型。 </div><div class="line">但是中文就不行了，没有公布一个权威的词向量。</div></pre></td></tr></table></figure>
 <a id="more"></a>     
-<pre><code>我们可以尝试一些开源的词向量，
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">英文词向量下载：</div><div class="line">https://github.com/xgli/word2vec-api</div><div class="line">http://nlp.stanford.edu/data/wordvecs/ (Glove)</div><div class="line"></div><div class="line">中文词向量下载：</div><div class="line">https://blog.csdn.net/tu_22/article/details/79035769</div><div class="line">https://github.com/candlewill/Chinsese_word_vectors</div></pre></td></tr></table></figure>
+<p>​    我们可以尝试一些开源的词向量，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">英文词向量下载：</div><div class="line">https://github.com/xgli/word2vec-api</div><div class="line">http://nlp.stanford.edu/data/wordvecs/ (Glove)</div><div class="line"></div><div class="line">中文词向量下载：</div><div class="line">https://blog.csdn.net/tu_22/article/details/79035769</div><div class="line">https://github.com/candlewill/Chinsese_word_vectors</div></pre></td></tr></table></figure>
 <p>​    我们也可以用工具包自己训练，工具包下载：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Word2vec </div><div class="line">	https://github.com/hehuihui1994/word2vec</div><div class="line"></div><div class="line">Glove</div><div class="line">	http://nlp.stanford.edu/projects/glove/</div></pre></td></tr></table></figure>
 <p>​    已经有大牛总结出了训练词向量的套路：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">首先根据具体任务，选一个领域相似的语料，在这个条件下，语料越大越好。然后下载一个 word2vec 的新版（14年9月更新），语料小（小于一亿词，约 500MB 的文本文件）的时候用 Skip-gram 模型，语料大的时候用 CBOW 模型。最后记得设置迭代次数为三五十次，维度至少选 50，就可以了。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">首先根据具体任务，选一个领域相似的语料，在这个条件下，语料越大越好。然后下载一个 word2vec </div><div class="line">的新版（14年9月更新），语料小（小于一亿词，约 500MB 的文本文件）的时候用 Skip-gram 模</div><div class="line">型，语料大的时候用 CBOW 模型。最后记得设置迭代次数为三五十次，维度至少选 50，就可以了。</div></pre></td></tr></table></figure>
 <p>​    也就是：</p>
 <ul>
 <li>1）<strong>领域</strong>相似（越纯越好）</li>
@@ -130,7 +130,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/07/31/利用Word2vec训练词向量/" data-id="cjk93ywsg001t6pwwsv5ynyqa" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/07/31/利用Word2vec训练词向量/" data-id="cjk941eok001p9lwwa9w48dmn" class="article-share-link">分享到</a>
       
 
       
