@@ -4,14 +4,27 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <title>Archives | 何烩烩的博客</title>
+  <title>利用Word2vec训练词向量 | 何烩烩的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="何烩烩的博客">
-<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/archives/page/3/index.html">
+  <meta name="description" content="​    选用不同的词向量作为模型的初始值，效果的差异非常大！所以选择一个好用的词向量还是很重要的。中英文的词向量的处境不同：
+12英文的词向量可以训练，也可以用Google训练好的那个模型。 但是中文就不行了，没有公布一个权威的词向量。
+​      我们可以尝试一些开源的词向量，
+1234567英文词向量下载：https://github.com/xgli/word2vec-apihttp:/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用Word2vec训练词向量">
+<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2018/07/31/利用Word2vec训练词向量/index.html">
 <meta property="og:site_name" content="何烩烩的博客">
+<meta property="og:description" content="​    选用不同的词向量作为模型的初始值，效果的差异非常大！所以选择一个好用的词向量还是很重要的。中英文的词向量的处境不同：
+12英文的词向量可以训练，也可以用Google训练好的那个模型。 但是中文就不行了，没有公布一个权威的词向量。
+​      我们可以尝试一些开源的词向量，
+1234567英文词向量下载：https://github.com/xgli/word2vec-apihttp:/">
+<meta property="og:updated_time" content="2018-07-31T02:51:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="何烩烩的博客">
+<meta name="twitter:title" content="利用Word2vec训练词向量">
+<meta name="twitter:description" content="​    选用不同的词向量作为模型的初始值，效果的差异非常大！所以选择一个好用的词向量还是很重要的。中英文的词向量的处境不同：
+12英文的词向量可以训练，也可以用Google训练好的那个模型。 但是中文就不行了，没有公布一个权威的词向量。
+​      我们可以尝试一些开源的词向量，
+1234567英文词向量下载：https://github.com/xgli/word2vec-apihttp:/">
   
   
     <link rel="icon" href="http://oc3xgjy1i.bkt.clouddn.com/favicon.ico">
@@ -60,153 +73,101 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main">
-  
-  
+      <section id="main"><article id="post-利用Word2vec训练词向量" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/hehuihui1994.github.io/2018/07/31/利用Word2vec训练词向量/" class="article-date">
+  <time datetime="2018-07-31T02:50:13.000Z" itemprop="datePublished">2018-07-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/hehuihui1994.github.io/categories/academic/">学术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
     
     
+      <header class="article-header">
+        <br>
+        
+  
+    <h1 class="article-title" itemprop="name">
+      利用Word2vec训练词向量
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/hehuihui1994.github.io/archives/2016" class="archive-year">2016</a>
+        <!-- Table of Contents -->
+        
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">1.</span> <span class="toc-text">参考资料</span></a></li></ol>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/08/19/Sum-of-Two-Integers/" class="archive-article-date">
-  <time datetime="2016-08-19T11:44:12.000Z" itemprop="datePublished">8月 19</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/08/19/Sum-of-Two-Integers/">Sum of Two Integers</a>
-    </h1>
-  
+        
+        <p>​    选用不同的<strong>词向量</strong>作为模型的初始值，效果的差异非常大！所以选择一个好用的词向量还是很重要的。中英文的词向量的处境不同：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">英文的词向量可以训练，也可以用Google训练好的那个模型。 </div><div class="line">但是中文就不行了，没有公布一个权威的词向量。</div></pre></td></tr></table></figure>
+<p>​      我们可以尝试一些开源的词向量，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">英文词向量下载：</div><div class="line">https://github.com/xgli/word2vec-api</div><div class="line">http://nlp.stanford.edu/data/wordvecs/ (Glove)</div><div class="line"></div><div class="line">中文词向量下载：</div><div class="line">https://blog.csdn.net/tu_22/article/details/79035769</div><div class="line">https://github.com/candlewill/Chinsese_word_vectors</div></pre></td></tr></table></figure>
+<p>​    我们也可以用工具包自己训练，工具包下载：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Word2vec </div><div class="line">	https://github.com/hehuihui1994/word2vec</div><div class="line"></div><div class="line">Glove</div><div class="line">	http://nlp.stanford.edu/projects/glove/</div></pre></td></tr></table></figure>
+<p>​    已经有大牛总结出了训练词向量的套路：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">首先根据具体任务，选一个领域相似的语料，在这个条件下，语料越大越好。然后下载一个 word2vec 的新版（14年9月更新），语料小（小于一亿词，约 500MB 的文本文件）的时候用 Skip-gram 模型，语料大的时候用 CBOW 模型。最后记得设置迭代次数为三五十次，维度至少选 50，就可以了。</div></pre></td></tr></table></figure>
+<p>​    也就是：</p>
+<ul>
+<li>1）<strong>领域</strong>相似（越纯越好）</li>
+<li>2）<strong>语料</strong>越大越好</li>
+<li>3）语料小（小于一亿词，约 500MB 的文本文件）的时候用 Skip-gram <strong>模型</strong>，语料大的时候用 CBOW 模型</li>
+<li>4）<strong>迭代次数</strong>为三五十次，<strong>维度</strong>至少选 50</li>
+</ul>
+<p><strong>问题：为什么语料小（小于一亿词，约 500MB 的文本文件）的时候用 Skip-gram 模型，语料大的时候用 CBOW 模型？</strong></p>
+<p>1）从实验结果的出来的结论。</p>
+<p>2）CBOW是对<strong>上下文到目标词</strong>的后验概率进行建模，skip-gram是对<strong>目标词到上下文</strong>的后验概率进行建模。</p>
+<ul>
+<li>在小语料的时候，CBOW求和的方式不太合理，会牺牲一点准确度，skip-gram更加合理。</li>
+<li>在大语料的时候，CBOW的<strong>更快</strong>。假设窗口为k，目标词的个数为t。在CBOW中，我们只需要预测t次，在skip-gram中，我们需要预测kt词。</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】<a href="http://licstar.net/archives/620" target="_blank" rel="external">How to Generate a Good Word Embedding?</a></p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/08/19/Longest-Increasing-Subsequence/" class="archive-article-date">
-  <time datetime="2016-08-19T11:42:20.000Z" itemprop="datePublished">8月 19</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/08/19/Longest-Increasing-Subsequence/">Longest Increasing Subsequence</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/08/19/Delete-Node-in-a-Linked-List/" class="archive-article-date">
-  <time datetime="2016-08-19T11:39:11.000Z" itemprop="datePublished">8月 19</time>
-</a>
+    </div>
+    <footer class="article-footer">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/08/19/Delete-Node-in-a-Linked-List/">Delete Node in a Linked List</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/08/19/Remove-Duplicate-Letters/" class="archive-article-date">
-  <time datetime="2016-08-19T11:35:30.000Z" itemprop="datePublished">8月 19</time>
-</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/07/31/利用Word2vec训练词向量/" data-id="cjk93wzym001t38ww39ld0mb7" class="article-share-link">分享到</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/08/19/Remove-Duplicate-Letters/">Remove Duplicate Letters</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/08/19/MALLET工具进行文本分类/" class="archive-article-date">
-  <time datetime="2016-08-19T11:30:40.000Z" itemprop="datePublished">8月 19</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/08/19/MALLET工具进行文本分类/">MALLET工具进行文本分类</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/08/19/Burst-Balloons/" class="archive-article-date">
-  <time datetime="2016-08-19T11:01:21.000Z" itemprop="datePublished">8月 19</time>
-</a>
+        <a href="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/07/31/利用Word2vec训练词向量/#ds-thread" class="article-comment-link">评论</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/08/19/Burst-Balloons/"> Burst Balloons</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/hehuihui1994.github.io/2016/08/15/ML-KNN/" class="archive-article-date">
-  <time datetime="2016-08-15T08:27:39.000Z" itemprop="datePublished">8月 15</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hehuihui1994.github.io/2016/08/15/ML-KNN/"> ML-KNN</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hehuihui1994.github.io/tags/word2vec/">word2vec</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/hehuihui1994.github.io/2018/06/19/BP算法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">BP算法</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2018/07/31/利用Word2vec训练词向量/" data-title="利用Word2vec训练词向量" data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/07/31/利用Word2vec训练词向量/"></div>
+  </section>
+
+
 </section>
       
       <aside id="sidebar">
