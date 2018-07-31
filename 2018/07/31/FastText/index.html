@@ -4,18 +4,23 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <title>python 全局变量 | 何烩烩的博客</title>
+  <title>FastText | 何烩烩的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="全局变量使用直接在当前的模块中定义好，修改变量时通过global声明并使用，仅仅是调用时，直接使用。">
+  <meta name="description" content="FastText是Facebook开发的一款快速文本分类器，提供简单而高效的文本分类和表征学习的方法，
+1234567891） fastText 文本分类	paper：A. Joulin, E. Grave, P. Bojanowski, T. Mikolov, Bag of Tricks for Efficient Text Classification			https://arxiv.org/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python 全局变量">
-<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2016/08/19/python-全局变量/index.html">
+<meta property="og:title" content="FastText">
+<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2018/07/31/FastText/index.html">
 <meta property="og:site_name" content="何烩烩的博客">
-<meta property="og:description" content="全局变量使用直接在当前的模块中定义好，修改变量时通过global声明并使用，仅仅是调用时，直接使用。">
-<meta property="og:updated_time" content="2016-08-19T13:42:14.000Z">
+<meta property="og:description" content="FastText是Facebook开发的一款快速文本分类器，提供简单而高效的文本分类和表征学习的方法，
+1234567891） fastText 文本分类	paper：A. Joulin, E. Grave, P. Bojanowski, T. Mikolov, Bag of Tricks for Efficient Text Classification			https://arxiv.org/">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/fasttext%E6%A1%86%E6%9E%B6.png">
+<meta property="og:updated_time" content="2018-07-31T13:04:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python 全局变量">
-<meta name="twitter:description" content="全局变量使用直接在当前的模块中定义好，修改变量时通过global声明并使用，仅仅是调用时，直接使用。">
+<meta name="twitter:title" content="FastText">
+<meta name="twitter:description" content="FastText是Facebook开发的一款快速文本分类器，提供简单而高效的文本分类和表征学习的方法，
+1234567891） fastText 文本分类	paper：A. Joulin, E. Grave, P. Bojanowski, T. Mikolov, Bag of Tricks for Efficient Text Classification			https://arxiv.org/">
+<meta name="twitter:image" content="http://oc3xgjy1i.bkt.clouddn.com/fasttext%E6%A1%86%E6%9E%B6.png">
   
   
     <link rel="icon" href="http://oc3xgjy1i.bkt.clouddn.com/favicon.ico">
@@ -64,14 +69,14 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-python-全局变量" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-FastText" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/hehuihui1994.github.io/2016/08/19/python-全局变量/" class="article-date">
-  <time datetime="2016-08-19T11:49:21.000Z" itemprop="datePublished">2016-08-19</time>
+    <a href="/hehuihui1994.github.io/2018/07/31/FastText/" class="article-date">
+  <time datetime="2018-07-31T13:03:08.000Z" itemprop="datePublished">2018-07-31</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/hehuihui1994.github.io/categories/work/">工作</a>
+    <a class="article-category-link" href="/hehuihui1994.github.io/categories/academic/">学术</a>
   </div>
 
   </div>
@@ -83,7 +88,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      python 全局变量
+      FastText
     </h1>
   
 
@@ -93,26 +98,39 @@
       
         <!-- Table of Contents -->
         
-        <p>全局变量使用<br>直接在当前的模块中定义好，修改变量时通过global声明并使用，仅仅是调用时，直接使用。</p>
-<a id="more"></a>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"></div><div class="line">x=<span class="number">1</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">hhh</span><span class="params">()</span>:</span></div><div class="line">	<span class="keyword">print</span> x</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">modify</span><span class="params">()</span>:</span></div><div class="line">	<span class="keyword">global</span> x</div><div class="line">	x=<span class="number">2</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">	hhh()</div><div class="line">	modify()</div><div class="line">	hhh()</div></pre></td></tr></table></figure>
-<p>输出结果为：</p>
-<p>1</p>
-<p>2</p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">1.</span> <span class="toc-text">参考资料</span></a></li></ol>
+        </div>
+        
+        <p>FastText是<strong>Facebook</strong>开发的一款<strong>快速文本分类器</strong>，提供简单而高效的<strong>文本分类</strong>和<strong>表征学习</strong>的方法，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">1） fastText 文本分类</div><div class="line">	paper：A. Joulin, E. Grave, P. Bojanowski, T. Mikolov, Bag of Tricks for Efficient Text Classification		</div><div class="line">	https://arxiv.org/abs/1607.01759</div><div class="line"></div><div class="line">2） 词嵌入学习</div><div class="line">	paper:P. Bojanowski*, E. Grave*, A. Joulin, T. Mikolov, Enriching Word Vectors with Subword Information</div><div class="line">	https://arxiv.org/abs/1607.04606</div><div class="line">	</div><div class="line">github链接：&lt;https://github.com/facebookresearch/fastText&gt;</div></pre></td></tr></table></figure>
+<a id="more"></a>     
+<p>fastText 模型架构和 <strong>Word2Vec 中的 CBOW 模型 + 层次softmax</strong>很类似。不同之处在于：</p>
+<ol>
+<li>模型的<strong>输出层</strong>：word2vec的输出层，对应的是每一个term，计算<strong>某term的概率最大</strong>；而fasttext的输出层对应的是 <strong>分类的label</strong>。（本质的不同）(层次softmax)</li>
+<li>模型的<strong>输入层</strong>：word2vec的输入层，是 <strong>context window 内的term</strong>；而fasttext 对应的<strong>整个sentence的内容，包括term，也包括 n-gram的内容</strong>；（CBOW，word2vec中是<strong>求和</strong>得到隐层表示，fasttext中是<strong>求平均</strong>得到隐层表示）</li>
+</ol>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/fasttext%E6%A1%86%E6%9E%B6.png" alt="fasttext框架"></p>
+<p>这么看来，fasttext还是需要类别标签的，不是无监督方法。而word2vec属于无监督方法，因此word2vec应用比较广泛。</p>
+<p>​    fastText简而言之，就是把<strong>文档中所有词以及n-gram词</strong>通过lookup table变成向量，<strong>取平均</strong>后直接用<strong>层次softmax</strong>得到分类结果。它的优点是：a）适合<strong>大型数据</strong>, b）<strong>高效</strong>的训练速度。</p>
+<p><strong>关于N-gram</strong></p>
+<p>​    常用的特征是词袋模型。但词袋模型不能考虑<strong>词之间的顺序</strong>，因此 fastText 还加入了 N-gram 特征。 “我 爱 她” 这句话中的词袋模型特征是 “我”，“爱”, “她”。这些特征和句子 “她 爱 我” 的特征是一样的。 如果加入 2-Ngram，第一句话的特征还有 “我-爱” 和 “爱-她”，这两句话 “我 爱 她” 和 “她 爱 我” 就能区别开来了。当然，为了提高效率，我们需要过滤掉低频的 N-gram。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】<a href="https://blog.csdn.net/m0_37870649/article/details/80915837" target="_blank" rel="external">NLP︱高级词向量表达（二）——FastText（简述、学习笔记）</a></p>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/19/python-全局变量/" data-id="cjk9pt0bj001etbwwzxd8wmqn" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/07/31/FastText/" data-id="cjk9pt08u0001tbww11bik4cw" class="article-share-link">分享到</a>
       
 
       
-        <a href="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/19/python-全局变量/#ds-thread" class="article-comment-link">评论</a>
+        <a href="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/07/31/FastText/#ds-thread" class="article-comment-link">评论</a>
       
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hehuihui1994.github.io/tags/编程/">编程</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hehuihui1994.github.io/tags/word2vec/">word2vec</a></li></ul>
 
     </footer>
   </div>
@@ -120,19 +138,10 @@
     
 <nav id="article-nav">
   
-    <a href="/hehuihui1994.github.io/2016/08/19/NLPIR-ICTCLAS进行分词/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">
-        
-          NLPIR-ICTCLAS进行分词
-        
-      </div>
-    </a>
   
-  
-    <a href="/hehuihui1994.github.io/2016/08/19/Sum-of-Two-Integers/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/hehuihui1994.github.io/2018/07/31/利用Word2vec训练词向量/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">Sum of Two Integers</div>
+      <div class="article-nav-title">利用Word2vec训练词向量</div>
     </a>
   
 </nav>
@@ -142,7 +151,7 @@
 
 
   <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2016/08/19/python-全局变量/" data-title="python 全局变量" data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2016/08/19/python-全局变量/"></div>
+    <div id="ds-thread" class="ds-thread" data-thread-key="2018/07/31/FastText/" data-title="FastText" data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/07/31/FastText/"></div>
   </section>
 
 
