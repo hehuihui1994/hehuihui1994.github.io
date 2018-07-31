@@ -89,37 +89,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- Table of Contents -->
-        
         <p>​    选用不同的<strong>词向量</strong>作为模型的初始值，效果的差异非常大！所以选择一个好用的词向量还是很重要的。中英文的词向量的处境不同：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">英文的词向量可以训练，也可以用Google训练好的那个模型。 </div><div class="line">但是中文就不行了，没有公布一个权威的词向量。</div></pre></td></tr></table></figure>
-<p>​      我们可以尝试一些开源的词向量，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">英文词向量下载：</div><div class="line">https://github.com/xgli/word2vec-api</div><div class="line">http://nlp.stanford.edu/data/wordvecs/ (Glove)</div><div class="line"></div><div class="line">中文词向量下载：</div><div class="line">https://blog.csdn.net/tu_22/article/details/79035769</div><div class="line">https://github.com/candlewill/Chinsese_word_vectors</div></pre></td></tr></table></figure>
-<p>​    我们也可以用工具包自己训练，工具包下载：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Word2vec </div><div class="line">	https://github.com/hehuihui1994/word2vec</div><div class="line"></div><div class="line">Glove</div><div class="line">	http://nlp.stanford.edu/projects/glove/</div></pre></td></tr></table></figure>
-<p>​    已经有大牛总结出了训练词向量的套路：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">首先根据具体任务，选一个领域相似的语料，在这个条件下，语料越大越好。然后下载一个 word2vec 的新版（14年9月更新），语料小（小于一亿词，约 500MB 的文本文件）的时候用 Skip-gram 模型，语料大的时候用 CBOW 模型。最后记得设置迭代次数为三五十次，维度至少选 50，就可以了。</div></pre></td></tr></table></figure>
-<p>​    也就是：</p>
-<ul>
-<li>1）<strong>领域</strong>相似（越纯越好）</li>
-<li>2）<strong>语料</strong>越大越好</li>
-<li>3）语料小（小于一亿词，约 500MB 的文本文件）的时候用 Skip-gram <strong>模型</strong>，语料大的时候用 CBOW 模型</li>
-<li>4）<strong>迭代次数</strong>为三五十次，<strong>维度</strong>至少选 50</li>
-</ul>
-<p><strong>问题：为什么语料小（小于一亿词，约 500MB 的文本文件）的时候用 Skip-gram 模型，语料大的时候用 CBOW 模型？</strong></p>
-<p>1）从实验结果的出来的结论。</p>
-<p>2）CBOW是对<strong>上下文到目标词</strong>的后验概率进行建模，skip-gram是对<strong>目标词到上下文</strong>的后验概率进行建模。</p>
-<ul>
-<li>在小语料的时候，CBOW求和的方式不太合理，会牺牲一点准确度，skip-gram更加合理。</li>
-<li>在大语料的时候，CBOW的<strong>更快</strong>。假设窗口为k，目标词的个数为t。在CBOW中，我们只需要预测t次，在skip-gram中，我们需要预测kt词。</li>
-</ul>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【1】<a href="http://licstar.net/archives/620" target="_blank" rel="external">How to Generate a Good Word Embedding?</a></p>
-
+        
+          <p class="article-more-link">
+            <a href="/hehuihui1994.github.io/2018/07/31/利用Word2vec训练词向量/#more">阅读全文</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/07/31/利用Word2vec训练词向量/" data-id="cjk93wzym001t38ww39ld0mb7" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/07/31/利用Word2vec训练词向量/" data-id="cjk93xs2u001i4www3rjvcjbf" class="article-share-link">分享到</a>
       
 
       
@@ -175,7 +156,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/06/19/BP算法/" data-id="cjk93wzvp000038wwdzsrythz" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/06/19/BP算法/" data-id="cjk93xrzy00014wwwkr433thj" class="article-share-link">分享到</a>
       
 
       
@@ -231,7 +212,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/05/16/特征选择/" data-id="cjk93wzz2002638ww0w188efq" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/05/16/特征选择/" data-id="cjk93xs3k00264wwwdtxqr9pc" class="article-share-link">分享到</a>
       
 
       
@@ -288,7 +269,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/04/13/不平衡样本的处理/" data-id="cjk93wzyh001p38wwfynifppq" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/04/13/不平衡样本的处理/" data-id="cjk93xs2x001m4wwwnmfe72dp" class="article-share-link">分享到</a>
       
 
       
@@ -345,7 +326,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/29/模型调参/" data-id="cjk93wzz0002338wwz4k11uwx" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/29/模型调参/" data-id="cjk93xs3d001z4wwwz39k514n" class="article-share-link">分享到</a>
       
 
       
@@ -401,7 +382,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/20/评估指标/" data-id="cjk93wzzi002a38wwf42io3p6" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2018/03/20/评估指标/" data-id="cjk93xs3m002a4www4yvo9c1q" class="article-share-link">分享到</a>
       
 
       
@@ -459,7 +440,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/12/04/LibSVM/" data-id="cjk93wzwl000a38wwxlldd45i" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/12/04/LibSVM/" data-id="cjk93xs0s000c4wwwbwjhgzl8" class="article-share-link">分享到</a>
       
 
       
@@ -515,7 +496,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/12/受限玻尔兹曼机/" data-id="cjk93wzyr001w38wwgcex94nn" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/12/受限玻尔兹曼机/" data-id="cjk93xs39001w4wwwiqdrs69z" class="article-share-link">分享到</a>
       
 
       
@@ -572,7 +553,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/10/jupyter-notebook/" data-id="cjk93wzy3001b38wwdi237jje" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/10/10/jupyter-notebook/" data-id="cjk93xs2q001f4wwwhpj72gcu" class="article-share-link">分享到</a>
       
 
       
@@ -631,7 +612,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/07/19/TensorFlow常见问题/" data-id="cjk93wzxu001138wwhspgdb62" class="article-share-link">分享到</a>
+        <a data-url="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/07/19/TensorFlow常见问题/" data-id="cjk93xs1l000u4wwwqlv8wppo" class="article-share-link">分享到</a>
       
 
       
