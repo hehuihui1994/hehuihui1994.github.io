@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170801-4.png">
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170801-5.png">
 <meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170802-1.png">
-<meta property="og:updated_time" content="2018-08-30T12:30:52.000Z">
+<meta property="og:updated_time" content="2018-08-30T12:38:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="传统话题检测与跟踪经典方法">
 <meta name="twitter:description" content="1 新事件检测（NED）
@@ -368,11 +368,9 @@
 <p><strong>查询表示:</strong>用tf的平均值表示的文本向量。e.g.{word,  avg_tf},{‘兴国‘ ：0.0108}。其中$ tf = t/(t+0.5+1.5*\frac{dl}{avg_{dl}})$ ， t表示特征$f_i$出现在文档d中的次数，dl 为文档d的长度，avg_dl 为辅助语料c中的平均文档长度。</p>
 <p><strong>计算新文档d与内存中的查询q的相关性:</strong><br>$$<br>eval(q,d) =\frac{\sum_{i=1}^{N}w_i.d_i}{\sum_{i=1}^{N}w_i}  \tag{1}<br>$$<br>其中，$w_i$表示查询特征（query feature）$q_i$的相关权重，d为文档表示。</p>
 <p><strong>文档表示（document representation）：</strong>$d=[d_0, d_1, … , d_n]$</p>
-<p>$d_i$的计算方式如下：</p>
-<p>$$<br>d_i = belief(q_i, d, c) = 0.4 +0.6<em>tf</em>idf \tag{2}<br>$$</p>
-<p>其中，$tf = t/(t+0.5+1.5*\frac{dl}{avg_{dl}})$， $idf = \frac{log(\frac{|c|+0.5}{df})}{|c|+1}$。</p>
+<p>$d_i$的计算方式如下：<br>$$<br>d_i = belief(q_i, d, c) = 0.4 +0.6\times tf\times idf \tag{2}<br>$$<br>其中，$tf = t/(t+0.5+1.5\times \frac{dl}{avg_{dl}})$， $idf = \frac{log(\frac{|c|+0.5}{df})}{|c|+1}$。</p>
 <p> t表示特征$f_i$出现在文档d中的次数，dl 为文档d的长度；avg_dl 为辅助语料c中的平均文档长度，df表示辅助语料c中包含特征$f_i$的文档个数，|c|表示辅助语料c中的文档个数。</p>
-<h4 id="阈值模型"><a href="#阈值模型" class="headerlink" title="阈值模型"></a>阈值模型</h4><p> Allan等[1-2]针对NED提出一个假设：利用新闻语料的<strong>时间特征</strong>可以提高NED的性能。他们还指出，在时间流中最靠近的文档更有可能讨论的相同的话题。基于这一想法，他们在阈值模型中增加了时间惩罚属性。当第j篇文档（document）与第i个查询（query）进行比较时（i&lt;j），阈值为<br>$$<br>\theta(q^i, d^j) = 0.4 + p<em>( eval(q^i, d^i) - 0.4) + tp</em>(j-i) \tag{3}<br>$$<br>其中，tp为预设的时间惩罚值，$eval(q^i, d^i）$为查询i的初始阈值，$q^i$为查询i的查询表示，$d^i$为查询i的文档表示。</p>
+<h4 id="阈值模型"><a href="#阈值模型" class="headerlink" title="阈值模型"></a>阈值模型</h4><p> Allan等[1-2]针对NED提出一个假设：利用新闻语料的<strong>时间特征</strong>可以提高NED的性能。他们还指出，在时间流中最靠近的文档更有可能讨论的相同的话题。基于这一想法，他们在阈值模型中增加了时间惩罚属性。当第j篇文档（document）与第i个查询（query）进行比较时（i&lt;j），阈值为<br>$$<br>\theta(q^i, d^j) = 0.4 + p\times ( eval(q^i, d^i) - 0.4) + tp\times (j-i) \tag{3}<br>$$<br>其中，tp为预设的时间惩罚值，$eval(q^i, d^i）$为查询i的初始阈值，$q^i$为查询i的查询表示，$d^i$为查询i的文档表示。</p>
 <p>最后，我们将公式融入到 Allan等[1-2]提出的NED算法，重新理解一下整个过程。假设，新到来的文档为第j篇文档。具体过程如下：</p>
 <ul>
 <li><p>1 利用特征选取技术，为这篇新文档(document)建立相对应的<strong>查询（query）表示</strong>。</p>
@@ -435,7 +433,7 @@
 <p>对应代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">processed = [(<span class="number">0</span>, <span class="number">0</span>)] <span class="comment"># 存储已处理过的文本</span></div><div class="line">cluster_map = &#123;<span class="number">0</span>: [<span class="number">0</span>]&#125; <span class="comment"># 存储文本簇</span></div><div class="line">cluster_id = <span class="number">1</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(cos_similarity)):</div><div class="line">    cos_list = cos_similarity[i][<span class="number">0</span>:i]</div><div class="line">    max_similarity = max(cos_list)</div><div class="line">    <span class="keyword">if</span> max_similarity &gt; threshold:</div><div class="line">        max_similarity_index = cos_list.index(max_similarity)</div><div class="line">        related_cluter_id = processed[max_similarity_index][<span class="number">1</span>]</div><div class="line">        processed.append((i, related_cluter_id))</div><div class="line">        cluster_map[related_cluter_id].append(i)</div><div class="line"></div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        processed.append((i, cluster_id))</div><div class="line">        cluster_map[cluster_id] = [i]</div><div class="line">        cluster_id += <span class="number">1</span></div></pre></td></tr></table></figure>
 <p>存在如下余弦相似度矩阵：</p>
-<p>$$\left[ \begin{matrix} 1.0 &amp; 0.026830751 &amp; 0.028009817 &amp; 0.0041988939 &amp; 0.0097252522 \ 0.026830751 &amp; 1.0 &amp; 0.13870972 &amp; 0.010735348 &amp; 0.025803667 \ 0.028009817 &amp; 0.13870972 &amp; 0.99999988 &amp; 0.022190623 &amp; 0.015336463 \ 0.0041988939 &amp; 0.010735348 &amp; 0.022190623 &amp; 1.0 &amp; 0.0092485566 \ 0.0097252522 &amp; 0.025803667 &amp; 0.015336463 &amp; 0.0092485566 &amp; 1.0 \end{matrix} \right]$$</p>
+<p>$$\begin{bmatrix} 1.0 &amp; 0.026830751 &amp; 0.028009817 &amp; 0.0041988939 &amp; 0.0097252522 \ 0.026830751 &amp; 1.0 &amp; 0.13870972 &amp; 0.010735348 &amp; 0.025803667 \ 0.028009817 &amp; 0.13870972 &amp; 0.99999988 &amp; 0.022190623 &amp; 0.015336463 \ 0.0041988939 &amp; 0.010735348 &amp; 0.022190623 &amp; 1.0 &amp; 0.0092485566 \ 0.0097252522 &amp; 0.025803667 &amp; 0.015336463 &amp; 0.0092485566 &amp; 1.0 \end{bmatrix}$$</p>
 <p>设阈值threshold=0.1，processed, cluster_map分别用于存储已处理过的文本和文本簇，初始化时已将第一篇文本存入。 循环从cos_similarity[1]开始，processed, cluster_map变化如下表：</p>
 <table>
 <thead>
