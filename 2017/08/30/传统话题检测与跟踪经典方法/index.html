@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/hehuihui1994.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/hehuihui1994.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/hehuihui1994.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/hehuihui1994.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/hehuihui1994.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/hehuihui1994.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/hehuihui1994.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="TDT," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 新事件检测（NED）
+[1] Allan J, Papka R, Lavrenko V. On-line new event detection and tracking[C]//International ACM SIGIR Conference on Research and Development in InformationRetrieval. ACM, 1998:37-45. (ci">
+<meta property="og:type" content="article">
+<meta property="og:title" content="传统话题检测与跟踪经典方法">
+<meta property="og:url" content="https://github.com/hehuihui1994/hehuihui1994.github.io/2017/08/30/传统话题检测与跟踪经典方法/index.html">
+<meta property="og:site_name" content="何烩烩的博客">
+<meta property="og:description" content="1 新事件检测（NED）
+[1] Allan J, Papka R, Lavrenko V. On-line new event detection and tracking[C]//International ACM SIGIR Conference on Research and Development in InformationRetrieval. ACM, 1998:37-45. (ci">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170801-1.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/single-pass.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170801-2.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170801-3.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170801-4.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170801-5.png">
+<meta property="og:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170802-1.png">
+<meta property="og:updated_time" content="2018-08-30T12:28:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="传统话题检测与跟踪经典方法">
+<meta name="twitter:description" content="1 新事件检测（NED）
+[1] Allan J, Papka R, Lavrenko V. On-line new event detection and tracking[C]//International ACM SIGIR Conference on Research and Development in InformationRetrieval. ACM, 1998:37-45. (ci">
+<meta name="twitter:image" content="http://oc3xgjy1i.bkt.clouddn.com/20170801-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/hehuihui1994.github.io/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/hehuihui1994/hehuihui1994.github.io/2017/08/30/传统话题检测与跟踪经典方法/"/>
+
+
+
+
+
+  <title>传统话题检测与跟踪经典方法 | 何烩烩的博客</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/hehuihui1994.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">何烩烩的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/hehuihui1994.github.io/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/hehuihui1994.github.io/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/hehuihui1994.github.io/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/hehuihui1994.github.io/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/hehuihui1994/hehuihui1994.github.io/hehuihui1994.github.io/2017/08/30/传统话题检测与跟踪经典方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="何烩烩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oc3xgjy1i.bkt.clouddn.com/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="何烩烩的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">传统话题检测与跟踪经典方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-30T20:27:07+08:00">
+                2017-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/hehuihui1994.github.io/categories/academic/" itemprop="url" rel="index">
+                    <span itemprop="name">学术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-新事件检测（NED）"><a href="#1-新事件检测（NED）" class="headerlink" title="1 新事件检测（NED）"></a>1 新事件检测（NED）</h2><blockquote>
+<p>[1] Allan J, Papka R, Lavrenko V. On-line new event detection and tracking[C]//<br>International ACM SIGIR Conference on Research and Development in Information<br>Retrieval. ACM, 1998:37-45. <strong>(cite:953)</strong></p>
+<p>[2]Papka     R, Allan J. On-line new event detection using single pass clustering[J].     University of Massachusetts, Amherst, 1998: 37-45. <strong>(cite:90)</strong>   </p>
+</blockquote>
+<h3 id="1-1-基于Single-pass聚类的NED算法"><a href="#1-1-基于Single-pass聚类的NED算法" class="headerlink" title="1.1 基于Single-pass聚类的NED算法"></a>1.1 基于Single-pass聚类的NED算法</h3><p>Allan等[1-2]基于Single-pass聚类算法建立了一个在线识别系统，检测报道流中出现的新事件。<strong>后期的NED相关研究都以这种统计方法为框架。</strong></p>
+<p><strong>Single-Pass 聚类算法</strong>的主要思想为：按一定顺序依次读取数据，每次读取的新数据都和已经读取并聚类的数据进行比较，如果按照一定规则找到相应的近似组别，则将这个新数据归入这个类中，如果没有，则将这个新数据视为一个新类。就这样反复执行，直到所有的数据都读完。整个过程只对数据进行一次读取（single）。</p>
+<a id="more"></a>
+<p>Allan等[1-2]将Single-pass聚类算法应用到NED中，他们将要检测的文档，视为按时间排序的文档流，按照这个流顺序顺次地处理每一个新的文档。具体过程如下：</p>
+<ul>
+<li>1 利用特征选取技术，为这篇新文档(document)建立相对应的查询（query）表示。</li>
+<li>2  计算新产生的查询对应的<strong>初始阈值</strong>。</li>
+<li>3 将这篇新文档与内存中已存在的所有<strong>查询</strong>表示依次做比较。</li>
+<li>4 如果这篇新文档较以前的查询表示并未超过其<strong>阈值</strong>，则将这个文档标记为其包含新事件。</li>
+<li>5 如果这篇新文档触发了某个已有的查询，则将这个文档标记为不包含新事件。</li>
+<li>6 <strong>(可选)</strong>    将这篇新文档d归类到它所触发的查询q对应的类中。</li>
+<li>7 <strong>(可选）</strong> 利用新文档d，对内存中的所有查询重新建立对应的向量表示。</li>
+<li>8 将这篇文档对应的查询表示加入到内存中。</li>
+</ul>
+<p>这里将每篇文档的内容表示为一个<strong>查询</strong>（query）。如果一篇文档触发（trigger）了已存在的<strong>查询A</strong>，则认为这篇文档讨论了<strong>A查询</strong>中的事件，否则，将这篇文档视为包含新的事件。</p>
+<p>在TDT评测中，Single-Pass算法是使用最多的算法。其运算速度快，原理简单， 但对文本输入的顺序比较敏感。一旦文本顺序发生了变化，聚类结果就会出现很大的不同。此外，在Web新闻报道的话题发现应用中，报道一般是根据时间来组织的， 输入的顺序是确定的，所以该算法的缺点并不会对话题发现的结果造成太大影响， 并且运行速度方面的优势非常适合新闻报道数量大对算法复杂度提出的要求。</p>
+<h4 id="查询表示（query-representation）和文档表示（document-representation）"><a href="#查询表示（query-representation）和文档表示（document-representation）" class="headerlink" title="查询表示（query representation）和文档表示（document representation）"></a>查询表示（query representation）和文档表示（document representation）</h4><p><strong>动态变化的特征</strong>：在所有的<strong>文档流</strong>中，选择前n个高频词（n most frequent single word features found in the document(s))作为特征f（动态变化的特征，动态变化的表示)。</p>
+<p><strong>辅助语料：</strong>选择<strong>辅助语料</strong>c， 并保证辅助语料与当前检测的文档流属于同一领域，用以估算idf（逆文档频率）。</p>
+<p><strong>查询表示:</strong>用tf的平均值表示的文本向量。e.g.{word,  avg_tf},{‘兴国‘ ：0.0108}。其中$ tf = t/(t+0.5+1.5*\frac{dl}{avg_{dl}})$ ， t表示特征$f_i$出现在文档d中的次数，dl 为文档d的长度，avg_dl 为辅助语料c中的平均文档长度。</p>
+<p><strong>计算新文档d与内存中的查询q的相关性:</strong><br>$$<br>eval(q,d) =\frac{\sum_{i=1}^{N}w_i.d_i}{\sum_{i=1}^{N}w_i}  \tag{1}<br>$$<br>其中，$w_i$表示查询特征（query feature）$q_i$的相关权重，d为文档表示。</p>
+<p><strong>文档表示（document representation）：</strong>$d=[d_0, d_1, … , d_n]$</p>
+<p>$d_i$的计算方式如下：<br>$$<br>d_i = belief(q_i, d, c) = 0.4 +0.6<em>tf</em>idf \tag{2}<br>$$<br>其中，$tf = t/(t+0.5+1.5*\frac{dl}{avg_{dl}})$，$idf = \frac{log(\frac{|c|+0.5}{df})}{|c|+1}$。</p>
+<p> t表示特征$f_i$出现在文档d中的次数，dl 为文档d的长度；avg_dl 为辅助语料c中的平均文档长度，df表示辅助语料c中包含特征$f_i$的文档个数，|c|表示辅助语料c中的文档个数。</p>
+<h4 id="阈值模型"><a href="#阈值模型" class="headerlink" title="阈值模型"></a>阈值模型</h4><p> Allan等[1-2]针对NED提出一个假设：利用新闻语料的<strong>时间特征</strong>可以提高NED的性能。他们还指出，在时间流中最靠近的文档更有可能讨论的相同的话题。基于这一想法，他们在阈值模型中增加了时间惩罚属性。当第j篇文档（document）与第i个查询（query）进行比较时（i&lt;j），阈值为<br>$$<br>\theta(q^i, d^j) = 0.4 + p<em>( eval(q^i, d^i) - 0.4) + tp</em>(j-i) \tag{3}<br>$$<br>其中，tp为预设的时间惩罚值，$eval(q^i, d^i）$为查询i的初始阈值，$q^i$为查询i的查询表示，$d^i$为查询i的文档表示。</p>
+<p>最后，我们将公式融入到 Allan等[1-2]提出的NED算法，重新理解一下整个过程。假设，新到来的文档为第j篇文档。具体过程如下：</p>
+<ul>
+<li><p>1 利用特征选取技术，为这篇新文档(document)建立相对应的<strong>查询（query）表示</strong>。</p>
+<p>（$q^j$）</p>
+</li>
+<li><p>2  计算新产生的查询对应的<strong>初始阈值</strong>。</p>
+<p>( $eval(q^j, d^j)$)</p>
+</li>
+<li><p>3 将这篇新文档与内存中已存在的所有<strong>查询i</strong>表示<strong>依次</strong>做比较。</p>
+<p>( $eval(q^i, d^j)$ )</p>
+</li>
+<li><p>4 如果这篇新文档较以前的查询表示均并未超过其<strong>阈值</strong>，则将这个文档标记为其包含新事件。</p>
+<p>( 计算新文档j与查询表示i的相关性</p>
+<p>阈值  $\theta(q^i, d^j)$</p>
+<p>比较  $eval(q^i, d^j)$ 与 $\theta(q^i, d^j)$ )</p>
+</li>
+<li><p>5 如果这篇新文档触发了某个已有的查询，则将这个文档标记为不包含新事件。</p>
+</li>
+<li><p>6 <strong>(可选)</strong>    将这篇新文档d归类到它所触发的查询q对应的类中。</p>
+</li>
+<li><p>7 <strong>(可选）</strong> 利用新文档d，对内存中的所有查询重新建立对应的向量表示。</p>
+</li>
+<li><p>8 将这篇文档对应的查询表示加入到内存中。</p>
+<p>（将$q^j$加入到内存中 ）</p>
+</li>
+</ul>
+<h2 id="2-事件回顾检测（RED）"><a href="#2-事件回顾检测（RED）" class="headerlink" title="2 事件回顾检测（RED）"></a>2 事件回顾检测（RED）</h2><blockquote>
+<p>[3] J Allan, J Carbonell, G Doddington, J Yamron and Y Yang.     Topic detection and tracking pilot study: Final report [A]. In:     Proceedings of the DARPA Broadcast News Transcription and Understanding     Workshop [C], Virginia :Lansdowne , February 1998 , 1942218.(cite:1146)  经典文章</p>
+</blockquote>
+<p>本章节介绍事件回顾检测任务中两种方法，分别为<strong>基于在线增量式聚类算法</strong>、卡内基梅隆大学的基于平均分组的层次聚类算法（Group-average based clustering, GAC）[3],其中GAC算法是现在针对RED任务比较流行的算法。但是GAC 算法只适合回溯检测，不适合话题的在线检测，因此应用范围受 到了一定的限制。 </p>
+<h3 id="2-1-基于在线增量式聚类算法"><a href="#2-1-基于在线增量式聚类算法" class="headerlink" title="2.1 基于在线增量式聚类算法"></a>2.1 基于在线增量式聚类算法</h3><p>本章节简要介绍基于single-pass聚类进行RED任务的方法。该方法涉及到话题类向量的表示和动态调整：话题类向量的表示一般有<strong>中心向量法</strong>和<strong>质心向量法</strong>两种，中心向量法是指话题类有其中一个文档作为中心向量来表示；质心向量法是指采用类中所有文档向量的平均值来表示话题类，质心法对噪声和孤立点敏感。</p>
+<h4 id="2-1-1-Single-pass聚类两种使用方式"><a href="#2-1-1-Single-pass聚类两种使用方式" class="headerlink" title="2.1.1 Single-pass聚类两种使用方式"></a>2.1.1 Single-pass聚类两种使用方式</h4><p><strong>方式一：</strong></p>
+<blockquote>
+<p>[4] 朱恒民, 朱卫未. 基于 Single-Pass 的网络话题在线聚类方法研究[J]. 现代图书情报技术, 2012, 27(12): 52-57. （cite:3）</p>
+</blockquote>
+<ul>
+<li>1）输入新文档d，进行文本特征抽取，计算特征权重，构建d的VSM；</li>
+<li>2）采用余弦公式<strong>计算d与话题类C向量之间的距离</strong>distance，若distance大于阈值，则将d归类到该话题类C，否则创建新话题类Cj；</li>
+<li>3）最后，基于d的特征向量<strong>更新话题类C的表示向量</strong>；</li>
+<li>4）聚类过程结束。</li>
+</ul>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170801-1.png" alt=""></p>
+<p><strong>方式二：</strong></p>
+<ul>
+<li>1)输入新文档d，进行文本特征抽取，计算特征权重，构建d的VSM；</li>
+<li>2)计算d与已有话题分类中每篇文档的相似度，获取<strong>与d相似度最大的话题</strong>并得到相似度值T；</li>
+<li>3)若T大于阈值θ，则文档被分类到已知的话题类别，否则作为一个新的话题类别；</li>
+<li>4)聚类过程结束。</li>
+</ul>
+<h4 id="2-1-2-代码实现"><a href="#2-1-2-代码实现" class="headerlink" title="2.1.2 代码实现"></a>2.1.2 代码实现</h4><p>本章节展示方式二的的<strong>“<a href="https://www.gitbook.com/book/qiangber/single-pass/details" target="_blank" rel="external">基于single-pass的文本聚类算法</a>”</strong>, 分为特征提取、计算余弦相似度、Single-Pass算法三个部分。</p>
+<h5 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h5><p>首先对每条文本的内容进行分词处理，用函数cut_to_list处理经UTF-8编码的文本内容：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">texts = [nlpir.cut_to_list(a[<span class="number">1</span>].encode(<span class="string">'UTF-8'</span>)) <span class="keyword">for</span> a <span class="keyword">in</span> articles]</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">cut_to_list</span><span class="params">(paragraph)</span>:</span></div><div class="line">    result = Seg(paragraph) <span class="comment"># 调用接口对文本作分词处理</span></div><div class="line">    words = []</div><div class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> result:</div><div class="line">        <span class="keyword">if</span> re.match(<span class="string">'m|q|d|p|c|u|e|y|o|h|k|x|w'</span>, word[<span class="number">1</span>]) <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">            words.append(word[<span class="number">0</span>])</div><div class="line">    <span class="keyword">return</span> words</div></pre></td></tr></table></figure>
+<p>其中，cut_to_list函数由<a href="http://ictclas.nlpir.org/" target="_blank" rel="external">NLPIR汉语分词系统</a>提供的接口构成，对文本内容进行分词，并过滤了其中的标点符号、拟声词、叹词、助词、连词、介词、副词、数词、量词等对文本特征提取作用不大的部分。</p>
+<p>现利用gensim库对文本进行特征提取，这里利用TF-IDF值表示的文本向量来作为文本的特征。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">dictionary = corpora.Dictionary(texts) </div><div class="line"><span class="comment"># 将文本构建为词语及其对应id的映射词典，(word, word_id)，如&#123;‘家常’: 0, ‘杜特尔’: 1, ‘竞争力’: 2, ‘兴国’: 3&#125;</span></div><div class="line"></div><div class="line">corpus = [dictionary.doc2bow(text) <span class="keyword">for</span> text <span class="keyword">in</span> corp]</div><div class="line"><span class="comment"># 利用函数doc2bow将用字符串表示的文本转换为用id表示的文本词频向量，(word_id, word_frequency)，如[(0, 4), (1, 1), (2, 2), (3, 1)]中，(0, 4)表示这篇文章中id为0的词语出现了4次</span></div><div class="line"></div><div class="line">tfidf = models.TfidfModel(corpus)</div><div class="line"><span class="comment"># 基于已有的文本计算得到一个TF-IDF模型</span></div><div class="line"></div><div class="line">corpus_tfidf = tfidf[corpus]</div><div class="line"><span class="comment"># 基于这个TF-IDF模型，调用该模型的[]方法，我们可以将上述用词频表示的文本向量表示为一个用tf-idf值表示的文本向量，(word_id, tf-idf)，如[(0, 0.010843459075103673), (1, 0.031796805414370584), (2, 0.03253037722531102), (3, 0.013352262869571556)]</span></div></pre></td></tr></table></figure>
+<h5 id="计算余弦相似度"><a href="#计算余弦相似度" class="headerlink" title="计算余弦相似度"></a>计算余弦相似度</h5><p>通过余弦相似度表示文本间的相似程度，进而进行聚类。余弦相似度的公式如下：<br>$$<br>\cos\theta = {\mathbf A \cdot \mathbf B \over | \mathbf {A} | \cdot | \mathbf {B} |} \tag{4}<br>$$<br>利用gensim库计算所有特征向量的余弦相似度，得到所有文本的余弦相似度矩阵：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">index = similarities.MatrixSimilarity(corpus_tfidf)</div><div class="line"><span class="comment"># 用tf-idf值表示的文档向量构建余弦相似度索引</span></div><div class="line"></div><div class="line">cos_similarity = [list(index[vector]) <span class="keyword">for</span> vector <span class="keyword">in</span> corpus_tfidf]</div><div class="line"><span class="comment"># 计算每一个TF-IDF文本向量间余弦相似度，得到余弦相似度矩阵</span></div><div class="line"><span class="comment"># print(cos_similarity[0])得到第一篇文本与其它所有文本的余弦相似度</span></div><div class="line"><span class="comment"># &gt;&gt;&gt;[1.0, 0.026830751, 0.028009819, 0.0041988939, 0.0097252531]</span></div></pre></td></tr></table></figure>
+<h5 id="Single-pass-算法的实现"><a href="#Single-pass-算法的实现" class="headerlink" title="Single-pass 算法的实现"></a>Single-pass 算法的实现</h5><p>Single-Pass文本聚类算法流程图如下：</p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/single-pass.png" alt=""></p>
+<p>对应代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">processed = [(<span class="number">0</span>, <span class="number">0</span>)] <span class="comment"># 存储已处理过的文本</span></div><div class="line">cluster_map = &#123;<span class="number">0</span>: [<span class="number">0</span>]&#125; <span class="comment"># 存储文本簇</span></div><div class="line">cluster_id = <span class="number">1</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(cos_similarity)):</div><div class="line">    cos_list = cos_similarity[i][<span class="number">0</span>:i]</div><div class="line">    max_similarity = max(cos_list)</div><div class="line">    <span class="keyword">if</span> max_similarity &gt; threshold:</div><div class="line">        max_similarity_index = cos_list.index(max_similarity)</div><div class="line">        related_cluter_id = processed[max_similarity_index][<span class="number">1</span>]</div><div class="line">        processed.append((i, related_cluter_id))</div><div class="line">        cluster_map[related_cluter_id].append(i)</div><div class="line"></div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        processed.append((i, cluster_id))</div><div class="line">        cluster_map[cluster_id] = [i]</div><div class="line">        cluster_id += <span class="number">1</span></div></pre></td></tr></table></figure>
+<p>存在如下余弦相似度矩阵：</p>
+<p>$$\left[ \begin{matrix} 1.0 &amp; 0.026830751 &amp; 0.028009817 &amp; 0.0041988939 &amp; 0.0097252522 \ 0.026830751 &amp; 1.0 &amp; 0.13870972 &amp; 0.010735348 &amp; 0.025803667 \ 0.028009817 &amp; 0.13870972 &amp; 0.99999988 &amp; 0.022190623 &amp; 0.015336463 \ 0.0041988939 &amp; 0.010735348 &amp; 0.022190623 &amp; 1.0 &amp; 0.0092485566 \ 0.0097252522 &amp; 0.025803667 &amp; 0.015336463 &amp; 0.0092485566 &amp; 1.0 \end{matrix} \right]$$</p>
+<p>设阈值threshold=0.1，processed, cluster_map分别用于存储已处理过的文本和文本簇，初始化时已将第一篇文本存入。 循环从cos_similarity[1]开始，processed, cluster_map变化如下表：</p>
+<table>
+<thead>
+<tr>
+<th>循环的矩阵行数i</th>
+<th>processed</th>
+<th>cluster_map</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>[(0, 0), (1, 1)]</td>
+<td>{0: [0], 1: [1]}</td>
+</tr>
+<tr>
+<td>3</td>
+<td>[(0, 0), (1, 1), (2, 1)]</td>
+<td>{0:[], 1: [1, 2]}</td>
+</tr>
+<tr>
+<td>4</td>
+<td>[(0, 0), (1, 1), (2, 1), (3, 2)]</td>
+<td>{0:[], 1: [1, 2], 2: [3]}</td>
+</tr>
+<tr>
+<td>5</td>
+<td>[(0, 0), (1, 1), (2, 1), (3, 2), (4, 3)]</td>
+<td>{0:[], 1: [1, 2], 2: [3]}, 3: [4]</td>
+</tr>
+</tbody>
+</table>
+<p>上述示例中，只有第三篇文本与第二遍文本的余弦相似度超过了阈值，于是将其分到同一文本簇。</p>
+<h3 id="2-2-GAC聚类算法-基于平均分组的层次聚类算法"><a href="#2-2-GAC聚类算法-基于平均分组的层次聚类算法" class="headerlink" title="2.2 GAC聚类算法(基于平均分组的层次聚类算法)"></a>2.2 GAC聚类算法(基于平均分组的层次聚类算法)</h3><blockquote>
+<p>[5] J Allan, J Carbonell, G Doddington, J Yamron and Y Yang.     Topic detection and tracking pilot study: Final report [A]. In:     Proceedings of the DARPA Broadcast News Transcription and Understanding     Workshop [C], Virginia :Lansdowne , February 1998 , 1942218.(cite:1146)  经典文章</p>
+</blockquote>
+<p><strong>概念：</strong>基于平均分组的层次聚类法是针对回溯检测(RED)的一种较好的算法，<strong>自底向上的贪心算法</strong>，采用了分而治之的策略，能够最大化话题簇中各新闻报道之间的<strong>平均相似度</strong>。输入为按照时间排好序的新闻文档集合，输出为层次式的话题类簇结构。</p>
+<p><strong>GAC算法步骤：</strong></p>
+<p>①首先进行初始化，将新闻报道按时间排序，每篇报道作为一个单独话题簇;</p>
+<p>②将当前话题集中的话题按顺序连续并且不重叠地划分到大小为m的桶中;</p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170801-2.png" alt=""></p>
+<p>③对每一个桶分别进行聚类：重复地合并桶中两个最相似的低层次话题类簇，形成一个高层次的话题类簇，直到桶中类<strong>簇数量</strong>减少到预设的p为止，或者<strong>任何两个类簇之间的相似度</strong>都低于一个预设的阈值s为止；</p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170801-3.png" alt=""></p>
+<p>④在保持各话题类簇时间顺序的前提下去除桶的边界，也即汇集所有桶中的话题类簇。此时对文档集合的划分即为当前类簇集合。</p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170801-4.png" alt=""></p>
+<p>⑤重复②③④三步，直到最顶层的话题类簇数目达到一个预定的数值为止。</p>
+<p>⑥定期将每个顶层话题中的所有新闻报道按照前五步重新聚类。</p>
+<p>GAC算法的时间复杂度为O(mn)，其中n为新闻文档集合中的文档数量，m为桶的大小，m小于或等于n；算法效率高，且考虑了文档的<strong>时间顺序</strong>；GAC算法只适合回溯检测。</p>
+<h2 id="3-传统话题跟踪"><a href="#3-传统话题跟踪" class="headerlink" title="3 传统话题跟踪"></a>3 传统话题跟踪</h2><blockquote>
+<p>[6] 赵华. 话题检测与跟踪关键技术研究[D]. 哈尔滨工业大学, 2008. (Cite:2)</p>
+</blockquote>
+<p>现在的话题跟踪方法大致可以分为两类，分别为基于查询的话题跟踪算法、基于分类算法的话题跟踪算法。</p>
+<h3 id="3-1-基于查询的话题跟踪算法"><a href="#3-1-基于查询的话题跟踪算法" class="headerlink" title="3.1 基于查询的话题跟踪算法"></a>3.1 基于查询的话题跟踪算法</h3><blockquote>
+<p>[7]骆卫华, 刘群, 程学旗. 话题检测与跟踪技术的发展与研究[C]//全国计算语言学联合学术会议 (JSCL-2003) 论文集. 北京: 清华大学出版社, 2003: 560-566. (Cite:14)</p>
+</blockquote>
+<p>基于查询的话题跟踪算法简单易行，是研究者们常用的方法。该方法的基本思想是利用话题的训练语料中的报道建立查询器，然后计算查询器和待跟踪报道之间的相似度，最后通过相似度和阈值的比较来判定报道是否和话题相关。 在使用过程中，通常有两种建立查询器的方法，一个是基于向量空间模型建立，另一个是使用语言模型建立。二者都取得了比较理想的效果，但是使用基于语言模型建立查询器的方法通常需要较大的背景语料。</p>
+<p>基于查询的话题跟踪的流程图如下：</p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170801-5.png" alt="话题跟踪模型图1"></p>
+<p>或者</p>
+<p><img src="http://oc3xgjy1i.bkt.clouddn.com/20170802-1.png" alt="话题跟踪流程图2"></p>
+<h4 id="3-1-1-基于向量空间模型"><a href="#3-1-1-基于向量空间模型" class="headerlink" title="3.1.1 基于向量空间模型"></a>3.1.1 基于向量空间模型</h4><p><strong>1）模型表示</strong></p>
+<p><strong>向量空间模型</strong>是目前最简便高效的文本表示模型之一。其基本思想是：给定一自然语言文档$D＝D（t_1，w_1；t_2，w_2；…；t_N，w_N）$，其中$t_i$是从文档D中选出的特征项，wi是项的权重(1≤i≤N)。为了简化分析，通常不考虑$t_k$在文档中的先后顺序并要求<em>tk</em>互异（即没有重复）。这时可以把$t_1，t_2，…，t_N$看成一个<em>N</em>维的坐标系，而$w_1，w_2，…，w_N$为相应的坐标值，因而$D（w_1，w_2，…，w_N ）$被看成是<em>N</em>维空间中的一个向量，而两个文档<em>D1</em>和<em>D2</em>之间的（内容）相关程度常常用它们之间的相似度$Sim（D1，D2）$来度量。</p>
+<p>当文档被表示为文档空间的向量，我们就可以借助于向量之间的某种距离来表示文档间的相似度。在实际的参评系统中，<strong>基本上都以词作为文本特征项</strong>。</p>
+<p><strong>特征（词）加权采用的是IR系统中常用的tf*idf加权策略</strong>。<br>$$<br>词频(tf) =  \frac{某个词出现在语料中的次数}{语料的总词数} \tag{5}<br>$$</p>
+<p>$$<br>逆文档频率(IDF) = log\frac{文档总数}{包含该词的文档总数} \tag{6}<br>$$</p>
+<p>话题类向量的表示一般有<strong>中心向量法</strong>和<strong>质心向量法</strong>两种，中心向量法是指话题类有其中一个文档作为中心向量来表示；质心向量法是指采用类中所有文档向量的平均值来表示话题类，质心法对噪声和孤立点敏感。</p>
+<p><strong>2）相似度计算</strong></p>
+<p>向量空间模型和中心向量模型<strong>通常采用cosine</strong>公式来计算报道－话题的相似度，即求两者的内积，则相似度计算公式可表示为<br>$$<br>D(s,c) = \frac{\sum{q_i}{d_i}}{\sqrt{\sum{q_i^2\sum{d_i^2}}}} \tag{7}<br>$$<br>其中，$q_i$、$d_i$分别是报道和话题中的特征项的权值。</p>
+<h4 id="3-1-2-基于语言模型"><a href="#3-1-2-基于语言模型" class="headerlink" title="3.1.2 基于语言模型"></a>3.1.2 基于语言模型</h4><p>对所有的话题$C_1、C_2、…… 、C_n$，要判断某一则报道S属于哪一个话题，就需要计算报道和各个话题之间的相似程度，最后把最高相似度和阈值进行比较。</p>
+<p>语言模型是一种概率模型。在话题跟踪领域，通常使用1元语言模型，即假设报道中出现的词w各不相关。利用贝叶斯算法，某则报道s和话题c相关的概率：<br>$$<br>p(c|s) =\frac{p(c).p(s|c)}{p(s)} = p(c)\Pi_{i}^{k}\frac{p(w_i | c)}{p(w_i)} \tag{8}<br>$$<br>对于语言模型而言，就是寻找k满足：$k = arg max_i p(c_i|s)$。对语言模型取log值，<strong>相似度计算公式</strong>表示为<br>$$<br>D(s,c) = log \Pi_i\frac{p(w_i | c)}{p(w_i)} \tag{9}<br>$$<br>$p(w_i | c)$表示词$w_i$在话题c中的概率。由于<strong>话题语言模型</strong>只是由已知的$N_t$($N_t = 1 、2、4$)篇报道训练得到的，没有任何其他可以供参考的信息，这就会造成严重的数据稀疏问题。这里必须解决未见词的0概率问题，通常采用线性插值法把<strong>背景语言模型B</strong>加入进去，以<strong>平滑</strong>话题语言模型，即<br>$$<br>p(w_i | c)  \approx \alpha  p(w_i | c) + (1-\alpha) p(w_i|B ) \tag{10}<br>$$<br>其中$p(w_i|B)$表示词$w_i$在背景语料中的概率。</p>
+<h3 id="3-2-基于分类算法的话题跟踪算法"><a href="#3-2-基于分类算法的话题跟踪算法" class="headerlink" title="3.2 基于分类算法的话题跟踪算法"></a>3.2 基于分类算法的话题跟踪算法</h3><blockquote>
+<p>[8] Kupiec J, Pedersen J, Chen F.<strong>A trainable document summarizer</strong>[C]//Proceedings of the 18th annual international ACM SIGIR conference on Research and development in information retrieval. ACM, 1995: 68-73. (cite:1434) 经典文章</p>
+</blockquote>
+<p>基于统计的研究方法被广泛应用于传统话题跟踪技术中，<strong>其中具有代表性的方法是基于分类策略的话题跟踪</strong>研究。话题跟踪的实质是通过有指导的学习，利用非常少的正例数据(一则或多则相关报道)和大量的反例数据来获得一个分类器，用于判断后续输入的报道 是否与话题相关，因此我们可以把话题跟踪看作是一个特殊的二值分类问题， 那么文本分类里的许多技术便可用于话题跟踪研究中。</p>
+<p>比如<strong>UMass[8]</strong>将二元分类法应用于话题跟踪，判定后续到来的报道是否与某话题有关。（多项式朴素贝叶斯）</p>
+<p>报道s属于话题c的概率为：<br>$$<br>p(c|s) =\frac{p(c,s)}{p(s)}=\frac{p(c).p(s|c)}{p(s)} \tag{11}<br>$$</p>
+<p>$$<br>p(s|c) = \Pi_{j=1}^{k}p(f_i|c) \tag{12}<br>$$</p>
+<p>$$<br>p(s) = \Pi_{j=1}^{k}p(f_i) \tag{13}<br>$$</p>
+<p>其中，p(c)是训练样本中任意一则新报道属于话题c的先验概率，$p(f_i|c)$表示训练样本中话题c中特征$f_i$的数量与话题c中总单词数量的比值，$p(f_i)$表示训练样本中特征$f_i$的数量与总单词数的比值。</p>
+<h2 id="4-关联检测"><a href="#4-关联检测" class="headerlink" title="4 关联检测"></a>4 关联检测</h2><p>目前，最成功的关联检测系统的基本做法是:首先将报道表示成<strong>向量空间模型</strong>，然后使用<strong>Cosine 函数</strong>计算报道向量之间的相似度;最后通过阈值和相似度之间的比较作出报道是否相关的判断。如果相似度大于阈值，那么报道相关;否则报道不相关。</p>
+<p>上述的基本模型中主要解决两个方面的问题:报道的<strong>表示模型</strong>以及报道之间的<strong>相似度计算</strong>。</p>
+<h2 id="5-参考文献"><a href="#5-参考文献" class="headerlink" title="5 参考文献"></a>5 参考文献</h2><p>[1] Allan J, Papka R, Lavrenko V. On-line new event detection and tracking[C]//<br>International ACM SIGIR Conference on Research and Development in Information Retrieval. ACM, 1998:37-45. <strong>(cite:953)</strong></p>
+<p>[2]Papka     R, Allan J. On-line new event detection using single pass clustering[J].     University of Massachusetts, Amherst, 1998: 37-45. <strong>(cite:90)</strong>   </p>
+<p>[3] J Allan, J Carbonell, G Doddington, J Yamron and Y Yang.     Topic detection and tracking pilot study: Final report [A]. In:     Proceedings of the DARPA Broadcast News Transcription and Understanding     Workshop [C], Virginia :Lansdowne , February 1998 , 1942218.<strong>(cite:1146)</strong>  </p>
+<p>[4] 朱恒民, 朱卫未. 基于 Single-Pass 的网络话题在线聚类方法研究[J]. 现代图书情报技术, 2012, 27(12): 52-57. <strong>（cite:3）</strong></p>
+<p>[5] J Allan, J Carbonell, G Doddington, J Yamron and Y Yang.     Topic detection and tracking pilot study: Final report [A]. In:     Proceedings of the DARPA Broadcast News Transcription and Understanding     Workshop [C], Virginia :Lansdowne , February 1998 , 1942218.<strong>(cite:1146)</strong> </p>
+<p>[6]赵华. 话题检测与跟踪关键技术研究[D]. 哈尔滨工业大学, 2008. <strong>(Cite:2)</strong></p>
+<p>[7]骆卫华, 刘群, 程学旗. 话题检测与跟踪技术的发展与研究[C]//全国计算语言学联合学术会议 (JSCL-2003) 论文集. 北京: 清华大学出版社, 2003: 560-566. <strong>(Cite:14)</strong></p>
+<p>[8]Kupiec J, Pedersen J, Chen F.A trainable document summarizer[C] //Proceedings of the 18th annual international ACM SIGIR conference on Research and development in information retrieval. ACM, 1995: 68-73. <strong>(cite:1434)</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/hehuihui1994.github.io/tags/TDT/" rel="tag"># TDT</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/hehuihui1994.github.io/2017/07/19/TensorFlow常见问题/" rel="next" title="TensorFlow常见问题">
+                <i class="fa fa-chevron-left"></i> TensorFlow常见问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/hehuihui1994.github.io/2017/10/10/jupyter-notebook/" rel="prev" title="jupyter notebook ">
+                jupyter notebook  <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oc3xgjy1i.bkt.clouddn.com/avatar.png"
+                alt="何烩烩" />
+            
+              <p class="site-author-name" itemprop="name">何烩烩</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/hehuihui1994.github.io/archives">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/hehuihui1994.github.io/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/hehuihui1994.github.io/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hehuihui1994" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/huihuiaichixiaotudou/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/he-hui-hui-32/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-新事件检测（NED）"><span class="nav-number">1.</span> <span class="nav-text">1 新事件检测（NED）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-基于Single-pass聚类的NED算法"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 基于Single-pass聚类的NED算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询表示（query-representation）和文档表示（document-representation）"><span class="nav-number">1.1.1.</span> <span class="nav-text">查询表示（query representation）和文档表示（document representation）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阈值模型"><span class="nav-number">1.1.2.</span> <span class="nav-text">阈值模型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-事件回顾检测（RED）"><span class="nav-number">2.</span> <span class="nav-text">2 事件回顾检测（RED）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-基于在线增量式聚类算法"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 基于在线增量式聚类算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-Single-pass聚类两种使用方式"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 Single-pass聚类两种使用方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-代码实现"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#特征提取"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">特征提取</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#计算余弦相似度"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">计算余弦相似度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Single-pass-算法的实现"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">Single-pass 算法的实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-GAC聚类算法-基于平均分组的层次聚类算法"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 GAC聚类算法(基于平均分组的层次聚类算法)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-传统话题跟踪"><span class="nav-number">3.</span> <span class="nav-text">3 传统话题跟踪</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-基于查询的话题跟踪算法"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 基于查询的话题跟踪算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-基于向量空间模型"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1 基于向量空间模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-基于语言模型"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2 基于语言模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-基于分类算法的话题跟踪算法"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 基于分类算法的话题跟踪算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-关联检测"><span class="nav-number">4.</span> <span class="nav-text">4 关联检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-参考文献"><span class="nav-number">5.</span> <span class="nav-text">5 参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">何烩烩</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/hehuihui1994.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hehuihui1994.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hehuihui1994.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hehuihui1994.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hehuihui1994.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hehuihui1994.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/hehuihui1994.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/hehuihui1994.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/hehuihui1994.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/hehuihui1994.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/hehuihui1994.github.io/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
